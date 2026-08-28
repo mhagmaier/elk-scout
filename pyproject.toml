@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "elkscout"
+version = "0.1.0"
+description = "Terrain-aware elk scouting pipeline for Idaho GMU 33: public GIS data in, OnX-ready GPX waypoints out"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=1.26,<3",
+    "scipy>=1.11",
+    "shapely>=2.0",
+    "pyproj>=3.6",
+    "rasterio>=1.3.9",
+    "geopandas>=1.0",
+    "scikit-image>=0.22",
+    "requests>=2.31",
+    "pyyaml>=6.0",
+    "pydantic>=2.5",
+    "folium>=0.16",
+    "gpxpy>=1.6",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov", "ruff"]
+
+[project.scripts]
+elkscout = "elkscout.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
