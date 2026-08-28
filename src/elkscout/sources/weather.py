@@ -72,7 +72,10 @@ def _fetch(net: Net, points_lonlat: list[tuple[float, float]], cfg: Config) -> d
                     "longitude": round(lon, 4),
                     "daily": _DAILY_VARS,
                     "timezone": "America/Boise",
-                    "forecast_days": 16,
+                    # Explicit dates (not forecast_days) so the cache key
+                    # rotates daily — a re-run closer to the hunt refetches.
+                    "start_date": today.isoformat(),
+                    "end_date": (today + _dt.timedelta(days=15)).isoformat(),
                     "temperature_unit": "fahrenheit",
                     "wind_speed_unit": "mph",
                     "precipitation_unit": "inch",

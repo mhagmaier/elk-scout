@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import logging
 import time
+from typing import Callable
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -60,8 +61,14 @@ class Net:
         method: str = "GET",
         data: dict | str | None = None,
         min_interval_s: float = 0.0,
+        validate: Callable[[bytes], None] | None = None,
     ) -> bytes:
-        """Cache-first fetch. `source` scopes the cache dir; `ext` names the payload type."""
+        """Cache-first fetch. `source` scopes the cache dir; `ext` names the payload type.
+
+        `validate` runs on a FRESH payload before it is cached, so an HTTP-200
+        error body (ArcGIS {"error":...}, an Overpass remark, an OWS exception
+        report) raises instead of poisoning the cache forever.
+        """
         body = None
         if data is not None:
             body = data if isinstance(data, str) else json.dumps(data, sort_keys=True)
@@ -80,14 +87,34 @@ class Net:
             resp = self.session.get(url, params=params, timeout=self.timeout)
         resp.raise_for_status()
         payload = resp.content
+        if validate is not None:
+            validate(payload)
         self.cache.put(source, key, ext, payload, url, params)
         return payload
 
     def fetch_json(self, url: str, params: dict | None = None, **kw) -> dict:
         kw.setdefault("ext", "json")
+        kw.setdefault("validate", validate_json_body)
         raw = self.fetch_bytes(url, params, **kw)
         out = json.loads(raw)
-        # ArcGIS servers return HTTP 200 with an error body; surface those.
+        # Cached responses predating validation can still carry an error body.
         if isinstance(out, dict) and "error" in out and "features" not in out:
-            raise RuntimeError(f"server error from {url}: {out['error']}")
+            raise RuntimeError(
+                f"server error from {url}: {out['error']} "
+                f"(if this persists, clear data/cache/ for this source and retry)"
+            )
         return out
+
+
+def validate_json_body(raw: bytes) -> None:
+    """Reject HTTP-200 ArcGIS/JSON error bodies before they reach the cache."""
+    out = json.loads(raw)
+    if isinstance(out, dict) and "error" in out and "features" not in out:
+        raise RuntimeError(f"server returned an error body: {str(out['error'])[:200]}")
+
+
+def validate_tiff_body(raw: bytes) -> None:
+    """Reject non-TIFF payloads (e.g. a JSON/XML error) before they reach the cache."""
+    if raw[:2] not in (b"II", b"MM"):
+        snippet = raw[:120].decode("utf-8", "replace")
+        raise RuntimeError(f"expected a TIFF payload, got: {snippet!r}")

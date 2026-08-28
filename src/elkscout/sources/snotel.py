@@ -44,7 +44,16 @@ def fetch_snow(net: Net, ws: Workspace, bbox4326: tuple[float, float, float, flo
     else:
         try:
             result = _fetch(net, bbox4326, cfg)
-        except (OfflineError, requests.RequestException, RuntimeError, ValueError, KeyError) as e:
+        except OfflineError:
+            # The /data cache key embeds today's date, so an offline run days
+            # after priming misses the cache — reuse the last fetched summary
+            # rather than silently degrading to zero snow.
+            if ws.snow_json.exists():
+                log.info("snotel: offline; reusing previously fetched %s", ws.snow_json)
+                return json.loads(ws.snow_json.read_text())
+            log.warning("snotel: offline with no prior data; assuming zero snow")
+            result = _summarize([], cfg)
+        except (requests.RequestException, RuntimeError, ValueError, KeyError) as e:
             log.warning("snotel: unavailable (%s); assuming zero snow", e)
             result = _summarize([], cfg)
     ws.snow_json.parent.mkdir(parents=True, exist_ok=True)

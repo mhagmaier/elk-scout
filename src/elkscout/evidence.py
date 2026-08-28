@@ -77,16 +77,27 @@ def _point_lookup(gdf: gpd.GeoDataFrame, pt4326: Point, column: str):
     return hits.iloc[0][column]
 
 
-def _nearest_water_name(water_lines: gpd.GeoDataFrame, pt4326: Point, max_deg: float = 0.02):
-    if water_lines is None or len(water_lines) == 0 or "GNIS_NAME" not in water_lines.columns:
+_DEG_TO_MI = 69.0  # approximate; fine for a consistency gate
+
+
+def _nearest_water_name(water_lines: gpd.GeoDataFrame, pt4326: Point, dist_water_mi: float | None):
+    """GNIS name of the nearest named flowline — only when it plausibly IS the
+    water the sampled distance refers to (unnamed springs/creeks may be closer)."""
+    if (
+        water_lines is None
+        or len(water_lines) == 0
+        or "GNIS_NAME" not in water_lines.columns
+        or dist_water_mi is None
+    ):
         return None
     named = water_lines[water_lines["GNIS_NAME"].notna()]
     if len(named) == 0:
         return None
-    # Small-angle degree distances are fine for a "within ~2 km" cutoff.
     dists = np.array([geom.distance(pt4326) for geom in named.geometry])
     i = int(np.argmin(dists))
-    return str(named.iloc[i]["GNIS_NAME"]) if float(dists[i]) <= max_deg else None
+    named_mi = float(dists[i]) * _DEG_TO_MI
+    tolerance = max(0.05, 0.25 * dist_water_mi)
+    return str(named.iloc[i]["GNIS_NAME"]) if abs(named_mi - dist_water_mi) <= tolerance else None
 
 
 def build_evidence(
@@ -106,6 +117,10 @@ def build_evidence(
     elev_m = _sample(dem, row, col)
     aspect = _sample(terrain.get("aspect_deg"), row, col)
     dist_th = _sample(factors.get("dist_trailhead_m"), row, col)
+    dist_mot = _sample(factors.get("dist_motorized_m"), row, col)
+    dist_wat = _sample(factors.get("dist_water_m"), row, col)
+    # FAR_M is the "no such feature in the AOI" sentinel — never quote it as a distance.
+    dist_water_mi = round(dist_wat * MI_PER_M, 2) if dist_wat is not None and dist_wat < FAR_M else None
     burn_year = _point_lookup(vectors.get("burns"), pt, "year")
     burn_name = _point_lookup(vectors.get("burns"), pt, "fire_name")
 
@@ -116,12 +131,12 @@ def build_evidence(
         "slope_pct": int(round(_sample(terrain.get("slope_pct"), row, col) or 0)),
         "tpi_class": _tpi_class(wp_type, _sample(terrain.get("tpi300"), row, col), _sample(terrain.get("tpi1000"), row, col)),
         "canopy_pct": int(round(c)) if (c := _sample(terrain.get("canopy"), row, col)) is not None else None,
-        "dist_motorized_mi": round((_sample(factors.get("dist_motorized_m"), row, col) or 0.0) * MI_PER_M, 1),
+        "dist_motorized_mi": round(dist_mot * MI_PER_M, 1) if dist_mot is not None and dist_mot < FAR_M else None,
         "dist_trailhead_mi": round(dist_th * MI_PER_M, 1) if dist_th is not None and dist_th < FAR_M else None,
-        "dist_water_mi": round((_sample(factors.get("dist_water_m"), row, col) or 0.0) * MI_PER_M, 2),
+        "dist_water_mi": dist_water_mi,
         "burn_name": str(burn_name) if burn_name is not None else None,
         "burn_year": int(burn_year) if burn_year is not None else None,
-        "nearest_water_name": _nearest_water_name(vectors.get("water_lines"), pt),
+        "nearest_water_name": _nearest_water_name(vectors.get("water_lines"), pt, dist_water_mi),
         "agency": _point_lookup(vectors.get("ownership"), pt, "agency"),
         "huc12_name": _point_lookup(vectors.get("huc12"), pt, "name"),
         "lon": round(float(lon), 6),
@@ -158,14 +173,16 @@ def render_sentence(ev: dict, wp_type: str) -> str:
         clauses.append(f"{ev['slope_pct']}% slope")
     body = (", " + ", ".join(clauses)) if clauses else ""
 
-    tail: list[str] = [f"{ev.get('dist_motorized_mi', 0):.1f} mi from the nearest motorized route"]
+    tail: list[str] = []
+    if ev.get("dist_motorized_mi") is not None:
+        tail.append(f"{ev['dist_motorized_mi']:.1f} mi from the nearest motorized route")
     water_name = ev.get("nearest_water_name")
     if ev.get("dist_water_mi") is not None:
         target = water_name if water_name else "water"
         tail.append(f"{ev['dist_water_mi']:.2f} mi to {target}")
     if ev.get("burn_year") and ev.get("burn_name"):
         tail.append(f"in the {ev['burn_year']} {ev['burn_name']} burn")
-    sentence = f"{lead}{body}; {', '.join(tail)}."
+    sentence = f"{lead}{body}; {', '.join(tail)}." if tail else f"{lead}{body}."
     return sentence.encode("ascii", "replace").decode("ascii")
 
 

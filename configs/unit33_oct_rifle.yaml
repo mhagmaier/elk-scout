@@ -46,7 +46,7 @@ factors:
     aspect_exponent: 1.5        # sharpness of the aspect preference
     curve_canopy_pct: [[30, 0.0], [45, 0.4], [60, 1.0], [100, 1.0]]
     curve_slope_pct: [[5, 0.0], [15, 1.0], [35, 1.0], [50, 0.2], [60, 0.0]]
-    bench_bonus: 0.25           # additive bonus (pre-clip) where TPI says bench
+    bench_bonus: 0.25           # bonus where TPI says bench, scaled by the canopy sub-score
     slope_position_min: 0.5     # prefer upper half of the slope (0=valley,1=ridge)
 
   feed:

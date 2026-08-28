@@ -117,7 +117,14 @@ def _query_overpass(net: Net, ws: Workspace, key: str, ql: str) -> list[dict]:
     for url in endpoints.OVERPASS:
         try:
             raw = net.fetch_bytes(
-                url, None, source=SOURCE, ext="json", method="POST", data={"data": ql}, min_interval_s=1.0
+                url,
+                None,
+                source=SOURCE,
+                ext="json",
+                method="POST",
+                data={"data": ql},
+                min_interval_s=1.0,
+                validate=_overpass_validate,
             )
             data = json.loads(raw)
             remark = str(data.get("remark") or "")
@@ -133,6 +140,16 @@ def _query_overpass(net: Net, ws: Workspace, key: str, ql: str) -> list[dict]:
     if errors and all(isinstance(e, OfflineError) for e in errors):
         raise OfflineMissError(key, ws) from errors[-1]
     raise RuntimeError(f"all overpass endpoints failed for {key} (last: {errors[-1]})") from errors[-1]
+
+
+def _overpass_validate(raw: bytes) -> None:
+    """Reject error/malformed Overpass bodies before they reach the cache."""
+    data = json.loads(raw)
+    remark = str(data.get("remark") or "")
+    if "error" in remark.lower():
+        raise RuntimeError(f"overpass remark: {remark}")
+    if not isinstance(data.get("elements"), list):
+        raise RuntimeError("malformed overpass response (no 'elements' array)")
 
 
 # -- Overpass JSON -> GeoDataFrame -------------------------------------------

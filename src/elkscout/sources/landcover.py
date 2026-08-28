@@ -31,7 +31,7 @@ from rasterio.io import MemoryFile
 
 from .. import endpoints
 from ..grid import Grid, write_raster
-from ..net import Net, OfflineError
+from ..net import Net, OfflineError, validate_tiff_body
 from ..paths import OfflineMissError, Workspace
 
 log = logging.getLogger("elkscout.landcover")
@@ -127,6 +127,7 @@ def _get_coverage(net: Net, coverage: str, grid: Grid) -> np.ndarray:
         },
         source=SOURCE,
         ext="tif",
+        validate=validate_tiff_body,
     )
     try:
         with MemoryFile(raw) as mem, mem.open() as src:

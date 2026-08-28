@@ -70,6 +70,11 @@ def stage_fetch(ws: Workspace, cfg: Config, net: Net, only: list[str] | None, ao
             bnd = boundary.fetch_boundary(net, ws, cfg)
             log.info("boundary: unit %s fetched (%d parts)", cfg.unit, len(bnd))
     else:
+        if not ws.boundary_geojson.exists():
+            raise SystemExit(
+                f"{ws.boundary_geojson} missing - run `elkscout fetch --only boundary` "
+                "(or a full fetch) first"
+            )
         bnd = boundary.load_boundary(ws)
 
     grid = Grid.from_boundary(bnd, cfg.grid)
@@ -200,7 +205,11 @@ def main(argv: list[str] | None = None) -> int:
     cfg = load_config(args.config)
 
     if args.cmd == "fetch":
-        only = args.only.split(",") if args.only else None
+        only = [s.strip() for s in args.only.split(",")] if args.only else None
+        if only:
+            unknown = [s for s in only if s not in FETCH_STEPS]
+            if unknown:
+                ap.error(f"--only: unknown step(s) {', '.join(unknown)}; valid: {','.join(FETCH_STEPS)}")
         stage_fetch(ws, cfg, _net(ws, args.offline), only, aoi_bbox=args.aoi_bbox)
     elif args.cmd == "score":
         stage_score(ws, cfg)

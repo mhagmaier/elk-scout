@@ -77,7 +77,9 @@ def _factor_scores(ws: Workspace, cfg: Config) -> tuple[dict[str, np.ndarray], d
     unit_mask = fx["unit"] > 0
     sigma = float(np.nanstd(tpi300[unit_mask])) if unit_mask.any() else float(np.nanstd(tpi300))
     bench = (np.abs(np.nan_to_num(tpi300, nan=np.inf)) < sigma) & (np.nan_to_num(terrain["tpi1000"], nan=-1) > 0)
-    bedding = np.clip(bedding + b.bench_bonus * bench, 0.0, 1.0)
+    # Scale the bench bonus by the canopy sub-score: a bench amplifies real
+    # dark-timber bedding, it must not create a bedding floor in treeless cells.
+    bedding = np.clip(bedding + b.bench_bonus * bench * canopy_sub, 0.0, 1.0)
     f_bedding = np.where(terrain["slope_pos"] < b.slope_position_min, 0.5 * bedding, bedding).astype(np.float32)
 
     f = cfg.factors.feed

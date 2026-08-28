@@ -54,6 +54,12 @@ elkscout run --config configs/unit33_oct_rifle.yaml
 #   elkscout_unit33.kml, map.html, briefing.md
 ```
 
+Want the points as a spreadsheet too? (`pip install -e .[xlsx]` for openpyxl)
+
+```bash
+python scripts/export_xlsx.py --data data --out data/out/waypoints.xlsx
+```
+
 Stages can run individually (each stage persists its artifacts under `data/`):
 
 ```bash

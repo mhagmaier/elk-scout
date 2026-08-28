@@ -11,7 +11,7 @@ import logging
 
 import geopandas as gpd
 
-from ..net import Net
+from ..net import Net, validate_tiff_body
 
 log = logging.getLogger("elkscout.arcgis")
 
@@ -77,13 +77,15 @@ def query_layer_geojson(
             break
         if not more and len(page_feats) < page_size:
             break
+        # A correctly paginating server never re-serves the first feature at a
+        # nonzero offset; a server ignoring resultOffset does so on page 2
+        # regardless of its actual page length.
+        if offset > 0 and page_feats[0] == features[0]:
+            log.warning("%s ignores resultOffset; falling back to objectid chunks", url)
+            return _query_by_objectids(net, base_url, layer_id, base_params, source, page_size)
         offset += len(page_feats)
         if offset > 500_000:
             raise RuntimeError(f"runaway pagination on {url}")
-        # Server ignoring pagination: same page returned forever -> objectid fallback
-        if len(features) >= 2 * page_size and features[0] == features[page_size]:
-            log.warning("%s ignores resultOffset; falling back to objectid chunks", url)
-            return _query_by_objectids(net, base_url, layer_id, base_params, source, page_size)
 
     return _to_gdf(features)
 
@@ -163,7 +165,14 @@ def export_image_tiles(
                 "f": "image",
             }
             tiles.append(
-                net.fetch_bytes(f"{image_url}/exportImage", params, source=source, ext="tif", min_interval_s=0.2)
+                net.fetch_bytes(
+                    f"{image_url}/exportImage",
+                    params,
+                    source=source,
+                    ext="tif",
+                    min_interval_s=0.2,
+                    validate=validate_tiff_body,
+                )
             )
             x += step
         y += step

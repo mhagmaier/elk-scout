@@ -392,8 +392,14 @@ def run_waypoints(ws: Workspace, cfg: Config) -> None:
     )
 
     areas_src = vectors["huc12"]
+    if len(areas_src) and "name" in areas_src.columns:
+        # A null/empty-named HUC12 would silently corrupt waypoint names and
+        # drop its waypoints from ranked output — let those cells fall to the
+        # nearest NAMED area instead.
+        named = areas_src["name"].notna() & (areas_src["name"].astype(str).str.strip() != "")
+        areas_src = areas_src[named].reset_index(drop=True)
     if len(areas_src) == 0 or "name" not in areas_src.columns:
-        log.info("hunt areas: no HUC12 layer; using quadrant fallback")
+        log.info("hunt areas: no (named) HUC12 layer; using quadrant fallback")
         areas_src = _quadrant_areas(grid)
     wp, areas = _assign_areas(wp, areas_src, cfg)
 

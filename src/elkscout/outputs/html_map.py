@@ -19,6 +19,9 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import rasterio
+import rasterio.warp
+from rasterio.crs import CRS
+from rasterio.enums import Resampling
 from rasterio.io import MemoryFile
 
 from ..config import Config
@@ -103,10 +106,31 @@ def write_map(ws: Workspace, cfg: Config) -> Path:
     folium.TileLayer(USGS_TOPO, name="USGS Topo", attr="USGS The National Map").add_to(m)
     folium.TileLayer(ESRI_IMAGERY, name="Esri Imagery", attr="Esri, Maxar, Earthstar Geographics", show=False).add_to(m)
 
+    # Reproject the UTM composite onto a geographic lattice before rendering —
+    # stretching the raw UTM array onto the 4326 envelope misregisters the
+    # overlay by the grid convergence (~100 m at this latitude).
+    dst_transform, dst_w, dst_h = rasterio.warp.calculate_default_transform(
+        grid.crs, CRS.from_epsg(4326), grid.width, grid.height, *grid.bounds
+    )
+    geo_score = np.full((dst_h, dst_w), np.nan, dtype=np.float32)
+    rasterio.warp.reproject(
+        composite,
+        geo_score,
+        src_transform=grid.transform,
+        src_crs=grid.crs,
+        dst_transform=dst_transform,
+        dst_crs=CRS.from_epsg(4326),
+        dst_nodata=np.nan,
+        resampling=Resampling.bilinear,
+    )
+    west, north = dst_transform.c, dst_transform.f
+    east = west + dst_w * dst_transform.a
+    south = north + dst_h * dst_transform.e
+
     score_fg = folium.FeatureGroup(name="Habitat score")
     folium.raster_layers.ImageOverlay(
-        image=_score_png_uri(composite),
-        bounds=[[minlat, minlon], [maxlat, maxlon]],
+        image=_score_png_uri(geo_score),
+        bounds=[[south, west], [north, east]],
         opacity=1.0,
         zindex=2,
     ).add_to(score_fg)
