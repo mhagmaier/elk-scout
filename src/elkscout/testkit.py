@@ -154,9 +154,19 @@ def make_fixtures(out_dir: Path, seed: int = 42) -> None:
 
     spur_x = np.linspace(valleys[0] + 60, valleys[0] + 900, 10)
     spur_y = np.full(10, bounds[1] + 3600.0)
-    gpd.GeoDataFrame({"NAME": ["Spur 100"]}, geometry=[_line_lonlat(spur_x, spur_y)], crs="EPSG:4326").to_file(
-        out / _MANUAL_FILES["mvum_roads"], driver="GeoJSON"
-    )
+    gpd.GeoDataFrame(
+        {
+            "NAME": ["Spur 100"],
+            "ID": ["100"],
+            # Open to trucks and wide OHVs through the hunt season (exercises access.py).
+            "highclearancevehicle": ["open"],
+            "highclearancevehicle_datesopen": ["05/15-12/31"],
+            "other_ohv_gt50inches": ["open"],
+            "other_ohv_gt50_datesopen": ["05/15-12/31"],
+        },
+        geometry=[_line_lonlat(spur_x, spur_y)],
+        crs="EPSG:4326",
+    ).to_file(out / _MANUAL_FILES["mvum_roads"], driver="GeoJSON")
 
     # Creeks along every valley; the eastern one is named.
     creeks = []

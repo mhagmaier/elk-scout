@@ -52,6 +52,16 @@ MRLC_WCS = "https://www.mrlc.gov/geoserver/ows"
 # NRCS AWDB (SNOTEL) REST API v1.
 AWDB = "https://wcc.sc.egov.usda.gov/awdbRestApi/services/v1"
 
+# Sentinel-2 L2A via Element 84 Earth Search STAC (no key; COGs on public AWS S3).
+STAC_EARTH_SEARCH = "https://earth-search.aws.element84.com/v1"
+SENTINEL2_COLLECTION = "sentinel-2-l2a"
+
+# Photo sheets: Esri World Imagery (sub-meter natural color, capture dates vary
+# by place) and USDA NAIP via USGS (0.6 m; color-infrared separates live
+# conifer from gray beetle kill).
+ESRI_WORLD_IMAGERY = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+NAIP_IMAGESERVER = "https://imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPPlus/ImageServer"
+
 # Open-Meteo forecast (no key; 16-day horizon).
 OPEN_METEO = "https://api.open-meteo.com/v1/forecast"
 

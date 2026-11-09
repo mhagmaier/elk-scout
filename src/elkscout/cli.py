@@ -5,6 +5,7 @@
     elkscout score     --config ...        # terrain + factors + scoring
     elkscout waypoints --config ...
     elkscout report    --config ...        # GPX + KML + map + briefing
+    elkscout imagery   --config ...        # photo sheets for the eyeball check
     elkscout doctor    [--data DIR]        # endpoint reachability + cache state
 """
 
@@ -24,7 +25,7 @@ from .paths import Workspace
 
 log = logging.getLogger("elkscout")
 
-FETCH_STEPS = ["boundary", "dem", "osm", "mvum", "water", "ownership", "burns", "landcover", "snow", "weather"]
+FETCH_STEPS = ["boundary", "dem", "osm", "mvum", "water", "ownership", "burns", "landcover", "snow", "weather", "sentinel"]
 
 
 def _setup_logging(verbose: bool) -> None:
@@ -58,7 +59,7 @@ def _parse_bbox(s: str) -> tuple[float, float, float, float]:
 # -- stages -----------------------------------------------------------------
 
 def stage_fetch(ws: Workspace, cfg: Config, net: Net, only: list[str] | None, aoi_bbox=None) -> None:
-    from .sources import boundary, burns, dem, landcover, mvum, osm, ownership, snotel, water, weather
+    from .sources import boundary, burns, dem, landcover, mvum, osm, ownership, sentinel, snotel, water, weather
 
     steps = only or FETCH_STEPS
 
@@ -102,6 +103,8 @@ def stage_fetch(ws: Workspace, cfg: Config, net: Net, only: list[str] | None, ao
         c = bnd.to_crs(epsg=cfg.grid.epsg).geometry.union_all().centroid
         lon, lat = grid.xy_to_lonlat(c.x, c.y)
         weather.fetch_weather(net, ws, [(float(lon), float(lat))], cfg)
+    if "sentinel" in steps:
+        sentinel.fetch_sentinel(net, ws, grid, cfg)
 
 
 def stage_score(ws: Workspace, cfg: Config) -> None:
@@ -125,7 +128,10 @@ def stage_waypoints(ws: Workspace, cfg: Config) -> None:
 
 
 def stage_report(ws: Workspace, cfg: Config) -> None:
+    from . import imagery
     from .outputs import briefing, gpx_writer, html_map, kml_writer
+
+    imagery.apply_review(ws, cfg)
 
     paths = gpx_writer.write_gpx_files(ws, cfg)
     log.info("GPX written: %s", ", ".join(str(p) for p in paths))
@@ -135,6 +141,17 @@ def stage_report(ws: Workspace, cfg: Config) -> None:
         log.info("security-timber KML written: %s", timber_kml)
     log.info("map written: %s", html_map.write_map(ws, cfg))
     log.info("briefing written: %s", briefing.write_briefing(ws, cfg))
+
+
+def cmd_imagery(ws: Workspace, cfg: Config, net: Net) -> int:
+    from . import imagery
+
+    meta = imagery.make_sheets(net, ws, cfg)
+    print(f"\nPhoto sheets: {ws.imagery_dir}/ (all pages: {ws.imagery_dir / 'imagery_check.pdf'})")
+    print(f"Fill in the verdicts in {ws.imagery_review_json}, then run `elkscout waypoints` "
+          "(if any block is dead) and `elkscout report` to write them into the GPX/KML/map/briefing.")
+    print(f"{len(meta)} block/waypoint keys photographed.")
+    return 0
 
 
 def cmd_doctor(args) -> int:
@@ -204,6 +221,9 @@ def main(argv: list[str] | None = None) -> int:
         p = sub.add_parser(name, help=help_)
         common(p)
 
+    p_img = sub.add_parser("imagery", help="photo sheets of every timber block + waypoint (newest NAIP CIR + satellite)")
+    common(p_img)
+
     p_doc = sub.add_parser("doctor", help="probe endpoints and show cache state")
     p_doc.add_argument("--config", default=None, help="also probe this profile's boundary service")
     p_doc.add_argument("--data", default="data")
@@ -231,6 +251,8 @@ def main(argv: list[str] | None = None) -> int:
         stage_waypoints(ws, cfg)
     elif args.cmd == "report":
         stage_report(ws, cfg)
+    elif args.cmd == "imagery":
+        return cmd_imagery(ws, cfg, _net(ws, args.offline))
     elif args.cmd == "run":
         stage_fetch(ws, cfg, _net(ws, args.offline), None, aoi_bbox=args.aoi_bbox)
         stage_score(ws, cfg)

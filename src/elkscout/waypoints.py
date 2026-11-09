@@ -288,11 +288,28 @@ def _quadrant_areas(grid: Grid) -> gpd.GeoDataFrame:
     return gpd.GeoDataFrame({"name": list(quads)}, geometry=list(quads.values()), crs="EPSG:4326")
 
 
+def _blocks_with_verdicts(ws: Workspace) -> gpd.GeoDataFrame:
+    """Security blocks with any photo verdicts from imagery_review.json merged in."""
+    import json as _json
+
+    blocks = _read_vec(ws.timber_blocks_geojson)
+    if len(blocks) and ws.imagery_review_json.exists():
+        review = _json.loads(ws.imagery_review_json.read_text()).get("blocks") or {}
+        blocks["imagery"] = [str((review.get(str(b)) or {}).get("verdict") or "") for b in blocks["id"]]
+    return blocks
+
+
 def area_timber_acres(wp: gpd.GeoDataFrame, blocks: gpd.GeoDataFrame | None, radius_mi: float, epsg: int) -> dict:
     """Security-timber acres within radius_mi of each area's waypoints, keyed by area `name`."""
     out = {n: 0 for n in wp["name"].unique()}
     if blocks is None or len(blocks) == 0:
         return out
+    from .imagery import block_is_dead
+
+    if "imagery" in blocks.columns:
+        blocks = blocks[~blocks["imagery"].map(block_is_dead)]  # photo-confirmed dead timber holds no elk
+        if len(blocks) == 0:
+            return out
     b = blocks.to_crs(epsg=epsg)
     pts = wp.to_crs(epsg=epsg)
     for name, sub in pts.groupby("name"):
@@ -393,13 +410,21 @@ def run_waypoints(ws: Workspace, cfg: Config) -> None:
     canopy_u8 = read_raster(ws.canopy_tif)[0]["canopy"]
     terrain_ev = dict(terrain)
     terrain_ev["canopy"] = np.where(canopy_u8 == 255, np.nan, canopy_u8.astype(np.float32))
+    from .sources.sentinel import load_sentinel
+
+    sentinel_bands, sentinel_meta = load_sentinel(ws)
+    if sentinel_bands is not None:
+        for band in ("snow_now", "dead"):
+            if band in sentinel_bands and sentinel_bands[band].shape == grid.shape:
+                terrain_ev[band] = sentinel_bands[band]
 
     vectors = {
         "water_lines": _read_vec(ws.water_lines_geojson),
         "burns": _read_vec(ws.burns_geojson),
         "ownership": _read_vec(ws.ownership_geojson),
         "huc12": _read_vec(ws.huc12_geojson),
-        "timber_blocks": _read_vec(ws.timber_blocks_geojson),
+        "timber_blocks": _blocks_with_verdicts(ws),
+        "sentinel_meta": sentinel_meta,
     }
     vectors["timber_blocks_grid"] = (
         vectors["timber_blocks"].to_crs(epsg=grid.epsg) if len(vectors["timber_blocks"]) else None
@@ -488,6 +513,10 @@ def run_waypoints(ws: Workspace, cfg: Config) -> None:
 
     wp["name"] = names
     wp["desc"] = descs
+    wp["desc_model"] = descs  # the model's own sentence; photo verdicts are appended to `desc` at report time
+    from .imagery import wp_id
+
+    wp["wp_id"] = [wp_id(t, g.x, g.y) for t, g in zip(wp["wp_type"], wp.geometry)]
     wp["evidence_json"] = evs
     wp["elevation_ft"] = elevs
     wp = wp.drop(columns=["row", "col"])

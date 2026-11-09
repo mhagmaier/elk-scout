@@ -297,7 +297,10 @@ class ImageryCfg(BaseModel):
     leafon_months: list[int] = Field(default_factory=lambda: [7, 8, 9])
     baseline_years_back: int = 4  # compare latest summer vs this many years earlier
     dead_dndvi: float = -0.15  # greenness loss that flags dead/disturbed timber
-    max_scenes: int = 6
+    min_baseline_ndvi: float = 0.45  # only flag cells that were green forest in the baseline year
+    # STAC items read per composite. A unit usually spans 2-4 Sentinel-2 tiles,
+    # so 24 items ~ the last 6 clear-ish passes over the whole unit.
+    max_items: int = 24
 
 
 class Config(BaseModel):

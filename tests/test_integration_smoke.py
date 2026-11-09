@@ -66,6 +66,19 @@ def test_gpx_outputs_valid(pipeline_ws):
     assert len(per_area) >= 2  # the all-file plus at least one area file
 
 
+def test_new_stages_ran(pipeline_ws):
+    """Access road ends, security timber, and the imagery fallback all ran offline."""
+    ws = pipeline_ws
+    access = gpd.read_file(ws.access_points_geojson) if ws.access_points_geojson.stat().st_size > 60 else []
+    assert len(access) >= 1  # the demo spur is open to trucks through the season
+    timber = json.loads(ws.timber_json.read_text())
+    assert timber["n_blocks"] >= 1
+    assert json.loads(ws.sentinel_json.read_text())["available"] is False  # offline: NLCD only
+    cfg = load_config(CONFIG)
+    assert ws.timber_kml(cfg.unit).exists()
+    assert "## Security timber" in ws.briefing_md.read_text()
+
+
 def test_map_and_briefing(pipeline_ws):
     cfg = load_config(CONFIG)
     assert pipeline_ws.map_html.stat().st_size > 50_000

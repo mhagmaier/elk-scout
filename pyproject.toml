@@ -26,6 +26,7 @@ dependencies = [
 
 [project.optional-dependencies]
 xlsx = ["openpyxl>=3.1"]
+imagery = ["pillow>=10"]
 dev = ["pytest>=8", "pytest-cov", "ruff"]
 
 [project.scripts]

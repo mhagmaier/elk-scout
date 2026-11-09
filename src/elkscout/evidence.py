@@ -114,6 +114,29 @@ def _nearest_block(blocks_grid, x: float, y: float) -> dict:
     }
 
 
+DEAD_WINDOW_CELLS = 10  # ~300 m radius at 30 m
+
+
+def _sentinel_evidence(terrain: dict, meta: dict, row: int, col: int) -> dict:
+    """Near-live imagery facts at the point: snow on the ground now, nearby timber loss."""
+    out = {"snow_now": None, "snow_date": None, "dead_share_300m": None, "leafon_baseline_year": None}
+    snow = terrain.get("snow_now")
+    if snow is not None:
+        v = float(snow[row, col])
+        out["snow_now"] = None if math.isnan(v) else bool(v >= 0.5)
+        out["snow_date"] = meta.get("snow_date")
+    dead = terrain.get("dead")
+    if dead is not None:
+        r0, r1 = max(0, row - DEAD_WINDOW_CELLS), min(dead.shape[0], row + DEAD_WINDOW_CELLS + 1)
+        c0, c1 = max(0, col - DEAD_WINDOW_CELLS), min(dead.shape[1], col + DEAD_WINDOW_CELLS + 1)
+        win = dead[r0:r1, c0:c1]
+        win = win[np.isfinite(win)]
+        if win.size:
+            out["dead_share_300m"] = round(float(win.mean()), 2)
+            out["leafon_baseline_year"] = meta.get("leafon_baseline_year")
+    return out
+
+
 def build_evidence(
     row: int,
     col: int,
@@ -154,6 +177,7 @@ def build_evidence(
         "agency": _point_lookup(vectors.get("ownership"), pt, "agency"),
         "huc12_name": _point_lookup(vectors.get("huc12"), pt, "name"),
         **_nearest_block(vectors.get("timber_blocks_grid"), float(x), float(y)),
+        **_sentinel_evidence(terrain, vectors.get("sentinel_meta") or {}, row, col),
         "lon": round(float(lon), 6),
         "lat": round(float(lat), 6),
     }
@@ -197,6 +221,12 @@ def render_sentence(ev: dict, wp_type: str) -> str:
         tail.append(f"{ev['dist_water_mi']:.2f} mi to {target}")
     if ev.get("burn_year") and ev.get("burn_name"):
         tail.append(f"in the {ev['burn_year']} {ev['burn_name']} burn")
+    if ev.get("dead_share_300m") is not None and ev["dead_share_300m"] >= 0.25:
+        since = f" since {ev['leafon_baseline_year']}" if ev.get("leafon_baseline_year") else ""
+        tail.append(f"Sentinel-2: {int(round(ev['dead_share_300m'] * 100))}% of ground within 300 m "
+                    f"lost greenness{since}, likely dead timber")
+    if ev.get("snow_now") is True:
+        tail.append(f"snow on the ground ({ev.get('snow_date') or 'latest Sentinel-2'})")
     if ev.get("timber_block") is not None and ev.get("timber_block_mi") is not None:
         if ev["timber_block_mi"] <= 0.01:
             tail.append(f"inside security timber {ev['timber_block']} ({ev['timber_block_acres']:,} ac)")
