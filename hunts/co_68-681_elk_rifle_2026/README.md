@@ -5,7 +5,8 @@
 > and snow-line model, the NLCD picker fix, legal OHV access points
 > (`--vehicle ohv_gt50`), security timber (`elkscout` score stage), Sentinel-2
 > imagery, and the photo check (`elkscout imagery`). This folder stays as the
-> record of the revision-3 package as delivered.
+> record of the revision-3 package as delivered. Revision 4, built on the
+> updated pipeline, is in [`../co_68-681_elk_rifle_2026_rev4/`](../co_68-681_elk_rifle_2026_rev4/).
 
 E-scouting package for Colorado GMUs 68 and 681 (fourth rifle season), built with the elkscout pipeline in this repo plus the helper scripts in this folder. This is revision 3: bedding in north-facing dark timber, mapped security timber blocks, and an imagery check of every block and waypoint.
 
