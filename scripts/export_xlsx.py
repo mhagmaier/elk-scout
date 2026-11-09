@@ -155,7 +155,7 @@ def export_xlsx(data_dir: Path, out_path: Path, demo_note: str | None = None) ->
         ("  2. python scripts/export_xlsx.py --data data --out data/out/waypoints.xlsx", None),
         ("", None),
         ("Data sources: USGS 3DEP, NHD, NLCD, MTBS, BLM SMA, OSM/USFS MVUM, NRCS SNOTEL, Open-Meteo. "
-         "Verify land status and current IDFG regulations before hunting.", None),
+         "Verify land status and current state wildlife agency rules before hunting.", None),
     ]
     for i, (text, font) in enumerate(lines, start=1):
         cell = ab.cell(row=i, column=1, value=text)
