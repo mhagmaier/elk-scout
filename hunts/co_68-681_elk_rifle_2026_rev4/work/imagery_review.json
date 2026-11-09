@@ -1,0 +1,491 @@
+{
+ "_how": "Look at data/out/imagery/*.png (or imagery_check.pdf) and fill each 'verdict'. Blocks: 'dense live conifer' / 'live, moderately dense' / 'mostly dead (gray crowns)'. Waypoints: what the photos show at the point, e.g. 'inside dense live conifer', 'poor bed: leafless aspen edge, cover 250 m west'. Leave blank to skip. Then re-run `elkscout waypoints` (if any block is dead) and `elkscout report`.",
+ "blocks": {
+  "T01": {
+   "verdict": "dense live conifer (also Google Earth, Oct 2024)",
+   "dates": {
+    "esri": "2025-05-11",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T02": {
+   "verdict": "dense live conifer, aspen in the draws (Google Earth, Oct 2025)",
+   "dates": {
+    "esri": "2023-11-10",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T03": {
+   "verdict": "live conifer, moderately dense, open parks inside",
+   "dates": {
+    "esri": "2021-11-16",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T04": {
+   "verdict": "dense live conifer, small parks inside (Google Earth, Sept 2023)",
+   "dates": {
+    "esri": "2025-05-11",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T05": {
+   "verdict": "dense live conifer, aspen pockets on its edges (Google Earth, Oct 2024)",
+   "dates": {
+    "esri": "2021-11-16",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T06": {
+   "verdict": "live conifer with scattered dead crowns and aspen patches (Google Earth, Sept 2023)",
+   "dates": {
+    "esri": "2021-11-16",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T07": {
+   "verdict": "live conifer, some dead crowns mixed in",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T08": {
+   "verdict": "mostly dead (gray crowns), not dark timber",
+   "dates": {
+    "esri": "2023-11-10",
+    "naip-cir": "2019-09-12"
+   }
+  },
+  "T09": {
+   "verdict": "mostly dead (gray crowns), not dark timber",
+   "dates": {
+    "esri": "2025-04-09",
+    "naip-cir": "2019-09-12"
+   }
+  },
+  "T10": {
+   "verdict": "live conifer, moderately dense",
+   "dates": {
+    "esri": "2017-10-30",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T11": {
+   "verdict": "dense young regrowth, roads and cuts at its edges",
+   "dates": {
+    "esri": "2023-11-10",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T12": {
+   "verdict": "live conifer, some dead crowns mixed in",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T13": {
+   "verdict": "dense live dark timber",
+   "dates": {
+    "esri": "2021-11-16",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T14": {
+   "verdict": "dense live conifer, aspen on its edges",
+   "dates": {
+    "esri": "2021-11-16",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T15": {
+   "verdict": "mostly dead (gray crowns), not dark timber",
+   "dates": {
+    "esri": "2025-04-09",
+    "naip-cir": "2019-09-12"
+   }
+  },
+  "T16": {
+   "verdict": "live conifer, moderately dense, between meadows",
+   "dates": {
+    "esri": "2017-10-30",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T17": {
+   "verdict": "live conifer, moderately dense to dense; meadow to the north",
+   "dates": {
+    "esri": "2023-11-08",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T18": {
+   "verdict": "live conifer, moderately dense, open parks around it",
+   "dates": {
+    "esri": "2023-11-08",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T19": {
+   "verdict": "dense live core in a draw",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T20": {
+   "verdict": "dense live conifer; old cutting units on its east side",
+   "dates": {
+    "esri": "2021-11-14",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T21": {
+   "verdict": "mostly dead (gray crowns), not dark timber",
+   "dates": {
+    "esri": "2025-04-09",
+    "naip-cir": "2019-09-12"
+   }
+  },
+  "T22": {
+   "verdict": "live conifer, moderately dense (satellite image cloudy)",
+   "dates": {
+    "esri": "2023-08-31",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T23": {
+   "verdict": "mixed live and dead: live patches inside gray timber",
+   "dates": {
+    "esri": "2025-04-09",
+    "naip-cir": "2019-09-12"
+   }
+  },
+  "T24": {
+   "verdict": "live conifer, moderately dense, meadow to the east",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T25": {
+   "verdict": "mostly dead (gray crowns), not dark timber",
+   "dates": {
+    "esri": "2025-04-09",
+    "naip-cir": "2019-09-12"
+   }
+  },
+  "T26": {
+   "verdict": "dense live conifer, aspen along its north edge",
+   "dates": {
+    "esri": "2023-08-31",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "T27": {
+   "verdict": "dense live conifer",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "T28": {
+   "verdict": "live conifer, some dead crowns mixed in",
+   "dates": {
+    "esri": "2023-11-08",
+    "naip-cir": "2019-09-09"
+   }
+  }
+ },
+ "waypoints": {
+  "ACCESS@38.27984,-106.30139": {
+   "name": "A1-01 TH 8892",
+   "verdict": "road end in the Middle Creek bottom; a track continues north (check the MVUM before driving it)",
+   "dates": {
+    "esri": "2021-11-16"
+   }
+  },
+  "BED@38.27959,-106.32368": {
+   "name": "B1-01 N-timber 10273",
+   "verdict": "inside dense live conifer (block T05)",
+   "dates": {
+    "esri": "2021-11-16",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "BED@38.28000,-106.31134": {
+   "name": "B1-02 NE-bench 9662",
+   "verdict": "edge of the T05 timber, live conifer of moderate density",
+   "dates": {
+    "esri": "2021-11-16",
+    "naip-cir": "2019-09-22"
+   }
+  },
+  "FEED@38.25626,-106.33011": {
+   "name": "F1-01 meadow 10019",
+   "verdict": "open meadow against a dense timber edge",
+   "dates": {
+    "esri": "2021-11-16"
+   }
+  },
+  "FEED@38.25990,-106.34286": {
+   "name": "F1-02 meadow 10229",
+   "verdict": "weak feed: thin timber, not a meadow; small opening 100 m southeast (NAIP 2019)",
+   "dates": {
+    "esri": "2018-11-09"
+   }
+  },
+  "BED@38.02607,-106.31637": {
+   "name": "B2-01 NE-timber 10175",
+   "verdict": "inside live conifer (T07) with some dead crowns; opening 150 m west",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "BED@38.03866,-106.35009": {
+   "name": "B2-02 NE-timber 10250",
+   "verdict": "inside dense live conifer (T12); small park just northeast",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "BED@38.03883,-106.35898": {
+   "name": "B2-03 N-timber 10600",
+   "verdict": "inside dense live conifer; meadow 200 m southwest",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "BED@38.02616,-106.30782": {
+   "name": "B2-04 N-timber 10576",
+   "verdict": "dense conifer edge (T07); open slope and aspen to the west",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "BED@38.03880,-106.33847": {
+   "name": "B2-05 NE-timber 9980",
+   "verdict": "live conifer of moderate density; openings and aspen to the south",
+   "dates": {
+    "esri": "2018-11-09",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "BED@37.95327,-106.41511": {
+   "name": "B2-06 N-bench 10396",
+   "verdict": "inside dense live conifer (T17)",
+   "dates": {
+    "esri": "2023-11-08",
+    "naip-cir": "2019-09-09"
+   }
+  },
+  "FEED@38.01868,-106.39450": {
+   "name": "F2-01 meadow 10450",
+   "verdict": "tip of an open meadow (small pond) against dense timber",
+   "dates": {
+    "esri": "2023-11-08"
+   }
+  },
+  "FEED@38.16468,-106.22468": {
+   "name": "F2-02 meadow 9279",
+   "verdict": "open park, grass between scattered trees",
+   "dates": {
+    "esri": "2025-07-03"
+   }
+  },
+  "FEED@38.10518,-106.37287": {
+   "name": "F2-03 meadow 8698",
+   "verdict": "open meadow against a timber stringer",
+   "dates": {
+    "esri": "2023-11-10"
+   }
+  },
+  "GLASS@37.90474,-106.33399": {
+   "name": "G2-01 glass 10369",
+   "verdict": "at a timber edge, so the view may be blocked; open slope just south",
+   "dates": {
+    "esri": "2017-10-30"
+   }
+  },
+  "SADDLE@37.93277,-106.43384": {
+   "name": "S2-01 saddle 9597",
+   "verdict": "open saddle; timber edge to the north",
+   "dates": {
+    "esri": "2021-11-14"
+   }
+  },
+  "SADDLE@38.00053,-106.25372": {
+   "name": "S2-02 saddle 9341",
+   "verdict": "open ground with scattered trees",
+   "dates": {
+    "esri": "2018-11-09"
+   }
+  },
+  "SADDLE@38.08397,-106.26336": {
+   "name": "S2-03 saddle 9342",
+   "verdict": "mixed open ground and timber",
+   "dates": {
+    "esri": "2025-07-03"
+   }
+  },
+  "SADDLE@37.87139,-106.34260": {
+   "name": "S2-04 saddle 9115",
+   "verdict": "open ground with scattered trees and rock outcrops",
+   "dates": {
+    "esri": "2017-10-30"
+   }
+  },
+  "WATER@38.25376,-106.49292": {
+   "name": "W2-01 creek 9600",
+   "verdict": "inside dense conifer; creek bottom 150 m northeast, meadow 300 m south",
+   "dates": {
+    "esri": "2023-11-10"
+   }
+  },
+  "FEED@38.25901,-106.25267": {
+   "name": "F3-01 meadow 10136",
+   "verdict": "open grass with scattered young conifers",
+   "dates": {
+    "esri": "2025-05-11"
+   }
+  },
+  "FEED@38.25917,-106.23724": {
+   "name": "F3-02 meadow 10301",
+   "verdict": "open grass between timber stringers",
+   "dates": {
+    "esri": "2021-11-16"
+   }
+  },
+  "FEED@38.25149,-106.24774": {
+   "name": "F3-03 meadow 10018",
+   "verdict": "open grass at a timber edge (timber to the west)",
+   "dates": {
+    "esri": "2025-05-11"
+   }
+  },
+  "WATER@38.25581,-106.24850": {
+   "name": "W3-01 creek 10104",
+   "verdict": "moderately dense conifer by a drainage",
+   "dates": {
+    "esri": "2025-05-11"
+   }
+  },
+  "FEED@38.26461,-106.06862": {
+   "name": "F4-01 meadow 9772",
+   "verdict": "open grass park between conifer stands (satellite cloudy; Google Earth Aug 2025)",
+   "dates": {
+    "esri": "2025-05-11"
+   }
+  },
+  "FEED@38.19884,-106.13446": {
+   "name": "F4-02 meadow 9548",
+   "verdict": "open grassy slope, timber to the north",
+   "dates": {
+    "esri": "2018-11-09"
+   }
+  },
+  "GLASS@38.28841,-106.09710": {
+   "name": "G4-01 glass 11974",
+   "verdict": "timberline with scattered trees; check the view",
+   "dates": {
+    "esri": "2019-06-29"
+   }
+  },
+  "GLASS@38.29732,-106.09826": {
+   "name": "G4-02 glass 12011",
+   "verdict": "open alpine slope",
+   "dates": {
+    "esri": "2019-06-29"
+   }
+  },
+  "GLASS@38.30875,-106.09020": {
+   "name": "G4-03 glass 11763",
+   "verdict": "open alpine meadow ringed by timber",
+   "dates": {
+    "esri": "2019-06-29"
+   }
+  },
+  "GLASS@38.31077,-106.21478": {
+   "name": "G4-04 glass 12739",
+   "verdict": "open alpine summit",
+   "dates": {
+    "esri": "2021-11-16"
+   }
+  },
+  "GLASS@38.27524,-106.19979": {
+   "name": "G4-05 glass 12059",
+   "verdict": "open alpine slope",
+   "dates": {
+    "esri": "2021-11-16"
+   }
+  },
+  "GLASS@38.27457,-106.10306": {
+   "name": "G4-06 glass 12059",
+   "verdict": "open talus summit",
+   "dates": {
+    "esri": "2019-06-29"
+   }
+  },
+  "SADDLE@38.24338,-106.05425": {
+   "name": "S4-01 saddle 9402",
+   "verdict": "scattered timber",
+   "dates": {
+    "esri": "2025-05-11"
+   }
+  },
+  "ACCESS@38.04908,-106.63679": {
+   "name": "A5-01 TH 10619",
+   "verdict": "road end at a meadow edge in timber; a two-track continues",
+   "dates": {
+    "esri": "2023-11-10"
+   }
+  },
+  "ACCESS@38.05152,-106.57701": {
+   "name": "A5-02 TH 9303",
+   "verdict": "road end in a meadow between timber stands",
+   "dates": {
+    "esri": "2023-11-10"
+   }
+  },
+  "ACCESS@38.13231,-106.51885": {
+   "name": "A5-03 TH 9016",
+   "verdict": "road end in open sage with scattered trees",
+   "dates": {
+    "esri": "2025-07-26"
+   }
+  },
+  "ACCESS@38.03688,-106.71514": {
+   "name": "A5-04 TH 10206",
+   "verdict": "road end at a meadow edge against timber",
+   "dates": {
+    "esri": "2023-11-10"
+   }
+  },
+  "ACCESS@38.05100,-106.61495": {
+   "name": "A5-05 TH 9318",
+   "verdict": "road end at a drainage, open ground",
+   "dates": {
+    "esri": "2023-11-10"
+   }
+  },
+  "FEED@37.97219,-106.64465": {
+   "name": "F5-01 meadow 10488",
+   "verdict": "open meadow and shrub park between timber; snow on north slopes in the April image",
+   "dates": {
+    "esri": "2025-04-09"
+   }
+  },
+  "SADDLE@37.98336,-106.76889": {
+   "name": "S5-01 saddle 10946",
+   "verdict": "open saddle at a timber edge",
+   "dates": {
+    "esri": "2025-04-09"
+   }
+  }
+ }
+}

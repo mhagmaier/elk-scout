@@ -1,0 +1,15 @@
+{
+  "available": true,
+  "snow_date": "2026-11-06",
+  "snow_items": 9,
+  "snow_clear_share": 0.998,
+  "snow_cover_share": 0.141,
+  "observed_snowline_ft": 10800.0,
+  "leafon_current_year": 2026,
+  "leafon_baseline_year": 2022,
+  "leafon_items": [
+    24,
+    24
+  ],
+  "dead_acres": 47536
+}

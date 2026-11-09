@@ -1,0 +1,814 @@
+{
+ "waypoints": {
+  "A1-01": {
+   "name": "A1-01 TH 8892",
+   "type": "ACCESS",
+   "area": "Middle Creek",
+   "rank": 1,
+   "lat": 38.27984,
+   "lon": -106.30139,
+   "elev_ft": 8892,
+   "land": "USFS",
+   "end": "FR 870 Middle Cr road end",
+   "end_mi": 0.0,
+   "end_climb_ft": 0,
+   "route": "FR 870 Middle Cr",
+   "route_mi": 0.0
+  },
+  "B1-01": {
+   "name": "B1-01 N-timber 10273",
+   "type": "BED",
+   "area": "Middle Creek",
+   "rank": 1,
+   "lat": 38.27959,
+   "lon": -106.32368,
+   "elev_ft": 10273,
+   "land": "USFS",
+   "end": "FR 870 Middle Cr road end",
+   "end_mi": 1.2,
+   "end_climb_ft": 1381,
+   "route": "FR 870 Middle Cr",
+   "route_mi": 1.2
+  },
+  "B1-02": {
+   "name": "B1-02 NE-bench 9662",
+   "type": "BED",
+   "area": "Middle Creek",
+   "rank": 1,
+   "lat": 38.28,
+   "lon": -106.31134,
+   "elev_ft": 9662,
+   "land": "USFS",
+   "end": "FR 870 Middle Cr road end",
+   "end_mi": 0.5,
+   "end_climb_ft": 770,
+   "route": "FR 870 Middle Cr",
+   "route_mi": 0.5
+  },
+  "F1-01": {
+   "name": "F1-01 meadow 10019",
+   "type": "FEED",
+   "area": "Middle Creek",
+   "rank": 1,
+   "lat": 38.25626,
+   "lon": -106.33011,
+   "elev_ft": 10019,
+   "land": "USFS",
+   "end": "FR 856.1A Bull Bear road end",
+   "end_mi": 1.1,
+   "end_climb_ft": -6,
+   "route": "FR 856.1A Bull Bear",
+   "route_mi": 1.1
+  },
+  "F1-02": {
+   "name": "F1-02 meadow 10229",
+   "type": "FEED",
+   "area": "Middle Creek",
+   "rank": 1,
+   "lat": 38.2599,
+   "lon": -106.34286,
+   "elev_ft": 10229,
+   "land": "USFS",
+   "end": "FR 856.1A Bull Bear road end",
+   "end_mi": 0.8,
+   "end_climb_ft": 204,
+   "route": "FR 860 Indian Park",
+   "route_mi": 0.7
+  },
+  "B2-01": {
+   "name": "B2-01 NE-timber 10175",
+   "type": "BED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.02607,
+   "lon": -106.31637,
+   "elev_ft": 10175,
+   "land": "USFS",
+   "end": "FR 704 South Tracy road end",
+   "end_mi": 1.9,
+   "end_climb_ft": 947,
+   "route": "FR 620 Fullerton Park",
+   "route_mi": 0.8
+  },
+  "B2-02": {
+   "name": "B2-02 NE-timber 10250",
+   "type": "BED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.03866,
+   "lon": -106.35009,
+   "elev_ft": 10250,
+   "land": "USFS",
+   "end": "FR 709 Antelope road end",
+   "end_mi": 0.9,
+   "end_climb_ft": 563,
+   "route": "FR 709 Antelope",
+   "route_mi": 0.9
+  },
+  "B2-03": {
+   "name": "B2-03 N-timber 10600",
+   "type": "BED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.03883,
+   "lon": -106.35898,
+   "elev_ft": 10600,
+   "land": "USFS",
+   "end": "FR 709 Antelope road end",
+   "end_mi": 1.1,
+   "end_climb_ft": 913,
+   "route": "FR 709 Antelope",
+   "route_mi": 1.0
+  },
+  "B2-04": {
+   "name": "B2-04 N-timber 10576",
+   "type": "BED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.02616,
+   "lon": -106.30782,
+   "elev_ft": 10576,
+   "land": "USFS",
+   "end": "FR 704 South Tracy road end",
+   "end_mi": 1.5,
+   "end_climb_ft": 1347,
+   "route": "FR 621.1A Mill Basin",
+   "route_mi": 1.2
+  },
+  "B2-05": {
+   "name": "B2-05 NE-timber 9980",
+   "type": "BED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.0388,
+   "lon": -106.33847,
+   "elev_ft": 9980,
+   "land": "USFS",
+   "end": "FR 709 Antelope road end",
+   "end_mi": 0.9,
+   "end_climb_ft": 293,
+   "route": "FR 620 Fullerton Park",
+   "route_mi": 0.6
+  },
+  "B2-06": {
+   "name": "B2-06 N-bench 10396",
+   "type": "BED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 37.95327,
+   "lon": -106.41511,
+   "elev_ft": 10396,
+   "land": "USFS",
+   "end": "FR 690.2A Storm King Cg road end",
+   "end_mi": 0.9,
+   "end_climb_ft": 1016,
+   "route": "FR 690.2A Storm King Cg",
+   "route_mi": 0.9
+  },
+  "F2-01": {
+   "name": "F2-01 meadow 10450",
+   "type": "FEED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.01868,
+   "lon": -106.3945,
+   "elev_ft": 10450,
+   "land": "USFS",
+   "end": "FR 620 Fullerton Park road end",
+   "end_mi": 1.6,
+   "end_climb_ft": 502,
+   "route": "FR 619 Lake Mtn",
+   "route_mi": 0.6
+  },
+  "F2-02": {
+   "name": "F2-02 meadow 9279",
+   "type": "FEED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.16468,
+   "lon": -106.22468,
+   "elev_ft": 9279,
+   "land": "BLM",
+   "end": "FR 879 Poison road end",
+   "end_mi": 1.6,
+   "end_climb_ft": 215,
+   "route": "FR 879 Poison",
+   "route_mi": 1.6
+  },
+  "F2-03": {
+   "name": "F2-03 meadow 8698",
+   "type": "FEED",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.10518,
+   "lon": -106.37287,
+   "elev_ft": 8698,
+   "land": "Spring Gulch STL",
+   "end": "FR 720 Big Dry Gulch road end",
+   "end_mi": 2.4,
+   "end_climb_ft": 211,
+   "route": "FR 41G Carnero",
+   "route_mi": 0.6
+  },
+  "G2-01": {
+   "name": "G2-01 glass 10369",
+   "type": "GLASS",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 37.90474,
+   "lon": -106.33399,
+   "elev_ft": 10369,
+   "land": "Burro Springs STL",
+   "end": "FR 680 North Carnero road end",
+   "end_mi": 3.5,
+   "end_climb_ft": 1526,
+   "route": "FR 680 North Carnero",
+   "route_mi": 3.1
+  },
+  "S2-01": {
+   "name": "S2-01 saddle 9597",
+   "type": "SADDLE",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 37.93277,
+   "lon": -106.43384,
+   "elev_ft": 9597,
+   "land": "USFS",
+   "end": "FR 675 South Carnero road end",
+   "end_mi": 1.5,
+   "end_climb_ft": 660,
+   "route": "FR 41G Carnero",
+   "route_mi": 0.5
+  },
+  "S2-02": {
+   "name": "S2-02 saddle 9341",
+   "type": "SADDLE",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.00053,
+   "lon": -106.25372,
+   "elev_ft": 9341,
+   "land": "BLM",
+   "end": "FR 704.3A Tracy Fork road end",
+   "end_mi": 2.0,
+   "end_climb_ft": 469,
+   "route": "FR 704.3A Tracy Fork",
+   "route_mi": 1.9
+  },
+  "S2-03": {
+   "name": "S2-03 saddle 9342",
+   "type": "SADDLE",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.08397,
+   "lon": -106.26336,
+   "elev_ft": 9342,
+   "land": "USFS",
+   "end": "FR 705 Tracy road end",
+   "end_mi": 2.2,
+   "end_climb_ft": 884,
+   "route": "FR 706.3A Paradise",
+   "route_mi": 2.2
+  },
+  "S2-04": {
+   "name": "S2-04 saddle 9115",
+   "type": "SADDLE",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 37.87139,
+   "lon": -106.3426,
+   "elev_ft": 9115,
+   "land": "Burro Springs STL",
+   "end": "FR 680 North Carnero road end",
+   "end_mi": 4.8,
+   "end_climb_ft": 272,
+   "route": "FR 670 La Garita",
+   "route_mi": 2.7
+  },
+  "W2-01": {
+   "name": "W2-01 creek 9600",
+   "type": "WATER",
+   "area": "Mill Creek",
+   "rank": 2,
+   "lat": 38.25376,
+   "lon": -106.49292,
+   "elev_ft": 9600,
+   "land": "USFS",
+   "end": "FR 810 Sheep Cr road end",
+   "end_mi": 1.0,
+   "end_climb_ft": -194,
+   "route": "FR 999 Coleman",
+   "route_mi": 0.5
+  },
+  "F3-01": {
+   "name": "F3-01 meadow 10136",
+   "type": "FEED",
+   "area": "Ford Creek",
+   "rank": 3,
+   "lat": 38.25901,
+   "lon": -106.25267,
+   "elev_ft": 10136,
+   "land": "USFS",
+   "end": "FR 880 Findley Gulch road end",
+   "end_mi": 2.1,
+   "end_climb_ft": -427,
+   "route": "FR 880.2A Phantom Cr",
+   "route_mi": 1.6
+  },
+  "F3-02": {
+   "name": "F3-02 meadow 10301",
+   "type": "FEED",
+   "area": "Ford Creek",
+   "rank": 3,
+   "lat": 38.25917,
+   "lon": -106.23724,
+   "elev_ft": 10301,
+   "land": "USFS",
+   "end": "FR 880 Findley Gulch road end",
+   "end_mi": 1.3,
+   "end_climb_ft": -262,
+   "route": "FR 880.2A Phantom Cr",
+   "route_mi": 0.7
+  },
+  "F3-03": {
+   "name": "F3-03 meadow 10018",
+   "type": "FEED",
+   "area": "Ford Creek",
+   "rank": 3,
+   "lat": 38.25149,
+   "lon": -106.24774,
+   "elev_ft": 10018,
+   "land": "USFS",
+   "end": "FR 880 Findley Gulch road end",
+   "end_mi": 2.0,
+   "end_climb_ft": -545,
+   "route": "FR 880.2A Phantom Cr",
+   "route_mi": 1.4
+  },
+  "W3-01": {
+   "name": "W3-01 creek 10104",
+   "type": "WATER",
+   "area": "Ford Creek",
+   "rank": 3,
+   "lat": 38.25581,
+   "lon": -106.2485,
+   "elev_ft": 10104,
+   "land": "USFS",
+   "end": "FR 880 Findley Gulch road end",
+   "end_mi": 1.9,
+   "end_climb_ft": -459,
+   "route": "FR 880.2A Phantom Cr",
+   "route_mi": 1.4
+  },
+  "F4-01": {
+   "name": "F4-01 meadow 9772",
+   "type": "FEED",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.26461,
+   "lon": -106.06862,
+   "elev_ft": 9772,
+   "land": "USFS",
+   "end": "FR 873 Kelly road end",
+   "end_mi": 1.3,
+   "end_climb_ft": 719,
+   "route": "FR 873 Kelly",
+   "route_mi": 1.3
+  },
+  "F4-02": {
+   "name": "F4-02 meadow 9548",
+   "type": "FEED",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.19884,
+   "lon": -106.13446,
+   "elev_ft": 9548,
+   "land": "USFS",
+   "end": "FR 857 Little Kerber road end",
+   "end_mi": 1.7,
+   "end_climb_ft": 784,
+   "route": "FR 857 Little Kerber",
+   "route_mi": 0.5
+  },
+  "G4-01": {
+   "name": "G4-01 glass 11974",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.28841,
+   "lon": -106.0971,
+   "elev_ft": 11974,
+   "land": "USFS",
+   "end": "FR 888 Greenback road end",
+   "end_mi": 1.5,
+   "end_climb_ft": 1528,
+   "route": "FR 888 Greenback",
+   "route_mi": 1.5
+  },
+  "G4-02": {
+   "name": "G4-02 glass 12011",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.29732,
+   "lon": -106.09826,
+   "elev_ft": 12011,
+   "land": "USFS",
+   "end": "FR 892 Rawley Mtn road end",
+   "end_mi": 1.7,
+   "end_climb_ft": 557,
+   "route": "FR 892 Rawley Mtn",
+   "route_mi": 1.4
+  },
+  "G4-03": {
+   "name": "G4-03 glass 11763",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.30875,
+   "lon": -106.0902,
+   "elev_ft": 11763,
+   "land": "USFS",
+   "end": "FR 892 Rawley Mtn road end",
+   "end_mi": 1.7,
+   "end_climb_ft": 308,
+   "route": "FR 875 Spring Cr",
+   "route_mi": 0.9
+  },
+  "G4-04": {
+   "name": "G4-04 glass 12739",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.31077,
+   "lon": -106.21478,
+   "elev_ft": 12739,
+   "land": "USFS",
+   "end": "FR 862 Upper Kerber Cr road end",
+   "end_mi": 2.0,
+   "end_climb_ft": 1958,
+   "route": "FR 880.2B Antora Meadows",
+   "route_mi": 0.4
+  },
+  "G4-05": {
+   "name": "G4-05 glass 12059",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.27524,
+   "lon": -106.19979,
+   "elev_ft": 12059,
+   "land": "USFS",
+   "end": "FR 880 Findley Gulch road end",
+   "end_mi": 1.1,
+   "end_climb_ft": 1495,
+   "route": "FR 880 Findley Gulch",
+   "route_mi": 0.4
+  },
+  "G4-06": {
+   "name": "G4-06 glass 12059",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.27457,
+   "lon": -106.10306,
+   "elev_ft": 12059,
+   "land": "USFS",
+   "end": "FR 888 Greenback road end",
+   "end_mi": 0.6,
+   "end_climb_ft": 1613,
+   "route": "FR 888 Greenback",
+   "route_mi": 0.6
+  },
+  "S4-01": {
+   "name": "S4-01 saddle 9402",
+   "type": "SADDLE",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "rank": 4,
+   "lat": 38.24338,
+   "lon": -106.05425,
+   "elev_ft": 9402,
+   "land": "USFS",
+   "end": "FR 873 Kelly road end",
+   "end_mi": 1.9,
+   "end_climb_ft": 349,
+   "route": "FR 873 Kelly",
+   "route_mi": 1.9
+  },
+  "A5-01": {
+   "name": "A5-01 TH 10619",
+   "type": "ACCESS",
+   "area": "Trough Creek-Saguache Creek",
+   "rank": 5,
+   "lat": 38.04908,
+   "lon": -106.63679,
+   "elev_ft": 10619,
+   "land": "USFS",
+   "end": "FR 787.3F Rim road end",
+   "end_mi": 0.0,
+   "end_climb_ft": 0,
+   "route": "FR 787.3F Rim",
+   "route_mi": 0.0
+  },
+  "A5-02": {
+   "name": "A5-02 TH 9303",
+   "type": "ACCESS",
+   "area": "Trough Creek-Saguache Creek",
+   "rank": 5,
+   "lat": 38.05152,
+   "lon": -106.57701,
+   "elev_ft": 9303,
+   "land": "USFS",
+   "end": "FR 761 Lost Spring road end",
+   "end_mi": 0.0,
+   "end_climb_ft": 0,
+   "route": "FR 761 Lost Spring",
+   "route_mi": 0.0
+  },
+  "A5-03": {
+   "name": "A5-03 TH 9016",
+   "type": "ACCESS",
+   "area": "Trough Creek-Saguache Creek",
+   "rank": 5,
+   "lat": 38.13231,
+   "lon": -106.51885,
+   "elev_ft": 9016,
+   "land": "USFS",
+   "end": "FR 750.2B Rabbit Canyon road end",
+   "end_mi": 0.0,
+   "end_climb_ft": 0,
+   "route": "FR 750.2B Rabbit Canyon",
+   "route_mi": 0.0
+  },
+  "A5-04": {
+   "name": "A5-04 TH 10206",
+   "type": "ACCESS",
+   "area": "Trough Creek-Saguache Creek",
+   "rank": 5,
+   "lat": 38.03688,
+   "lon": -106.71514,
+   "elev_ft": 10206,
+   "land": "USFS",
+   "end": "FR 777.1B Chimney Rock Spur road end",
+   "end_mi": 0.0,
+   "end_climb_ft": 0,
+   "route": "FR 777.1B Chimney Rock Spur",
+   "route_mi": 0.0
+  },
+  "A5-05": {
+   "name": "A5-05 TH 9318",
+   "type": "ACCESS",
+   "area": "Trough Creek-Saguache Creek",
+   "rank": 5,
+   "lat": 38.051,
+   "lon": -106.61495,
+   "elev_ft": 9318,
+   "land": "USFS",
+   "end": "FR 736 Duckfoot Cr road end",
+   "end_mi": 0.0,
+   "end_climb_ft": 0,
+   "route": "FR 736 Duckfoot Cr",
+   "route_mi": 0.0
+  },
+  "F5-01": {
+   "name": "F5-01 meadow 10488",
+   "type": "FEED",
+   "area": "Trough Creek-Saguache Creek",
+   "rank": 5,
+   "lat": 37.97219,
+   "lon": -106.64465,
+   "elev_ft": 10488,
+   "land": "USFS",
+   "end": "FR 675 South Carnero road end",
+   "end_mi": 2.3,
+   "end_climb_ft": -618,
+   "route": "FR 675 South Carnero",
+   "route_mi": 1.2
+  },
+  "S5-01": {
+   "name": "S5-01 saddle 10946",
+   "type": "SADDLE",
+   "area": "Trough Creek-Saguache Creek",
+   "rank": 5,
+   "lat": 37.98336,
+   "lon": -106.76889,
+   "elev_ft": 10946,
+   "land": "USFS",
+   "end": "FR 744 Middle Fork Saguache road end",
+   "end_mi": 1.6,
+   "end_climb_ft": 799,
+   "route": "FR 744 Middle Fork Saguache",
+   "route_mi": 1.5
+  }
+ },
+ "areas": {
+  "Cottonwood Creek-Kerber Creek": {
+   "rank": 4,
+   "drains": "SSE",
+   "drains_deg": 152,
+   "n": 9
+  },
+  "Ford Creek": {
+   "rank": 3,
+   "drains": "S",
+   "drains_deg": 184,
+   "n": 4
+  },
+  "Middle Creek": {
+   "rank": 1,
+   "drains": "ESE",
+   "drains_deg": 115,
+   "n": 5
+  },
+  "Mill Creek": {
+   "rank": 2,
+   "drains": "NE",
+   "drains_deg": 53,
+   "n": 15
+  },
+  "Trough Creek-Saguache Creek": {
+   "rank": 5,
+   "drains": "ENE",
+   "drains_deg": 60,
+   "n": 7
+  }
+ },
+ "blocks": {
+  "T01": {
+   "route": "FR 870 Middle Cr",
+   "route_mi": 0.6,
+   "wps_1mi": [
+    "A1-01",
+    "B1-02"
+   ]
+  },
+  "T02": {
+   "route": "FR 782.2A Antelope Park",
+   "route_mi": 0.5,
+   "wps_1mi": []
+  },
+  "T03": {
+   "route": "FR 7578 Milk Creek",
+   "route_mi": 1.6,
+   "wps_1mi": []
+  },
+  "T04": {
+   "route": "FR 880.2B Antora Meadows",
+   "route_mi": 0.7,
+   "wps_1mi": [
+    "A1-01"
+   ]
+  },
+  "T05": {
+   "route": "FR 870 Middle Cr",
+   "route_mi": 0.5,
+   "wps_1mi": [
+    "A1-01",
+    "B1-01",
+    "B1-02",
+    "F1-01",
+    "F1-02"
+   ]
+  },
+  "T06": {
+   "route": "FR 880 Findley Gulch",
+   "route_mi": 0.6,
+   "wps_1mi": [
+    "G4-04",
+    "G4-05"
+   ]
+  },
+  "T07": {
+   "route": "FR 620 Fullerton Park",
+   "route_mi": 0.5,
+   "wps_1mi": [
+    "B2-01",
+    "B2-04"
+   ]
+  },
+  "T08": {
+   "route": "FR 776.1A Table Mtn",
+   "route_mi": 0.5,
+   "wps_1mi": []
+  },
+  "T09": {
+   "route": "FR 600 Pool Table",
+   "route_mi": 2.4,
+   "wps_1mi": []
+  },
+  "T10": {
+   "route": "FR 680 North Carnero",
+   "route_mi": 1.5,
+   "wps_1mi": []
+  },
+  "T11": {
+   "route": "FR 810.1C Spanish Bear",
+   "route_mi": 0.5,
+   "wps_1mi": []
+  },
+  "T12": {
+   "route": "FR 709 Antelope",
+   "route_mi": 0.5,
+   "wps_1mi": [
+    "B2-02",
+    "B2-03",
+    "B2-05"
+   ]
+  },
+  "T13": {
+   "route": "FR 7578 Milk Creek",
+   "route_mi": 1.9,
+   "wps_1mi": []
+  },
+  "T14": {
+   "route": "FR 7578 Milk Creek",
+   "route_mi": 0.9,
+   "wps_1mi": []
+  },
+  "T15": {
+   "route": "FR 787 Saguache Park",
+   "route_mi": 1.3,
+   "wps_1mi": []
+  },
+  "T16": {
+   "route": "FR 680.2A North Carnero",
+   "route_mi": 0.8,
+   "wps_1mi": []
+  },
+  "T17": {
+   "route": "FR 690.2A Storm King Cg",
+   "route_mi": 0.5,
+   "wps_1mi": [
+    "B2-06"
+   ]
+  },
+  "T18": {
+   "route": "FR 685 Cecilia  Cr",
+   "route_mi": 0.5,
+   "wps_1mi": [
+    "S2-01"
+   ]
+  },
+  "T19": {
+   "route": "FR 860 Indian Park",
+   "route_mi": 0.5,
+   "wps_1mi": [
+    "F1-02"
+   ]
+  },
+  "T20": {
+   "route": "FR 782.2A Antelope Park",
+   "route_mi": 0.5,
+   "wps_1mi": []
+  },
+  "T21": {
+   "route": "FR 744 Middle Fork Saguache",
+   "route_mi": 2.2,
+   "wps_1mi": []
+  },
+  "T22": {
+   "route": "FR 888 Greenback",
+   "route_mi": 0.6,
+   "wps_1mi": [
+    "F4-01"
+   ]
+  },
+  "T23": {
+   "route": "FR 744 Middle Fork Saguache",
+   "route_mi": 0.5,
+   "wps_1mi": []
+  },
+  "T24": {
+   "route": "FR 842 Saguache Peak",
+   "route_mi": 0.5,
+   "wps_1mi": []
+  },
+  "T25": {
+   "route": "FR 600 Pool Table",
+   "route_mi": 1.5,
+   "wps_1mi": []
+  },
+  "T26": {
+   "route": "FR 874 Peterson Cr",
+   "route_mi": 0.9,
+   "wps_1mi": [
+    "G4-01",
+    "G4-02",
+    "G4-03"
+   ]
+  },
+  "T27": {
+   "route": "FR 852.4A Studhorse Cr",
+   "route_mi": 0.5,
+   "wps_1mi": []
+  },
+  "T28": {
+   "route": "FR 709 Antelope",
+   "route_mi": 0.5,
+   "wps_1mi": [
+    "B2-02",
+    "B2-03"
+   ]
+  }
+ }
+}

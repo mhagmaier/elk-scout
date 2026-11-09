@@ -1,0 +1,62 @@
+{
+  "stations": [
+    {
+      "triplet": "1059:CO:SNTL",
+      "name": "Cochetopa Pass",
+      "elevation_ft": 10020.0,
+      "snwd_in": 0.0,
+      "wteq_in": 0.2
+    },
+    {
+      "triplet": "1102:CO:SNTL",
+      "name": "Hayden Pass",
+      "elevation_ft": 10700.0,
+      "snwd_in": 8.0,
+      "wteq_in": 2.2
+    },
+    {
+      "triplet": "624:CO:SNTL",
+      "name": "Middle Creek",
+      "elevation_ft": 11260.0,
+      "snwd_in": 20.0,
+      "wteq_in": 7.2
+    },
+    {
+      "triplet": "1124:CO:SNTL",
+      "name": "Moon Pass",
+      "elevation_ft": 11110.0,
+      "snwd_in": 0.0,
+      "wteq_in": 0.0
+    },
+    {
+      "triplet": "701:CO:SNTL",
+      "name": "Porphyry Creek",
+      "elevation_ft": 10790.0,
+      "snwd_in": 8.0,
+      "wteq_in": 2.3
+    },
+    {
+      "triplet": "1324:CO:SNTL",
+      "name": "Rat Creek",
+      "elevation_ft": 11680.0,
+      "snwd_in": 22.0,
+      "wteq_in": 7.9
+    },
+    {
+      "triplet": "1128:CO:SNTL",
+      "name": "Sargents Mesa",
+      "elevation_ft": 11490.0,
+      "snwd_in": 5.0,
+      "wteq_in": 1.8
+    }
+  ],
+  "median_snwd_in": 8.0,
+  "snowline_ft": 10800.0,
+  "band_top_ft": 10400.0,
+  "band_shift_ft": 0.0,
+  "snow_in_band": false,
+  "method": "snowline",
+  "as_of": "2026-11-09",
+  "no_data": false,
+  "snowline_source": "Sentinel-2 2026-11-06"
+}

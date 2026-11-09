@@ -1,0 +1,9 @@
+| item | what CPW / the source says | your plan | status |
+|---|---|---|---|
+| 2026 fourth rifle season | Nov 18–22 ([CPW 2026 Big Game Brochure](https://spl.cde.state.co.us/artemis/nrserials/nr1431internet/nr14312026internet.pdf)) | Nov 18–22 | **match** |
+| Hunt code / valid units | Not confirmed: the brochure's elk hunt-code tables (pp. 41–52) didn't come through any copy reachable from here | 68 + 681 | **verify your license lists both 68 and 681** |
+| CWD sampling | Mandatory head submission from elk taken in rifle seasons on *selected* hunt codes; over-the-counter elk codes are excluded; no mandatory deer testing in 2026. The selected codes are on brochure pp. 41–52 ([CPW CWD page](https://cpw.state.co.us/activities/hunting/big-game/chronic-wasting-disease)) | — | **check whether your hunt code is selected** |
+| Hunter orange or pink | Firearm big-game hunters must wear fluorescent orange or pink; camo orange/pink doesn't count ([Kiowa County Press, CPW 2026 rules](https://kiowacountypress.net/content/colorado-hunting-seasons-open-new-regulations-2026)) | — | comply |
+| Side-by-side | Nonresident OHVs need a Colorado OHV permit ($26.25) displayed on public-land roads and designated trails; buying online gives a 45-day temporary authorization number ([CPW](https://cpw.state.co.us/register-off-highway-vehicle)) | 64-in RZR | **buy before you go** |
+| Forest Service roads | ACCESS points are ends of routes the USFS Motor Vehicle Use Map shows open to OHVs over 50 in on all five hunt days (USFS EDW MVUM) | 64-in RZR | verify on the current MVUM |
+| State Trust Land in play | Each CPW-enrolled parcel below is open Sept 1 – end of Feb with elk listed; everyone 16+ needs a valid hunting or fishing license to enter ([CPW State Trust Lands](https://cpw.state.co.us/state-trust-lands/middle-creek)) | — | comply; parcel rules below |

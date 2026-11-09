@@ -1,0 +1,16 @@
+{
+  "dark_canopy_pct": 44.0,
+  "dark_canopy_auto": true,
+  "conifer_canopy_quartiles": [
+    27,
+    37,
+    44
+  ],
+  "public_acres": 582103,
+  "dark_public_acres": 62429,
+  "dead_conifer_acres_removed": 4551,
+  "min_road_mi": 0.5,
+  "min_acres": 100.0,
+  "n_blocks": 28,
+  "block_acres_total": 10468
+}
