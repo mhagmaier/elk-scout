@@ -31,13 +31,13 @@ factors:
     - [6.0, 0.15]
   bedding:
     weight: 0.19
-    aspect_center_deg: 180
+    aspect_center_deg: 22
     aspect_exponent: 1.5
     curve_canopy_pct:
-    - [20, 0.0]
-    - [40, 1.0]
-    - [70, 1.0]
-    - [100, 0.8]
+    - [15, 0.0]
+    - [30, 0.4]
+    - [45, 1.0]
+    - [100, 1.0]
     curve_slope_pct:
     - [5, 0.0]
     - [15, 1.0]
@@ -89,7 +89,7 @@ waypoints:
   counts: {BED: 8, FEED: 11, WATER: 2, SADDLE: 6, GLASS: 7, CAMP: 0, ACCESS: 6}
   saddle: {dem_downsample_m: 90, travel_max_km: 2.0}
   glass: {viewshed_radius_km: 2.5, max_candidates: 60}
-hunt_areas: {min_waypoints: 3, min_areas: 4, max_areas: 10}
+hunt_areas: {min_waypoints: 4, min_areas: 4, max_areas: 10}
 outputs: {gpx_max_bytes: 4000000, gpx_max_waypoints: 3000, desc_max_chars: 450}
 boundary:
   base_url: https://services5.arcgis.com/ttNGmDvKQA7oeDQ3/ArcGIS/rest/services/CPWAdminData/FeatureServer
