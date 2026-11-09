@@ -4,7 +4,8 @@ Contract — fetch_mvum(net, ws, bbox4326):
 1. ws.manual_path("mvum_roads") if present.
 2. endpoints.MVUM ?f=json to list layers; query every polyline layer whose name
    contains 'road' or 'trail' (case-insensitive) with the bbox; concatenate.
-   Kept columns (where present): NAME, ID, SBS_SYMBOL_NAME, SEASONAL.
+   Kept columns (where present): NAME, ID, SBS_SYMBOL_NAME, SEASONAL plus every
+   vehicle-class allowance + dates-open field (see config.VEHICLE_FIELDS).
 Empty result -> empty FeatureCollection (OSM covers most routes anyway).
 Offline miss -> OfflineMissError("mvum_roads", ws).
 """
@@ -19,6 +20,7 @@ import geopandas as gpd
 import pandas as pd
 
 from .. import endpoints
+from ..config import VEHICLE_FIELDS
 from ..net import Net, OfflineError
 from ..paths import OfflineMissError, Workspace
 from .arcgis import layer_info, query_layer_geojson
@@ -26,7 +28,11 @@ from .arcgis import layer_info, query_layer_geojson
 log = logging.getLogger("elkscout.mvum")
 
 SOURCE = "mvum_roads"
-_KEPT = ("NAME", "ID", "SBS_SYMBOL_NAME", "SEASONAL")
+# Route identity + every vehicle-class allowance/dates field, so access.py can
+# decide which routes the hunter's own vehicle may drive on the hunt dates.
+_KEPT = ("NAME", "ID", "SBS_SYMBOL_NAME", "SEASONAL", "MVUM_SYMBOL_NAME") + tuple(
+    f.upper() for pair in VEHICLE_FIELDS.values() for f in pair
+)
 
 
 def mvum_roads_path(ws: Workspace) -> Path:

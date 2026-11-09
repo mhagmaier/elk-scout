@@ -43,14 +43,40 @@ _MARGIN_M = 1000.0
 _LANDCOVER_RE = re.compile(r"(lndcov|land_?cover)", re.IGNORECASE)
 _CANOPY_RE = re.compile(r"(tcc|tree_?canopy)", re.IGNORECASE)
 _EXCLUDE_RE = re.compile(
-    r"(change|confidence|descriptor|count|index|fct|fractional|impervious|science|shrub|herbaceous)",
+    r"(change|confidence|descriptor|count|index|fct|fractional|impervious|science|shrub|herbaceous"
+    r"|hawaii|alaska|puerto|(^|[_:\-])(hi|ak|pr)([_\-]|$))",
     re.IGNORECASE,
 )
+# Lower-48 coverage only: names must carry one of these tokens.
+_L48_RE = re.compile(r"(l48|conus)", re.IGNORECASE)
+# Known-good ids, tried first (verified against MRLC's catalog on the GMU
+# 68/681 run, Nov 2026 — the regex picker had chosen a change-count product
+# and a Hawaii canopy layer).
+PREFERRED = {
+    "landcover": ["mrlc_download:NLCD_2021_Land_Cover_L48"],
+    "canopy": ["mrlc_download:nlcd_tcc_conus_2021_v2021-4"],
+}
 
 
 def fetch_landcover(net: Net, ws: Workspace, grid: Grid) -> None:
     _fetch_one(net, ws, grid, key="landcover", pattern=_LANDCOVER_RE, out=ws.landcover_tif, band="landcover")
     _fetch_one(net, ws, grid, key="canopy", pattern=_CANOPY_RE, out=ws.canopy_tif, band="canopy")
+
+
+def choose_coverage(names: list[str], key: str, pattern: re.Pattern) -> str:
+    """Preferred id if the catalog has it, else the newest lower-48 match."""
+    for pid in PREFERRED.get(key, []):
+        if pid in names:
+            return pid
+    candidates = [n for n in names if pattern.search(n) and _L48_RE.search(n) and not _EXCLUDE_RE.search(n)]
+    if not candidates:
+        raise RuntimeError(f"no lower-48 MRLC coverage matches {pattern.pattern} among {len(names)} names")
+
+    def year(name: str) -> int:
+        ys = [int(y) for y in re.findall(r"((?:19|20)\d{2})", name)]
+        return max(ys) if ys else 0
+
+    return max(candidates, key=year)
 
 
 def _fetch_one(net: Net, ws: Workspace, grid: Grid, *, key: str, pattern: re.Pattern, out, band: str) -> None:
@@ -60,7 +86,7 @@ def _fetch_one(net: Net, ws: Workspace, grid: Grid, *, key: str, pattern: re.Pat
         arr = grid.warp_file_to_grid(manual, resampling=Resampling.nearest)
     else:
         try:
-            coverage = _pick_coverage(net, pattern)
+            coverage = _pick_coverage(net, pattern, key)
             arr = _get_coverage(net, coverage, grid)
         except OfflineError as e:
             raise OfflineMissError(key, ws) from e
@@ -70,24 +96,15 @@ def _fetch_one(net: Net, ws: Workspace, grid: Grid, *, key: str, pattern: re.Pat
     log.info("landcover: %s -> %s (%.1f%% valid)", band, out, 100.0 * valid / u8.size)
 
 
-def _pick_coverage(net: Net, pattern: re.Pattern) -> str:
+def _pick_coverage(net: Net, pattern: re.Pattern, key: str) -> str:
     raw = net.fetch_bytes(
         endpoints.MRLC_WCS,
         {"service": "WCS", "version": "1.0.0", "request": "GetCapabilities"},
         source=SOURCE,
         ext="xml",
     )
-    names = _coverage_names(raw)
-    candidates = [n for n in names if pattern.search(n) and not _EXCLUDE_RE.search(n)]
-    if not candidates:
-        raise RuntimeError(f"no MRLC coverage matches {pattern.pattern} among {len(names)} names")
-
-    def year(name: str) -> int:
-        ys = [int(y) for y in re.findall(r"((?:19|20)\d{2})", name)]
-        return max(ys) if ys else 0
-
-    best = max(candidates, key=year)
-    log.info("landcover: selected coverage %r", best)
+    best = choose_coverage(_coverage_names(raw), key, pattern)
+    log.info("landcover: selected coverage %r for %s", best, key)
     return best
 
 

@@ -42,6 +42,8 @@ WBD = "https://hydro.nationalmap.gov/arcgis/rest/services/wbd/MapServer"
 OVERPASS = [
     "https://overpass-api.de/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
+    # VK Maps instance — answered on the GMU 68/681 run when the two above refused.
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
 ]
 
 # MRLC GeoServer (NLCD land cover + tree canopy) via WCS.

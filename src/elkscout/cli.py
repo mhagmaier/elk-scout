@@ -105,12 +105,13 @@ def stage_fetch(ws: Workspace, cfg: Config, net: Net, only: list[str] | None, ao
 
 
 def stage_score(ws: Workspace, cfg: Config) -> None:
-    from . import factors, scoring, terrain
+    from . import access, factors, scoring, terrain
 
     terrain.run_terrain(ws)
     log.info("terrain derivatives written")
     factors.run_factors(ws, cfg)
     log.info("factor measurement rasters written")
+    access.build_access_points(ws, cfg)
     scoring.run_scoring(ws, cfg)
     log.info("suitability scores written")
 

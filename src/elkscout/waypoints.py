@@ -10,7 +10,8 @@ Pipeline:
    travel radius.
 3. GLASS: high-TPI knobs scored by a radial line-of-sight viewshed over the
    FEED score raster.
-4. ACCESS: trailheads ranked by nearby composite score.
+4. ACCESS: public trailheads + legal road ends for the hunter's vehicle
+   (access.py), on public land near the unit, ranked by nearby composite score.
 5. Hunt areas: HUC12 watershed clustering (quadrant fallback when no HUC12
    layer exists), small areas merged into neighbors, ranked by mean waypoint
    score, capped at max_areas.
@@ -226,6 +227,23 @@ def _extract_glass(sel: _Selector, dem: np.ndarray, terrain, type_scores, grid: 
     return added
 
 
+def _access_candidates(ws: Workspace, grid: Grid, cfg: Config) -> gpd.GeoDataFrame:
+    """Trailheads + legal road ends, kept only on public land near the unit.
+
+    Before this filter the GMU 68/681 run put ACCESS points in town and on
+    private ground: OSM trailheads/parking aren't guaranteed public.
+    """
+    import pandas as pd
+
+    from .access import filter_public_near_unit
+
+    parts = [g for g in (_read_vec(ws.trailheads_geojson), _read_vec(ws.access_points_geojson)) if len(g)]
+    if not parts:
+        return gpd.GeoDataFrame(geometry=gpd.GeoSeries([], dtype="geometry"), crs="EPSG:4326")
+    cand = gpd.GeoDataFrame(pd.concat([g.to_crs(epsg=4326) for g in parts], ignore_index=True), crs="EPSG:4326")
+    return filter_public_near_unit(cand, ws, grid, cfg.access.max_unit_dist_mi)
+
+
 def _extract_access(sel: _Selector, trailheads: gpd.GeoDataFrame, composite: np.ndarray, grid: Grid) -> int:
     if trailheads is None or len(trailheads) == 0:
         return 0
@@ -348,7 +366,7 @@ def run_waypoints(ws: Workspace, cfg: Config) -> None:
         "ownership": _read_vec(ws.ownership_geojson),
         "huc12": _read_vec(ws.huc12_geojson),
     }
-    trailheads = _read_vec(ws.trailheads_geojson)
+    trailheads = _access_candidates(ws, grid, cfg)
 
     sel = _Selector(grid, cfg)
     floor = cfg.waypoints.score_floor
