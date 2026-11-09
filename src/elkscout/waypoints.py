@@ -288,8 +288,33 @@ def _quadrant_areas(grid: Grid) -> gpd.GeoDataFrame:
     return gpd.GeoDataFrame({"name": list(quads)}, geometry=list(quads.values()), crs="EPSG:4326")
 
 
-def _assign_areas(wp: gpd.GeoDataFrame, areas: gpd.GeoDataFrame, cfg: Config) -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
-    """Attach hunt_area/area_slug/area_rank to waypoints; return (wp, area polygons)."""
+def area_timber_acres(wp: gpd.GeoDataFrame, blocks: gpd.GeoDataFrame | None, radius_mi: float, epsg: int) -> dict:
+    """Security-timber acres within radius_mi of each area's waypoints, keyed by area `name`."""
+    out = {n: 0 for n in wp["name"].unique()}
+    if blocks is None or len(blocks) == 0:
+        return out
+    b = blocks.to_crs(epsg=epsg)
+    pts = wp.to_crs(epsg=epsg)
+    for name, sub in pts.groupby("name"):
+        reach = sub.geometry.buffer(radius_mi * 1609.344).union_all()
+        out[name] = int(b[b.intersects(reach)]["acres"].sum())
+    return out
+
+
+def _assign_areas(
+    wp: gpd.GeoDataFrame,
+    areas: gpd.GeoDataFrame,
+    cfg: Config,
+    blocks: gpd.GeoDataFrame | None = None,
+    epsg: int = 32611,
+) -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
+    """Attach hunt_area/area_slug/area_rank to waypoints; return (wp, area polygons).
+
+    Areas rank by mean waypoint score PLUS nearby security-timber acreage
+    (cfg.timber.rank_weight x acres / max acres). On the GMU 68/681 run the
+    mean-score-only ranking opened the hunt in an area with zero security
+    timber while 4,600 acres of it sat in the 3rd-ranked area.
+    """
     joined = gpd.sjoin(wp, areas[["name", "geometry"]], how="left", predicate="within")
     joined = joined[~joined.index.duplicated(keep="first")]
     # Waypoints outside every polygon -> nearest area.
@@ -316,10 +341,17 @@ def _assign_areas(wp: gpd.GeoDataFrame, areas: gpd.GeoDataFrame, cfg: Config) ->
         del dissolved[small]
         counts = wp["name"].value_counts().to_dict()
 
-    # Rank by mean waypoint score; cap at max_areas (dropping weakest areas + waypoints).
-    means = wp.groupby("name")["score"].mean().sort_values(ascending=False)
-    keep = list(means.index[: cfg.hunt_areas.max_areas])
-    dropped = set(means.index) - set(keep)
+    # Rank by mean waypoint score + security timber; cap at max_areas (dropping weakest).
+    means = wp.groupby("name")["score"].mean()
+    timber = area_timber_acres(wp, blocks, cfg.timber.rank_radius_mi, epsg)
+    max_ac = max(timber.values()) if timber else 0
+    rank_value = {
+        n: float(means[n]) + (cfg.timber.rank_weight * timber.get(n, 0) / max_ac if max_ac else 0.0)
+        for n in means.index
+    }
+    ordered = sorted(rank_value, key=lambda n: -rank_value[n])
+    keep = ordered[: cfg.hunt_areas.max_areas]
+    dropped = set(ordered) - set(keep)
     if dropped:
         n_dropped = int(wp["name"].isin(dropped).sum())
         log.warning("hunt areas: dropping %d weakest area(s) (%s) and their %d waypoints", len(dropped), sorted(dropped), n_dropped)
@@ -341,6 +373,8 @@ def _assign_areas(wp: gpd.GeoDataFrame, areas: gpd.GeoDataFrame, cfg: Config) ->
                 "rank": rank[name],
                 "n_waypoints": len(sub),
                 "mean_score": round(float(sub["score"].mean()), 3),
+                "timber_acres": int(timber.get(name, 0)),
+                "rank_value": round(rank_value[name], 3),
                 "geometry": dissolved[name],
             }
         )
@@ -365,7 +399,11 @@ def run_waypoints(ws: Workspace, cfg: Config) -> None:
         "burns": _read_vec(ws.burns_geojson),
         "ownership": _read_vec(ws.ownership_geojson),
         "huc12": _read_vec(ws.huc12_geojson),
+        "timber_blocks": _read_vec(ws.timber_blocks_geojson),
     }
+    vectors["timber_blocks_grid"] = (
+        vectors["timber_blocks"].to_crs(epsg=grid.epsg) if len(vectors["timber_blocks"]) else None
+    )
     trailheads = _access_candidates(ws, grid, cfg)
 
     sel = _Selector(grid, cfg)
@@ -419,7 +457,7 @@ def run_waypoints(ws: Workspace, cfg: Config) -> None:
     if len(areas_src) == 0 or "name" not in areas_src.columns:
         log.info("hunt areas: no (named) HUC12 layer; using quadrant fallback")
         areas_src = _quadrant_areas(grid)
-    wp, areas = _assign_areas(wp, areas_src, cfg)
+    wp, areas = _assign_areas(wp, areas_src, cfg, vectors.get("timber_blocks"), grid.epsg)
 
     # Names + evidence, per (area, type), ordered by score.
     names: list[str] = []
@@ -442,7 +480,9 @@ def run_waypoints(ws: Workspace, cfg: Config) -> None:
             name = f"{TYPE_CODES[row['wp_type']]}{row['area_rank']}-{n:02d} {tag}"[:32]
         used.add(name)
         names.append(name)
-        descs.append(evidence.render_sentence(ev, row["wp_type"]))
+        desc = evidence.render_sentence(ev, row["wp_type"])
+        limit = cfg.outputs.desc_max_chars
+        descs.append(desc if len(desc) <= limit else desc[: limit - 3].rstrip() + "...")
         evs.append(json.dumps(ev))
         elevs.append(int(elev))
 

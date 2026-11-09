@@ -100,6 +100,20 @@ def _nearest_water_name(water_lines: gpd.GeoDataFrame, pt4326: Point, dist_water
     return str(named.iloc[i]["GNIS_NAME"]) if abs(named_mi - dist_water_mi) <= tolerance else None
 
 
+def _nearest_block(blocks_grid, x: float, y: float) -> dict:
+    """Nearest security-timber block (projected grid CRS): id, acres, miles (0 = inside)."""
+    if blocks_grid is None or len(blocks_grid) == 0:
+        return {"timber_block": None, "timber_block_acres": None, "timber_block_mi": None}
+    p = Point(x, y)
+    d = blocks_grid.geometry.distance(p)
+    i = d.idxmin()
+    return {
+        "timber_block": str(blocks_grid.loc[i, "id"]),
+        "timber_block_acres": int(blocks_grid.loc[i, "acres"]),
+        "timber_block_mi": round(float(d.loc[i]) * MI_PER_M, 2),
+    }
+
+
 def build_evidence(
     row: int,
     col: int,
@@ -139,6 +153,7 @@ def build_evidence(
         "nearest_water_name": _nearest_water_name(vectors.get("water_lines"), pt, dist_water_mi),
         "agency": _point_lookup(vectors.get("ownership"), pt, "agency"),
         "huc12_name": _point_lookup(vectors.get("huc12"), pt, "name"),
+        **_nearest_block(vectors.get("timber_blocks_grid"), float(x), float(y)),
         "lon": round(float(lon), 6),
         "lat": round(float(lat), 6),
     }
@@ -182,6 +197,11 @@ def render_sentence(ev: dict, wp_type: str) -> str:
         tail.append(f"{ev['dist_water_mi']:.2f} mi to {target}")
     if ev.get("burn_year") and ev.get("burn_name"):
         tail.append(f"in the {ev['burn_year']} {ev['burn_name']} burn")
+    if ev.get("timber_block") is not None and ev.get("timber_block_mi") is not None:
+        if ev["timber_block_mi"] <= 0.01:
+            tail.append(f"inside security timber {ev['timber_block']} ({ev['timber_block_acres']:,} ac)")
+        elif ev["timber_block_mi"] <= 1.5:
+            tail.append(f"{ev['timber_block_mi']:.1f} mi to security timber {ev['timber_block']} ({ev['timber_block_acres']:,} ac)")
     sentence = f"{lead}{body}; {', '.join(tail)}." if tail else f"{lead}{body}."
     return sentence.encode("ascii", "replace").decode("ascii")
 

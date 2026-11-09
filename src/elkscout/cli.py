@@ -105,13 +105,14 @@ def stage_fetch(ws: Workspace, cfg: Config, net: Net, only: list[str] | None, ao
 
 
 def stage_score(ws: Workspace, cfg: Config) -> None:
-    from . import access, factors, scoring, terrain
+    from . import access, factors, scoring, terrain, timber
 
     terrain.run_terrain(ws)
     log.info("terrain derivatives written")
     factors.run_factors(ws, cfg)
     log.info("factor measurement rasters written")
     access.build_access_points(ws, cfg)
+    timber.run_timber(ws, cfg)
     scoring.run_scoring(ws, cfg)
     log.info("suitability scores written")
 
@@ -129,6 +130,9 @@ def stage_report(ws: Workspace, cfg: Config) -> None:
     paths = gpx_writer.write_gpx_files(ws, cfg)
     log.info("GPX written: %s", ", ".join(str(p) for p in paths))
     log.info("KML written: %s", kml_writer.write_kml(ws, cfg))
+    timber_kml = kml_writer.write_timber_kml(ws, cfg)
+    if timber_kml:
+        log.info("security-timber KML written: %s", timber_kml)
     log.info("map written: %s", html_map.write_map(ws, cfg))
     log.info("briefing written: %s", briefing.write_briefing(ws, cfg))
 

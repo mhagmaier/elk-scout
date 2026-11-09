@@ -180,6 +180,27 @@ def write_map(ws: Workspace, cfg: Config) -> Path:
             ).add_to(fg)
         fg.add_to(m)
 
+    from ..timber import load_blocks
+
+    blocks = load_blocks(ws)
+    if len(blocks):
+        fg = folium.FeatureGroup(name="Security timber")
+        for _, row in blocks.iterrows():
+            dead = "dead" in str(row.get("imagery") or "").lower()
+            folium.GeoJson(
+                gpd.GeoSeries([row.geometry.simplify(SIMPLIFY_DEG / 5)], crs="EPSG:4326").to_json(),
+                style_function=lambda _f, d=dead: {
+                    "color": "#7f7f7f" if d else "#ffd400",
+                    "weight": 2,
+                    "fillColor": "#7f7f7f" if d else "#1b5e20",
+                    "fillOpacity": 0.25,
+                },
+                tooltip=f"{row['id']} security timber, {int(row['acres']):,} ac, "
+                        f"median {row['road_mi_median']} mi from roads"
+                        + (f" — {row['imagery']}" if row.get("imagery") else ""),
+            ).add_to(fg)
+        fg.add_to(m)
+
     wp_fg = folium.FeatureGroup(name="Waypoints")
     for _, row in wp.iterrows():
         folium.CircleMarker(

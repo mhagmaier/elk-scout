@@ -85,6 +85,36 @@ def _snow_summary(snow: dict) -> str:
     )
 
 
+def _timber_section(ws: Workspace) -> list[str]:
+    from ..timber import load_blocks
+
+    blocks = load_blocks(ws)
+    if len(blocks) == 0:
+        return []
+    stats = json.loads(ws.timber_json.read_text()) if ws.timber_json.exists() else {}
+    L = ["## Security timber", ""]
+    L.append(
+        f"Dark conifer here means NLCD evergreen/mixed forest at {stats.get('dark_canopy_pct', '?')}%+ canopy"
+        + (" (auto: the local conifer 75th percentile)" if stats.get("dark_canopy_auto") else "")
+        + f". A security block is {stats.get('min_acres', 100):.0f}+ contiguous public acres at least "
+        f"{stats.get('min_road_mi', 0.5)} mi from any motorized route — where pressured bulls go. "
+        f"{len(blocks)} block(s), {stats.get('block_acres_total', 0):,} ac total."
+    )
+    if stats.get("dead_conifer_acres_removed"):
+        L.append("")
+        L.append(f"Sentinel-2 change detection removed {stats['dead_conifer_acres_removed']:,} ac of conifer that has "
+                 "lost its greenness (likely beetle kill, fire, or logging) before the blocks were drawn.")
+    L += ["", "| block | acres | elevation ft | north-facing | from roads, median (max) | imagery |", "|---|---|---|---|---|---|"]
+    for _, b in blocks.sort_values("acres", ascending=False).head(15).iterrows():
+        L.append(
+            f"| {b['id']} | {int(b['acres']):,} | {b['elev_lo_ft']:,}-{b['elev_hi_ft']:,} | "
+            f"{int(round(b['north_share'] * 100))}% | {b['road_mi_median']} mi ({b['road_mi_max']} mi) | "
+            f"{b.get('imagery') or 'not yet checked'} |"
+        )
+    L += ["", "Import `elkscout_unit*_timber_blocks.kml` into OnX to see the outlines.", ""]
+    return L
+
+
 def write_briefing(ws: Workspace, cfg: Config) -> Path:
     from ..waypoints import load_waypoints
 
@@ -124,12 +154,15 @@ def write_briefing(ws: Workspace, cfg: Config) -> Path:
     L.append("")
     L.append(_THERMALS)
     L.append("")
+    L.extend(_timber_section(ws))
 
     for _, area in areas.sort_values("rank").iterrows():
         sub = wp[wp["area_slug"] == area["slug"]]
         L.append(f"## Area {area['rank']}: {area['name']}")
         L.append("")
-        L.append(f"{area['n_waypoints']} waypoints, mean score {area['mean_score']}.")
+        timber_ac = area.get("timber_acres")
+        timber_txt = f", {int(timber_ac):,} ac of security timber within reach" if timber_ac else ""
+        L.append(f"{area['n_waypoints']} waypoints, mean score {area['mean_score']}{timber_txt}.")
         L.append("")
         access = sub[sub["wp_type"] == "ACCESS"]
         camps = sub[sub["wp_type"] == "CAMP"]

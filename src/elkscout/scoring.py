@@ -140,6 +140,14 @@ def run_scoring(ws: Workspace, cfg: Config) -> None:
     for t, profile in cfg.type_profiles.items():
         type_scores[t] = (_weighted(scores, profile) * hard).astype(np.float32)
 
+    # Pressured elk bed in security timber: boost BED inside the blocks.
+    from .timber import block_mask
+
+    in_block = block_mask(ws, grid)
+    if "BED" in type_scores and in_block.any() and cfg.timber.bed_bonus > 0:
+        type_scores["BED"] = np.clip(type_scores["BED"] * (1.0 + cfg.timber.bed_bonus * in_block), 0.0, 1.0)
+        log.info("scoring: BED boosted x%.2f inside %d security-timber cells", 1 + cfg.timber.bed_bonus, int(in_block.sum()))
+
     camp = 0.5 * (np.nan_to_num(scores["security"], nan=0.0) + np.nan_to_num(scores["water"], nan=0.0))
     slope = np.nan_to_num(terrain["slope_pct"], nan=999.0)
     th_km = fx["dist_trailhead_m"] / 1000.0
