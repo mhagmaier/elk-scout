@@ -84,6 +84,13 @@ def test_render_sentence_burn_and_named_water():
     assert "Fixture Creek" in s
 
 
+def test_render_sentence_feed_aspect_reads_mid_sentence():
+    assert render_sentence(_ev(aspect_compass="E", tpi_class="slope"), "FEED").startswith("Feed on an east-facing slope at 7,410 ft")
+    assert render_sentence(_ev(aspect_compass="SE", tpi_class="knob"), "FEED").startswith("Feed on a southeast-facing knob")
+    assert render_sentence(_ev(aspect_compass=None, tpi_class="flat"), "FEED").startswith("Feed on a flat at 7,410 ft")
+    assert render_sentence(_ev(aspect_compass="E"), "BED").startswith("East-facing bench")
+
+
 def test_render_sentence_omits_none_clauses():
     s = render_sentence(_ev(canopy_pct=None, aspect_compass=None), "BED")
     assert "canopy" not in s

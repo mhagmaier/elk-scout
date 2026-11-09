@@ -183,9 +183,11 @@ def build_evidence(
     }
 
 
+# {Aspect} starts a sentence ("North-facing bench"); {aspect} sits mid-sentence
+# ("Feed on an east-facing slope"), so it is lowercase and takes its article {a}.
 _LEAD = {
-    "BED": "{aspect}-facing {landform} at {elev} ft",
-    "FEED": "Feed on a {aspect}-facing {landform} at {elev} ft",
+    "BED": "{Aspect}-facing {landform} at {elev} ft",
+    "FEED": "Feed on {a} {aspect}-facing {landform} at {elev} ft",
     "WATER": "Water hole at {elev} ft",
     "SADDLE": "Travel saddle at {elev} ft",
     "GLASS": "Glassing knob at {elev} ft",
@@ -194,16 +196,23 @@ _LEAD = {
 }
 
 
+def _article(word: str) -> str:
+    return "an" if word[:1].lower() in "aeiou" else "a"
+
+
 def render_sentence(ev: dict, wp_type: str) -> str:
     aspect_word = _COMPASS_WORD.get(ev.get("aspect_compass") or "", None)
     elev = f"{ev['elevation_ft']:,}" if ev.get("elevation_ft") is not None else "?"
     lead_tpl = _LEAD.get(wp_type, "{elev} ft point")
-    if "{aspect}" in lead_tpl and aspect_word is None:
+    needs_aspect = "{aspect}" in lead_tpl or "{Aspect}" in lead_tpl
+    if needs_aspect and aspect_word is None:
         lead = f"{ev.get('tpi_class', 'point').capitalize()} at {elev} ft"
         if wp_type == "FEED":
-            lead = f"Feed on a {ev.get('tpi_class', 'flat')} at {elev} ft"
+            landform = ev.get("tpi_class", "flat")
+            lead = f"Feed on {_article(landform)} {landform} at {elev} ft"
     else:
-        lead = lead_tpl.format(aspect=aspect_word, landform=ev.get("tpi_class", "slope"), elev=elev)
+        lead = lead_tpl.format(Aspect=aspect_word, aspect=(aspect_word or "").lower(), a=_article(aspect_word or ""),
+                               landform=ev.get("tpi_class", "slope"), elev=elev)
 
     clauses: list[str] = []
     if ev.get("canopy_pct") is not None:
