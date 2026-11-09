@@ -31,3 +31,26 @@ states:
         Same IDFG service elkscout has used since v1 (layer 3 GMU polygons;
         unit-name field discovered from layer metadata). Verified during the
         original unit-33 build.
+  CO:
+    name: Colorado
+    agency: Colorado Parks and Wildlife
+    unit_system: "GMU (numbered, e.g. 68, 681)"
+    boundary:
+      base_url: "https://services5.arcgis.com/ttNGmDvKQA7oeDQ3/ArcGIS/rest/services/CPWAdminData/FeatureServer"
+      alt_urls: []
+      layer: 6
+      layer_hint: "gmu"
+      unit_field: "GMUID"           # integer field; the quoted-string where clause still matches
+      unit_field_hints: ["GMUID", "GMU"]
+      unit_value_format: "{unit}"
+    provenance:
+      verified: "2026-11-08"
+      status: verified
+      notes: >-
+        CPW ArcGIS Online CPWAdminData FeatureServer, layer 6 "CPW GMU Boundary
+        (Big Game)". Check 1: service JSON lists 30 layers. Check 2: layer 6 is
+        esriGeometryPolygon with integer GMUID (plus COUNTY, ELKDAU, DEERDAU).
+        Check 3: statewide count 186. Check 4: GMUID IN (68,681,682) returned 3
+        features, and the pipeline's own clause "GMUID" = '681' returned count 1.
+        All checks run with WebFetch on 2026-11-08 (the sandbox shell's egress
+        proxy blocked arcgis.com).
