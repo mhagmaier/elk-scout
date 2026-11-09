@@ -1,5 +1,12 @@
 # GMU 68 + 681 bull elk, rifle — Nov 18–22, 2026
 
+> **Note (Nov 2026):** the helper scripts in this folder have since been folded
+> into the pipeline — state land rules (`configs/states.yaml`), the SNOTEL fix
+> and snow-line model, the NLCD picker fix, legal OHV access points
+> (`--vehicle ohv_gt50`), security timber (`elkscout` score stage), Sentinel-2
+> imagery, and the photo check (`elkscout imagery`). This folder stays as the
+> record of the revision-3 package as delivered.
+
 E-scouting package for Colorado GMUs 68 and 681 (fourth rifle season), built with the elkscout pipeline in this repo plus the helper scripts in this folder. This is revision 3: bedding in north-facing dark timber, mapped security timber blocks, and an imagery check of every block and waypoint.
 
 **Start here: [out/guide.md](out/guide.md).** It covers conditions, the regulations check, the model, timber cover, the imagery check, hunt areas, a day-by-day plan, the waypoint index and OnX import steps.

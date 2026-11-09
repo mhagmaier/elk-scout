@@ -11,17 +11,19 @@ filled in with their generated profile path, and stop.
 git clone https://github.com/mhagmaier/LMU_Capstone
 cd LMU_Capstone
 python3 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev,xlsx]"
+pip install -e ".[dev,xlsx,imagery]"
 
 python3 -m elkscout doctor --config <generated-profile>.yaml --data data
 python3 -m elkscout run    --config <generated-profile>.yaml --data data
+python3 -m elkscout imagery --config <generated-profile>.yaml --data data
 python3 scripts/export_xlsx.py --data data --out data/out/waypoints.xlsx
 ```
 
-Outputs land in `data/out/`. Afterwards they can either read the guide
-workflow themselves or zip `data/` (or just `data/cache/`) and bring it back
-to a Claude session — with a primed cache the whole pipeline re-runs here with
-`--offline`, and the guide can be written against real artifacts.
+Outputs land in `data/out/`. Then either do the photo check yourself (open
+`data/out/imagery/*.png`, fill `data/work/imagery_review.json`, run
+`elkscout report`), or zip `data/` and bring it back to a Claude session —
+with a primed cache the pipeline re-runs here with `--offline`, Claude can
+review the photo sheets, and the guide gets written against real artifacts.
 
 ## Manual drop-ins (per-source fallback)
 
@@ -41,11 +43,14 @@ names the exact file it wants. The full table:
 | `water_bodies.geojson` | Lakes/reservoirs (polygons) | USGS NHD |
 | `huc12.geojson` | HUC12 watersheds (polygons) | USGS WBD |
 | `ownership.geojson` | Ownership polygons (`public` bool or agency field) | BLM SMA |
+| `public_access.geojson` | Walk-in / enrolled trust parcels — always treated as open | State program GIS (e.g. CPW STL public access) |
 | `burns.geojson` | Burn perimeters with `year`, `fire_name` | MTBS |
 | `landcover.tif` | NLCD land cover (any CRS) | MRLC viewer bbox download |
 | `canopy.tif` | NLCD tree canopy % (any CRS) | MRLC viewer |
 | `snow.json` | SNOTEL summary (schema: `src/elkscout/sources/snotel.py`) | NRCS report generator |
 | `weather.json` | Forecast summary (schema: `sources/weather.py`) | optional; climatology fallback is automatic |
 
-Snow and weather degrade gracefully on their own (zero-snow + climatology
+Sentinel-2 imagery needs live network access to the AWS-hosted scenes; offline
+runs skip it and say so (`data/work/sentinel.json`). Snow and weather degrade
+gracefully on their own (zero-snow + climatology
 notes); everything else either needs the network, the cache, or its file.

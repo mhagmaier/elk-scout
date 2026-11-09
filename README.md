@@ -74,6 +74,27 @@ states beyond Idaho it discovers and registers the state's unit-boundary
 service in `configs/states.yaml` (or walks you through the manual boundary
 drop-in). Rehearse the whole flow offline with `bash scripts/skill_dryrun.sh`.
 
+### What a run checks (lessons from the Colorado GMU 68/681 hunt)
+
+- **Land access per state** — `configs/states.yaml` says which agencies are
+  huntable (Colorado State Trust Land: closed unless enrolled; Idaho
+  endowment land: open). Walk-in / enrolled parcels go in
+  `data/manual/public_access.geojson`.
+- **Legal roads for your vehicle** — `gen_profile.py --vehicle ohv_gt50` (a
+  64-in RZR) keeps only MVUM routes open to that vehicle class on every hunt
+  day; ACCESS points are those road ends plus public trailheads, never in
+  town or on private ground.
+- **Security timber** — big blocks of dark conifer on public land 0.5+ mi
+  from motorized routes, exported as a KML for OnX; hunt areas rank by them.
+- **Near-live imagery** — Sentinel-2 (a pass every ~5 days) maps the current
+  snow line and flags timber that has lost its greenness since the baseline
+  year (beetle kill, fire, logging) before the blocks are drawn.
+- **Photo check** — `elkscout imagery` builds sheets from the newest NAIP
+  color-infrared flight and Esri satellite for every block and waypoint;
+  verdicts written into `data/work/imagery_review.json` flow into every note.
+- **Snow line, not median depth** — snow at high stations no longer drags the
+  elevation band down unless it has actually reached the elk.
+
 Stages can run individually (each stage persists its artifacts under `data/`):
 
 ```bash

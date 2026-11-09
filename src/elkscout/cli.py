@@ -146,7 +146,11 @@ def stage_report(ws: Workspace, cfg: Config) -> None:
 def cmd_imagery(ws: Workspace, cfg: Config, net: Net) -> int:
     from . import imagery
 
-    meta = imagery.make_sheets(net, ws, cfg)
+    try:
+        meta = imagery.make_sheets(net, ws, cfg)
+    except RuntimeError as e:
+        print(f"elkscout imagery: {e}", file=sys.stderr)
+        return 2
     print(f"\nPhoto sheets: {ws.imagery_dir}/ (all pages: {ws.imagery_dir / 'imagery_check.pdf'})")
     print(f"Fill in the verdicts in {ws.imagery_review_json}, then run `elkscout waypoints` "
           "(if any block is dead) and `elkscout report` to write them into the GPX/KML/map/briefing.")

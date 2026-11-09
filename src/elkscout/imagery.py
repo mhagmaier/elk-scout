@@ -277,13 +277,27 @@ def make_sheets(net: Net, ws: Workspace, cfg: Config, px: int = 500) -> dict:
     out.mkdir(parents=True, exist_ok=True)
 
     def run(j):
-        img = fetch_chip(net, j["source"], j["bbox"], px, epsg)
+        try:
+            img = fetch_chip(net, j["source"], j["bbox"], px, epsg)
+        except Exception as e:  # noqa: BLE001 - one bad chip shouldn't sink the sheet set
+            return j | {"error": f"{type(e).__name__}: {str(e)[:160]}"}
         label, date = capture_date(net, j["source"], *j["center"], epsg)
         img = overlay(img, j["bbox"], blocks_g, roads_g, wps_g, j.get("focus_block"), j.get("focus_wp"))
         return j | {"label": label, "date": date, "img": _labeled(img, j["title"], label)}
 
     with ThreadPoolExecutor(max_workers=4) as ex:
-        done = list(ex.map(run, jobs))
+        results = list(ex.map(run, jobs))
+    failed = [r for r in results if "error" in r]
+    done = [r for r in results if "error" not in r]
+    if not done:
+        raise RuntimeError(
+            f"no imagery reachable from this machine ({failed[0]['error'] if failed else 'no jobs'}). "
+            "The photo check needs network access to services.arcgisonline.com and "
+            "imagery.nationalmap.gov — run `elkscout imagery` on a networked machine."
+        )
+    if failed:
+        log.warning("imagery: %d of %d chips failed (first: %s); sheets cover the rest",
+                    len(failed), len(results), failed[0]["error"])
 
     pages = []
     meta: dict[str, dict] = {}

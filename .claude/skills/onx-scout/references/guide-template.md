@@ -1,63 +1,87 @@
 # The Ultimate Guide: structure, voice, itinerary logic
 
-Write `data/out/guide.md` with EXACTLY this section order. Everything factual
-comes from the run's artifacts (`data/work/snow.json`, `data/work/weather.json`,
-`data/out/briefing.md`, `data/work/waypoints.geojson`, the generated profile's
-`.summary.md`) or a cited web search. If an artifact is missing, write "not
-available" — never invent a condition, a temperature, or a season date.
+Write `data/out/guide.md` with this section order. Everything factual comes
+from the run's artifacts — `data/work/snow.json`, `sentinel.json`,
+`weather.json`, `timber.json`, `timber_blocks.geojson`, `waypoints.geojson`,
+`hunt_areas.geojson`, `imagery_review.json`, `data/out/briefing.md`, the
+profile's `.summary.md` — or a cited web search. If an artifact is missing,
+write "not available"; never invent a condition, a date, or a distance.
 
 ## Section skeleton
 
 ```
-# <Unit> <Species> Hunt — <dates> (<N> days)
+# <Units> <Species> Hunt — <dates> (<N> days)
 ```
 
-1. **Header block** — state/unit, species/weapon/style, dates, generation
-   date. If the run used fixtures or a test AOI: a bold DEMO DATA banner,
-   first. Then the three standing disclaimers (fair chase; land status —
-   "ownership layers have gaps, confirm access on OnX and with the agency";
-   regulations — "verify with <agency> before hunting").
-2. **Conditions** — SNOTEL snow state and the elevation shift applied;
-   forecast table or the climatology note, verbatim from the artifacts; one
-   paragraph on what it means ("4 inches at the stations pulled the band down
-   ~270 ft — hunt the 6,200–7,900 shelf, not the ridgetops").
-3. **Regulations check** — the cited findings from the web search, a table of
-   season dates vs. the hunter's dates, mismatches flagged in bold. End with
-   the verify-with-agency line.
-4. **The model** — the weights table and top-3 adjustments from `.summary.md`,
-   two sentences on what the model rewards in this configuration.
-5. **Hunt areas, ranked** — one subsection per area (from `hunt_areas` +
-   `briefing.md`): why it scores (quote 2–3 waypoint evidence sentences
-   verbatim), access route, and the area's wind/thermal plan tied to its
-   drainage orientation.
-6. **Wind and thermals** — the doctrine section (morning downslope until the
-   sun works, upslope mid-morning through afternoon, downslope again at dusk;
-   SW prevailing ahead of fronts; hunt from above in the morning, from below
-   in the evening). For archery, expand: approach routes, milkweed checks,
-   when to back out rather than push a marginal wind.
-7. **Day-by-day itinerary** — one block per hunting day for the hunter's N days:
-   - Day 1: travel + afternoon/evening glassing from a named GLASS point near
-     access; no killing ambitions, just inventory.
-   - Allocate dawn sessions to areas by rank — the best area gets the most
-     mornings. Each day: dawn plan (named GLASS/FEED points), midday plan
-     (still-hunt toward named BED benches as thermals switch, or move camp),
-     evening plan (named FEED edges, WATER, SADDLE ambushes).
-   - Weather pivots: "if the front lands Day 3, drop to Area 2's feed edges
-     and glass the snow line."
-   - Packout contingency per area: distance/vertical from the kill zone to the
-     nearest ACCESS point, quarters math (elk: 4–5 trips solo; deer: 1–2),
-     stock notes if horseback.
-8. **Waypoint index** — table: name, type, lat/lon, elevation, evidence
-   sentence (from `waypoints.geojson` properties).
-9. **Import instructions** — OnX web map → My Content → Import → the GPX;
-   per-area files for selective import; KML for Google Earth; the xlsx for
-   planning at the kitchen table.
+1. **Header** — state/units, species/weapon/style/vehicle, dates, run date.
+   DEMO DATA banner first if the run used fixtures. Standing disclaimers:
+   fair chase; land status ("ownership layers have gaps; confirm on OnX and
+   with the agency; closed agencies in this state: …"); regulations.
+2. **Conditions** — snow: the snow line and where it came from (Sentinel-2
+   date if `snowline_source` says so, else the SNOTEL estimate), whether snow
+   has reached the elk band (`snow_in_band`) and what that did to bedding;
+   station table; forecast table or climatology note, verbatim.
+3. **Regulations check** — cited table vs. the hunter's plan; mismatches in
+   bold; nonresident OHV permit; rules of each public-access parcel in play.
+4. **The model** — weights and top adjustments from `.summary.md`, including
+   state calibration and land rules, in two or three sentences.
+5. **Security timber** — the threshold used (`timber.json`), block count and
+   acres, how many acres Sentinel-2 removed as dead, and a table of blocks:
+   id, acres, elevation, north-facing share, road distance, nearest legal
+   road for the hunter's vehicle, photo verdict. Point to the timber KML.
+6. **Imagery** — what was looked at and how old it is: Sentinel-2 snow date
+   and leaf-on years compared; NAIP flight year(s) and satellite date range
+   (from `imagery_review.json` dates). Block and bed-point verdicts; anything
+   the photos overturned. What photos can't show (since-capture change,
+   understory, gates) and the OnX-imagery check.
+7. **Hunt areas, ranked** — one subsection per area: security timber acres
+   within reach, why it scores (quote 2–3 waypoint notes verbatim), access on
+   roads legal for the hunter's vehicle, wind/thermal plan from the drainage
+   direction, packout.
+8. **Wind and thermals** — downslope at gray light, upslope mid-morning to
+   afternoon, downslope at dusk; hunt timber from above once the air lifts,
+   edges from below at evening. Archery: expand approach routes and when to
+   back out of a marginal wind.
+9. **Day-by-day** — see the itinerary rules below.
+10. **Waypoint index** — name, type, area, lat/lon, elevation, land, note.
+11. **Import** — OnX: delete earlier imports of this hunt first (names repeat
+    across revisions), then the all-points GPX or per-area GPX files, and the
+    security-timber KML; Google Earth KML; `waypoints.xlsx`; `map.html`;
+    `imagery_check.pdf`.
+12. **Still unverified** — every item the run couldn't confirm (license valid
+    units, CWD, BLM/county road OHV status, since-capture changes), plus
+    "re-run snow, weather, and imagery 2–3 days before you leave"
+    (`elkscout fetch --only snow,weather,sentinel`, then score, waypoints,
+    report — keep the current files to compare).
+
+## Itinerary rules
+
+- **Pressured seasons (any rifle season after earlier general seasons; OTC
+  units; any unit the agency flags for crowding): open in the biggest
+  photo-confirmed LIVE security timber.** Opening-day pressure pushes elk into
+  it; be on its edges at gray light. Don't open in an area with no security
+  timber just because its mean score is high. Hunt-area ranks already include
+  timber; cross-check against the photo verdicts.
+- Allocate the remaining dawns by rank; the best timber country gets the most
+  mornings. Edge-and-feed areas without security timber are weather pivots
+  and backups.
+- Each day: dawn (named GLASS/FEED points against the timber), mid-morning
+  (still-hunt the block from above as thermals lift, toward named BED points
+  the photos confirmed), evening (low-side edge or FEED/WATER/SADDLE).
+- Skip any point the photos called poor or dead; name the better cover the
+  verdict points to.
+- Weather pivots: a front with snow → first-light tracks on the lowest feed;
+  wind wrong for an area → the next block over.
+- **Packout decision before the opener.** For each area: distance and climb
+  from the likely kill zone to the nearest legal road; elk 4–5 loads solo
+  (deer 1–2) = round-trip miles. If the best timber is 2+ mi from a road and
+  the hunter is solo, say it plainly: bring help, or cap solo shots at about a
+  mile from the road. Note any parcel that bans motorized retrieval.
 
 ## Voice
 
-Write like a seasoned hunting partner, not a consultant: terse, imperative,
-concrete. "Be on G1-01 at gray light" beats "it is recommended to arrive
-early." Distances in miles, elevations in feet. No hedging filler; hedge only
-where the data genuinely is uncertain (then say why). Every claim must trace
-to a named waypoint, an artifact, or a cited source — if you can't trace it,
-cut it.
+Write like a seasoned hunting partner: terse, imperative, concrete. "Be on
+the T05 edge at gray light" beats "it is recommended to arrive early."
+Distances in miles, elevations in feet. Hedge only where the data is
+genuinely uncertain, and say why. Every claim traces to a named waypoint, a
+block, an artifact, or a cited source — if it can't, cut it.

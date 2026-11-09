@@ -33,11 +33,12 @@ drops — you kill September bulls with your ears.
 and reviewed for Idaho unit 33: security heaviest (0.25, optimum 1.2–4 km),
 dark-timber bedding, burn/meadow-edge feed. No deltas.
 
-**Elk late (Nov+).** First real snow rewrites the map: feed ×1.4 and the
-elevation plateau drops to 5,800–7,400 ft with the SNOTEL shift doubled, water
-drops to ×0.5 (they're eating snow), and bedding aspect flips to south —
-post-rut bulls recovering body fat bed where the sun is. GLASS ×1.5 because
-the game is now spotting feed-slope elk from distance, not unraveling timber.
+**Elk late (Nov+).** Feed ×1.4, water ×0.5 (snow is water), elevation
+plateau 5,800–7,400 ft before state calibration. Bedding switches to south
+faces **only once snow has reached the elk band** (`snow_in_band` in
+snow.json): with patchy, high snow, pressured late bulls stay bedded in
+north-facing dark timber — the GMU 68/681 lesson, where the unconditional
+south flip put beds on the wrong slopes. GLASS ×1.5.
 
 **Mule deer template (Oct transition).** Deer are browsers in opener country:
 feed scores NLCD shrub (52) at 1.0 over grass (71) at 0.7; bedding wants
@@ -54,6 +55,33 @@ velvet buck at first light, watch him bed, stalk at midday.
 south-aspect shrub, snow shift doubled, pressure ×1.2 (winter-range roads
 concentrate hunters), GLASS ×1.6 — glass all day, the next buck walks through
 at noon.
+
+## Snow line, not median depth
+
+`snow.method: snowline` (default) estimates the snow line — the lowest station
+holding 6+ inches whose higher neighbors mostly agree — and pulls the band's
+top down to it only when it sits below the top. When Sentinel-2 has a clear
+look within three weeks, the **observed** snow line from the imagery replaces
+the station estimate. On 68/681 the old median rule took 7 in. from stations
+at 10,000–11,700 ft and shifted the band down 483 ft though Cochetopa Pass at
+10,020 ft was bare; the snow-line rule shifts it 0.
+
+## State calibration
+
+The templates are central-Idaho numbers. `configs/states.yaml` carries an
+`elevation_offset_ft` per state (Colorado +3,000 ft) applied after every
+other layer, and the state's land-access rules. An unregistered state gets
+no offset — check the band against published unit elevations.
+
+## Security timber
+
+`timber.py` finds blocks of dark conifer (NLCD 42/43 at or above the local
+conifer 75th-percentile canopy, floor 35%) on public land, 0.5+ mi from
+motorized routes, 100+ ac, after removing Sentinel-2 "dead" cells. BED
+scores get ×1.15 inside blocks, hunt areas rank by mean score + 0.3 ×
+(nearby block acres / max), and photo-confirmed dead blocks drop out of the
+ranking. Knobs: `timber.min_road_mi`, `timber.min_acres`,
+`timber.dark_canopy_pct`, `timber.rank_weight`.
 
 ## Style overlays
 
@@ -81,3 +109,6 @@ guide's thermals section carries the weight.
 | "I want more water sits" (archery) | counts via `--adjust waypoints.counts.WATER=<n>` |
 | "Snow came early" | re-run near the hunt — SNOTEL shifts the band live; or `--adjust snow.band_shift_ft=[[...]]` |
 | "Show me fewer, better points" | `--adjust waypoints.score_floor=0.55` |
+| "Ranking ignores the big timber" / "too much weight on timber" | `--adjust timber.rank_weight=0.5` (or 0.1) |
+| "Those aren't real security blocks" | `--adjust timber.min_road_mi=0.75` / `timber.min_acres=200` |
+| "Band is wrong for this state" | fix `elevation_offset_ft` in `configs/states.yaml` (with a source), regenerate |
