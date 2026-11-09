@@ -178,8 +178,8 @@ def write_briefing(ws: Workspace, cfg: Config) -> Path:
         "_Data: USGS 3DEP terrain; NHD hydrography; NLCD landcover/canopy; MTBS burn "
         "perimeters; BLM Surface Management Agency ownership; OSM + USFS MVUM routes; "
         "NRCS SNOTEL; Open-Meteo. The ownership layer defaults unmapped slivers to "
-        "public - verify parcels on the ground. Verify current IDFG season dates, zone "
-        "rules, and tag validity before hunting. This is a scouting aid, not a "
+        "public - verify parcels on the ground. Verify current season dates, unit rules, "
+        "and tag validity with the state wildlife agency before hunting. This is a scouting aid, not a "
         "substitute for boots, glass, and judgment._"
     )
     out = ws.briefing_md
