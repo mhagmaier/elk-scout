@@ -1,0 +1,116 @@
+# ElkScout species template: ELK — identity cell "October general rifle, backpack".
+#
+# This file is numerically identical to configs/unit33_oct_rifle.yaml in every
+# factor curve, weight, type profile, and waypoint setting (a golden test
+# enforces it). scripts/gen_profile.py loads it, overwrites profile/unit/
+# hunt_window, injects the state's boundary block, and applies the phase/
+# style/weapon deltas from configs/adjustments.yaml.
+profile: Idaho GMU 33, mid-October rifle (B-tag), backpack-style hunt.
+#
+# The model is a weighted sum of factor rasters, each in [0,1], produced by
+# piecewise-linear suitability curves over physical measurements. Everything a
+# hunter would argue about lives in this file — weights, curves, spacing —
+# so the model is inspectable and tunable without touching code.
+
+profile: elk-base-template
+unit: "0"   # placeholder; gen_profile.py sets the real unit
+
+hunt_window:
+  start: 2026-10-15   # Sawtooth Zone B-tag rifle opener (verify current IDFG rules)
+  end: 2026-10-24
+
+grid:
+  res_m: 30           # scoring cell size; unit 33 fits in ~4M cells at 30 m
+  epsg: 32611         # WGS84 / UTM 11N working CRS
+  buffer_m: 2000      # AOI pad beyond the unit boundary (distance rasters need context)
+
+snow:
+  # Current SNOTEL snow depth (inches, median of stations near the unit)
+  # shifts the elevation optimum DOWN: early snow pushes elk off the high country.
+  # Piecewise-linear: [snow_depth_in, elevation_shift_ft]
+  band_shift_ft: [[0, 0], [6, -400], [12, -900], [24, -1500]]
+  station_bbox_pad_deg: 0.25   # pad around unit bbox when discovering SNOTEL stations
+
+factors:
+  elevation:
+    weight: 0.15
+    # Mid-Oct optimum ~6,000-8,200 ft in this unit; floor at winter range,
+    # soft penalty on the highest alpine ridges (feed is thin, elk transient).
+    curve_elevation_ft: [[4500, 0.0], [5500, 0.5], [6000, 1.0], [8200, 1.0], [8700, 0.6]]
+
+  security:
+    weight: 0.25
+    # Distance from MOTORIZED routes (OSM motorized + USFS MVUM). Rifle-season
+    # elk hold >0.8 km from wheels; backpack hunter sweet spot 1.2-4 km;
+    # mild penalty past 6 km (packout reality, not elk behavior).
+    curve_dist_motorized_km: [[0, 0.0], [0.4, 0.05], [0.8, 0.5], [1.2, 1.0], [4.0, 1.0], [6.0, 0.6], [10.0, 0.5]]
+
+  bedding:
+    weight: 0.20
+    # Geometric mean of sub-scores: cool-aspect, canopy, moderate-slope bench,
+    # upper-third slope position. North/NE dark timber on benches.
+    aspect_center_deg: 22       # NNE
+    aspect_exponent: 1.5        # sharpness of the aspect preference
+    curve_canopy_pct: [[30, 0.0], [45, 0.4], [60, 1.0], [100, 1.0]]
+    curve_slope_pct: [[5, 0.0], [15, 1.0], [35, 1.0], [50, 0.2], [60, 0.0]]
+    bench_bonus: 0.25           # bonus where TPI says bench, scaled by the canopy sub-score
+    slope_position_min: 0.5     # prefer upper half of the slope (0=valley,1=ridge)
+
+  feed:
+    weight: 0.20
+    # max(meadow/shrub landcover, burn-age score, riparian meadow), boosted on
+    # timber edges and warm aspects. The 2016 Pioneer Fire is the big signal here.
+    curve_burn_age_yr: [[2, 0.0], [3, 0.6], [5, 1.0], [10, 1.0], [15, 0.4], [20, 0.0]]
+    edge_dist_m: 150            # full score within this distance of a timber-feed edge
+    interior_mult: 0.6          # feed score multiplier away from edges
+    aspect_center_deg: 135      # SE
+    aspect_mix: 0.4             # feed *= (1-mix) + mix*aspect_score
+    landcover_scores: {52: 1.0, 71: 1.0, 90: 1.0, 95: 1.0}  # NLCD feed quality
+
+  water:
+    weight: 0.10
+    # Perennial streams/waterbodies (NHD) + springs (OSM). Mid-Oct is dry.
+    curve_dist_water_m: [[0, 1.0], [500, 1.0], [1000, 0.3], [2000, 0.0]]
+
+  pressure:
+    weight: 0.10
+    # Distance from trailheads/parking as a hunter-density proxy.
+    curve_dist_trailhead_km: [[0, 0.2], [1.5, 0.6], [3.0, 1.0]]
+
+masks:
+  public_only: true    # hard mask to public ownership (BLM SMA)
+  max_slope_pct: 60    # cliffs are not elk habitat (goats maybe)
+
+# Per-waypoint-type re-weighting of the same factor rasters. SADDLE/GLASS/ACCESS
+# are candidate-driven (terrain/vector analysis) and scored on the composite.
+type_profiles:
+  BED:   { bedding: 0.40, security: 0.30, elevation: 0.15, feed: 0.05, water: 0.05, pressure: 0.05 }
+  FEED:  { feed: 0.40, security: 0.25, elevation: 0.15, bedding: 0.05, water: 0.10, pressure: 0.05 }
+  WATER: { water: 0.45, security: 0.25, elevation: 0.15, bedding: 0.10, pressure: 0.05 }
+
+camp:
+  max_slope_pct: 10
+  max_water_dist_m: 400
+  trailhead_km: [2.4, 5.6]     # a loaded backpack day in, close enough to pack meat out
+
+waypoints:
+  min_spacing_m: 700           # same-type non-max suppression radius
+  cross_type_spacing_m: 300    # a BED and its SADDLE may coexist closer than two BEDs
+  score_floor: 0.45            # candidate cells must beat this on their type raster
+  counts: { BED: 15, FEED: 15, WATER: 8, SADDLE: 10, GLASS: 8, CAMP: 6, ACCESS: 8 }
+  saddle:
+    dem_downsample_m: 90
+    travel_max_km: 2.0         # saddle must connect bedding and feed within this radius
+  glass:
+    viewshed_radius_km: 2.5
+    max_candidates: 60
+
+hunt_areas:
+  min_waypoints: 6             # merge HUC12 watersheds until each area has this many
+  min_areas: 4
+  max_areas: 8
+
+outputs:
+  gpx_max_bytes: 4000000       # OnX import hard limits
+  gpx_max_waypoints: 3000
+  desc_max_chars: 450
