@@ -60,6 +60,20 @@ Want the points as a spreadsheet too? (`pip install -e .[xlsx]` for openpyxl)
 python scripts/export_xlsx.py --data data --out data/out/waypoints.xlsx
 ```
 
+## The `onx-scout` skill (use Claude as your scouting partner)
+
+This repo ships a Claude Code project skill at `.claude/skills/onx-scout/`.
+In a Claude Code session in this repo, say **"scout unit 33 for me"** (or
+`/onx-scout`): Claude interviews you (state/unit, species — elk or mule deer,
+weapon, dates, days, hunt style), generates a season-aware scoring profile
+from the templates in `configs/templates/` + the adjustment matrix in
+`configs/adjustments.yaml` (via `scripts/gen_profile.py` — deterministic and
+tested, never hand-tuned), runs the pipeline, verifies current season dates by
+web search, and writes a day-by-day hunt guide on top of the briefing. For
+states beyond Idaho it discovers and registers the state's unit-boundary
+service in `configs/states.yaml` (or walks you through the manual boundary
+drop-in). Rehearse the whole flow offline with `bash scripts/skill_dryrun.sh`.
+
 Stages can run individually (each stage persists its artifacts under `data/`):
 
 ```bash
