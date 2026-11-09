@@ -1,0 +1,33 @@
+# State registry: where each state's game-unit boundary polygons come from.
+#
+# Consumed at PROFILE-GENERATION time (scripts/gen_profile.py) — generated
+# configs carry their own `boundary:` block, so pipeline fetches never read
+# this file. New states are appended by the onx-scout skill after it verifies
+# a service per .claude/skills/onx-scout/references/state-discovery.md.
+#
+# status: verified    = a live query for a real unit returned its polygon
+#         provisional = entry written where egress blocked live verification;
+#                       confirm on a machine with GIS access before trusting
+
+version: 1
+states:
+  ID:
+    name: Idaho
+    agency: Idaho Department of Fish and Game
+    unit_system: "GMU (numbered, some lettered subunits, e.g. 33, 39, 45A)"
+    boundary:
+      base_url: "https://gisportal-idfg.idaho.gov/hosting/rest/services/Hunting/MapServer"
+      alt_urls:
+        - "https://gis.idfg.idaho.gov/server/rest/services/Hunting/MapServer"
+      layer: 3
+      layer_hint: "unit"
+      unit_field: null              # discovered at runtime
+      unit_field_hints: ["NAME", "UNIT", "GMU"]
+      unit_value_format: "{unit}"
+    provenance:
+      verified: "2026-08-28"
+      status: verified
+      notes: >-
+        Same IDFG service elkscout has used since v1 (layer 3 GMU polygons;
+        unit-name field discovered from layer metadata). Verified during the
+        original unit-33 build.

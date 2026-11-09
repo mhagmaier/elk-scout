@@ -22,6 +22,23 @@ def _curve_field(v: CurvePts) -> CurvePts:
     return v
 
 
+class BoundarySource(BaseModel):
+    """Where a unit's boundary polygon comes from (an ArcGIS feature service).
+
+    Carried inside generated configs so a profile is self-contained; when a
+    config has no `boundary:` block, sources.boundary falls back to the
+    built-in Idaho Fish & Game service.
+    """
+
+    base_url: str  # ArcGIS REST service URL (…/MapServer), no trailing /query
+    alt_urls: list[str] = []
+    layer: int | None = None  # explicit layer id; None -> discover via layer_hint
+    layer_hint: str | None = None  # substring match on layer name (case-insensitive)
+    unit_field: str | None = None  # exact field name; None -> discovery
+    unit_field_hints: list[str] = []  # tried (as substrings) before the generic heuristic
+    unit_value_format: str = "{unit}"  # e.g. "{unit:0>2}" for zero-padded unit numbers
+
+
 class HuntWindow(BaseModel):
     start: _dt.date
     end: _dt.date
@@ -87,8 +104,22 @@ class FeedFactor(BaseModel):
     interior_mult: float = Field(default=0.6, ge=0, le=1)
     aspect_center_deg: float = 135.0
     aspect_mix: float = Field(default=0.4, ge=0, le=1)
+    # Per-NLCD-class feed quality in [0,1]; default reproduces the original
+    # binary behavior (every feed class scores 1.0). Lets species profiles
+    # weight browse (52 shrub) over grass (71) etc.
+    landcover_scores: dict[int, float] = Field(
+        default_factory=lambda: {52: 1.0, 71: 1.0, 90: 1.0, 95: 1.0}
+    )
 
     _v = field_validator("curve_burn_age_yr")(classmethod(lambda cls, v: _curve_field(v)))
+
+    @field_validator("landcover_scores")
+    @classmethod
+    def _scores_ok(cls, v: dict[int, float]) -> dict[int, float]:
+        for code, score in v.items():
+            if not (0.0 <= score <= 1.0):
+                raise ValueError(f"landcover_scores[{code}] must be in [0,1], got {score}")
+        return v
 
 
 class WaterFactor(BaseModel):
@@ -184,6 +215,7 @@ class Config(BaseModel):
     profile: str
     unit: str
     hunt_window: HuntWindow
+    boundary: BoundarySource | None = None  # None -> built-in IDFG default
     grid: GridCfg = GridCfg()
     snow: SnowCfg
     factors: FactorsCfg

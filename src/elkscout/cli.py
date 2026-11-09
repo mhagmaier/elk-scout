@@ -135,10 +135,18 @@ def stage_report(ws: Workspace, cfg: Config) -> None:
 def cmd_doctor(args) -> int:
     ws = _ws(args)
     net = _net(ws, offline=False)
+    probes = list(endpoints.DOCTOR_PROBES)
+    if getattr(args, "config", None):
+        from .sources.boundary import resolve_boundary_source
+
+        cfg = load_config(args.config)
+        src = resolve_boundary_source(cfg)
+        for i, url in enumerate((src.base_url, *src.alt_urls)):
+            probes.insert(i, (f"Unit {cfg.unit} boundary", url, {"f": "json"}))
     print(f"elkscout {__version__} doctor\n")
     print("endpoint reachability:")
     ok = 0
-    for name, url, params in endpoints.DOCTOR_PROBES:
+    for name, url, params in probes:
         try:
             net.session.get(url, params=params, timeout=15).raise_for_status()
             status = "OK"
@@ -146,7 +154,7 @@ def cmd_doctor(args) -> int:
         except Exception as e:  # noqa: BLE001 - report any failure mode
             status = f"FAIL ({type(e).__name__})"
         print(f"  {name:<20} {status}")
-    print(f"\n{ok}/{len(endpoints.DOCTOR_PROBES)} endpoints reachable.")
+    print(f"\n{ok}/{len(probes)} endpoints reachable.")
     if ok == 0:
         print("No endpoints reachable — run `elkscout fetch` on a networked machine, or provide")
         print(f"manual drop-ins under {ws.manual}/ (see README).")
@@ -192,6 +200,7 @@ def main(argv: list[str] | None = None) -> int:
         common(p)
 
     p_doc = sub.add_parser("doctor", help="probe endpoints and show cache state")
+    p_doc.add_argument("--config", default=None, help="also probe this profile's boundary service")
     p_doc.add_argument("--data", default="data")
     p_doc.add_argument("-v", "--verbose", action="store_true")
 

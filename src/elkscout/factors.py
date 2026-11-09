@@ -8,7 +8,9 @@ Bands written (float32, on-grid; masks as 0/1; distances in meters):
   dist_trailhead_m   EDT distance to trailheads (motorized cells as fallback seeds)
   dist_water_m       EDT distance to perennial lines ∪ waterbodies ∪ springs
   burn_age_yr        hunt year minus burn year; NaN unburned; youngest wins
-  feed_class         NLCD in {52, 71, 90, 95}
+  feed_class         per-class feed quality in [0,1] from
+                     cfg.factors.feed.landcover_scores (default 1.0 for NLCD
+                     52 shrub, 71 grass, 90/95 wetland — the original binary)
   timber             canopy >= 50 (valid cells) or NLCD in {41, 42, 43}
   edge_dist_m        distance to the timber/feed(+burn) interface
   riparian           dist_water <= 60 m and slope <= 25 %
@@ -85,6 +87,14 @@ def _isin(arr: np.ndarray, values: tuple[int, ...]) -> np.ndarray:
     return np.isin(arr, values)
 
 
+def _landcover_scores(landcover: np.ndarray, scores: dict[int, float]) -> np.ndarray:
+    """Per-class feed quality raster in [0,1] from the config's landcover_scores."""
+    out = np.zeros(landcover.shape, dtype=np.float32)
+    for code, score in scores.items():
+        out[landcover == code] = score
+    return out
+
+
 def _burn_age(grid: Grid, burns: gpd.GeoDataFrame, hunt_year: int) -> np.ndarray:
     if len(burns) == 0 or "year" not in burns.columns:
         return np.full(grid.shape, np.nan, dtype=np.float32)
@@ -138,12 +148,12 @@ def run_factors(ws: Workspace, cfg: Config) -> None:
     burn_age = _burn_age(grid, burns, cfg.hunt_window.start.year)
 
     canopy_valid = canopy != NODATA_U8
-    feed_class = _isin(landcover, NLCD_FEED)
+    feed_class = _landcover_scores(landcover, cfg.factors.feed.landcover_scores)
     timber = (canopy_valid & (canopy >= CANOPY_TIMBER_PCT)) | _isin(landcover, NLCD_FOREST)
 
     age_filled = np.nan_to_num(burn_age, nan=-1.0)
     burn_feed = (age_filled >= BURN_AGE_RANGE[0]) & (age_filled <= BURN_AGE_RANGE[1])
-    feedish = feed_class | burn_feed
+    feedish = (feed_class > 0) | burn_feed
     interface = timber & ndimage.binary_dilation(feedish, structure=np.ones((3, 3), bool))
     edge_dist = _dist_to(interface, res)
 

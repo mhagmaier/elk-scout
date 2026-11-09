@@ -6,6 +6,21 @@ IDFG_HUNTING = "https://gisportal-idfg.idaho.gov/hosting/rest/services/Hunting/M
 IDFG_HUNTING_ALT = "https://gis.idfg.idaho.gov/server/rest/services/Hunting/MapServer"
 IDFG_GMU_LAYER = 3
 
+
+def idfg_default_boundary():
+    """The built-in Idaho boundary source, used when a config has no `boundary:` block."""
+    from .config import BoundarySource  # local import: endpoints stays import-light
+
+    return BoundarySource(
+        base_url=IDFG_HUNTING,
+        alt_urls=[IDFG_HUNTING_ALT],
+        layer=IDFG_GMU_LAYER,
+        layer_hint="unit",
+        unit_field=None,
+        unit_field_hints=["NAME", "UNIT", "GMU"],
+        unit_value_format="{unit}",
+    )
+
 # USGS 3DEP seamless elevation (meters).
 DEM_IMAGESERVER = "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer"
 
