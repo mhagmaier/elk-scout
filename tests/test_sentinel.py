@@ -194,3 +194,21 @@ def test_network_failure_degrades(tmp_path, monkeypatch):
     monkeypatch.setattr(sentinel, "search_items", boom)
     meta = sentinel.fetch_sentinel(Net(Cache(ws.cache), offline=False), ws, _grid(), CFG, today=dt.date(2026, 11, 12))
     assert meta["available"] is False and "proxy refused" in meta["reason"]
+
+
+def test_reflectance_ignores_stac_boa_offset(tmp_path):
+    """Earth Search COGs are already harmonized (reflectance = DN * 1e-4) but their
+    raster:bands still carry offset -0.1. Applying it pushed dense-timber red/NIR
+    negative and NDVI to +/-20; the reader must use the scale alone."""
+    grid = _grid()
+    red = np.full((FINE, FINE), 250)    # dense conifer: ~0.025 red
+    nir = np.full((FINE, FINE), 1650)   # ~0.165 NIR
+    item = _item(tmp_path, "harm", "2026-09-01", red=red, nir=nir)
+    for key in ("red", "nir"):
+        item["assets"][key]["raster:bands"] = [{"scale": 1e-4, "offset": -0.1}]
+    assert sentinel._asset(item, "red")[2] == 0.0
+    r = sentinel.read_band(item, "red", grid)
+    n = sentinel.read_band(item, "nir", grid)
+    assert np.allclose(r, 0.025, atol=1e-4)
+    ndvi = (n - r) / (n + r)
+    assert np.allclose(ndvi, 0.7368, atol=1e-3)

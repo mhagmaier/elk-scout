@@ -135,3 +135,18 @@ def test_overpass_has_three_endpoints():
     from elkscout import endpoints
 
     assert len(endpoints.OVERPASS) >= 3 and any("maps.mail.ru" in u for u in endpoints.OVERPASS)
+
+
+def test_dedupe_routes_restores_road_ends():
+    """The MVUM service publishes Roads/Trails twice; twin routes hid every dead end."""
+    from elkscout.sources.mvum import dedupe_routes
+
+    line = LineString([(400000, 4200000), (401000, 4200000)])
+    other = LineString([(401000, 4200000), (401000, 4201000)])
+    rows = [{"ID": "870", "geometry": line}, {"ID": "871", "geometry": other}]
+    twins = gpd.GeoDataFrame(rows + rows, geometry="geometry", crs="EPSG:32613")
+    assert road_ends(twins) == []                     # every end touches its twin
+    clean = dedupe_routes(twins)
+    assert len(clean) == 2
+    ends = {(round(p.x), round(p.y)) for p, _ in road_ends(clean)}
+    assert ends == {(400000, 4200000), (401000, 4201000)}

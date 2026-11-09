@@ -98,7 +98,13 @@ def _asset(item: dict, band: str) -> tuple[str, float, float] | None:
         if a and a.get("href"):
             rb = (a.get("raster:bands") or [{}])[0]
             scale = float(rb.get("scale", 1.0 if band == "scl" else 1e-4))
-            offset = float(rb.get("offset", 0.0))
+            # Earth Search v1 L2A COGs are already harmonized to the pre-PB04.00
+            # scale (reflectance = DN * 1e-4) - dense timber reads red ~250 DN,
+            # NIR ~1,650 DN whatever `earthsearch:boa_offset_applied` says - yet
+            # their raster:bands still list the -0.1 BOA offset. Applying it again
+            # drives dark-forest bands negative: NDVI lands far outside [-1, 1]
+            # (garbage dead-timber mask) and NDSI flags dark conifer as snow.
+            offset = 0.0
             return a["href"], scale, offset
     return None
 

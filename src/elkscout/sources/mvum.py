@@ -73,7 +73,25 @@ def _query_all_route_layers(net: Net, bbox4326: tuple[float, float, float, float
             log.info("mvum: layer %s (%r): %d routes", layer["id"], layer.get("name"), len(gdf))
     if not parts:
         return gpd.GeoDataFrame(geometry=gpd.GeoSeries([], dtype="geometry"), crs="EPSG:4326")
-    return gpd.GeoDataFrame(pd.concat(parts, ignore_index=True), crs="EPSG:4326")
+    return dedupe_routes(gpd.GeoDataFrame(pd.concat(parts, ignore_index=True), crs="EPSG:4326"))
+
+
+def dedupe_routes(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    """Drop routes published in more than one layer (same id and geometry).
+
+    The EDW MVUM service lists its Roads and Trails layers twice (e.g. layers
+    1/4 and 2/5). Twin routes make every road end "touch" another route, so
+    access.road_ends() would find no dead ends at all.
+    """
+    if len(gdf) == 0:
+        return gdf
+    idc = next((c for c in gdf.columns if c.lower() == "id"), None)
+    ids = gdf[idc].astype(str).tolist() if idc else [""] * len(gdf)
+    key = pd.Series(list(zip(ids, gdf.geometry.to_wkb())))
+    dup = key.duplicated().to_numpy()
+    if dup.any():
+        log.info("mvum: dropped %d duplicate route(s) published in more than one layer", int(dup.sum()))
+    return gdf[~dup].reset_index(drop=True)
 
 
 def _write(ws: Workspace, gdf: gpd.GeoDataFrame) -> None:
