@@ -1,0 +1,23 @@
+| block | acres | center (lat, lon) | elevation ft | north-facing | from roads, median (max) | nearest road legal for your RZR | waypoints within 1 mi | imagery |
+|---|---|---|---|---|---|---|---|---|
+| T01 | 1,386 | 38.30979, -106.28168 | 9,462–10,855 | 34% | 1.6 mi (2.42 mi) | FR 870 Middle Cr, 0.6 mi | B3-03 | dense live conifer |
+| T02 | 1,164 | 38.29450, -106.47832 | 10,208–10,981 | 2% | 0.77 mi (1.25 mi) | FR 782.2A Antelope Park, 0.5 mi | — | dense live conifer (satellite image cloudy; color-infrared clear) |
+| T03 | 1,142 | 38.33164, -106.28635 | 9,808–10,730 | 2% | 0.84 mi (1.61 mi) | FR 7578 Milk Creek, 1.6 mi | B3-03 | live, moderately dense |
+| T04 | 816 | 38.29047, -106.26830 | 9,657–10,976 | 56% | 1.46 mi (2.07 mi) | FR 880.2B Antora Meadows, 0.7 mi | — | dense live conifer, small parks inside |
+| T05 | 799 | 38.29344, -106.31827 | 9,643–10,690 | 21% | 0.96 mi (1.47 mi) | FR 870 Middle Cr, 0.5 mi | B3-01 | dense live conifer, aspen pockets |
+| T06 | 607 | 38.30012, -106.19882 | 10,220–11,111 | 17% | 0.77 mi (1.13 mi) | FR 880.2B Antora Meadows, 0.7 mi | G5-04, G5-05 | live, moderately dense |
+| T07 | 400 | 38.01942, -106.30634 | 9,995–10,692 | 72% | 0.82 mi (1.22 mi) | FR 620 Fullerton Park, 0.5 mi | — | live, some dead crowns mixed in |
+| T08 | 315 | 38.04200, -106.34246 | 9,775–10,455 | 88% | 0.69 mi (1.09 mi) | FR 709 Antelope, 0.5 mi | — | live, some dead crowns mixed in |
+| T09 | 239 | 38.02590, -106.78034 | 10,460–11,076 | 76% | 0.67 mi (1.14 mi) | FR 776.1A Table Mtn, 0.5 mi | — | **mostly dead (gray crowns), not dark timber** |
+| T10 | 205 | 37.90827, -106.76419 | 11,351–11,684 | 78% | 3.01 mi (3.36 mi) | FR 600 Pool Table, 2.7 mi | — | **mostly dead (gray crowns), not dark timber** |
+| T11 | 203 | 38.21798, -106.54205 | 10,378–10,578 | 6% | 0.63 mi (0.86 mi) | FR 810.1C Spanish Bear, 0.5 mi | — | dense young regrowth, roads and cuts at its edges |
+| T12 | 199 | 38.32101, -106.29440 | 9,627–10,054 | 50% | 1.31 mi (1.68 mi) | FR 7578 Milk Creek, 1.9 mi | B3-03 | dense live dark timber |
+| T13 | 173 | 38.30780, -106.31544 | 9,614–10,588 | 0% | 0.7 mi (1.09 mi) | FR 7578 Milk Creek, 0.9 mi | B3-03 | dense live conifer, aspen on its east edge |
+| T14 | 169 | 38.28374, -106.18792 | 9,941–10,593 | 72% | 0.64 mi (0.92 mi) | FR 880 Findley Gulch, 0.6 mi | G5-05 | dense live conifer, aspen and willow creek bottom |
+| T15 | 146 | 37.95676, -106.41723 | 9,708–10,484 | 75% | 0.68 mi (1.05 mi) | FR 680.2B Royal Park, 0.5 mi | — | live, moderately dense |
+| T16 | 141 | 37.94068, -106.44986 | 9,714–10,190 | 28% | 0.68 mi (0.88 mi) | FR 685 Cecilia  Cr, 0.5 mi | S2-02 | live, moderately dense |
+| T17 | 137 | 38.30516, -106.49037 | 11,041–11,264 | 25% | 0.71 mi (0.97 mi) | FR 793 Razor Park, 1.0 mi | — | mixed live and dead |
+| T18 | 131 | 38.27284, -106.34636 | 10,271–10,558 | 1% | 0.74 mi (1.0 mi) | FR 860 Indian Park, 0.5 mi | — | dense live core |
+| T19 | 108 | 37.92777, -106.35352 | 10,027–10,354 | 64% | 1.17 mi (1.44 mi) | FR 680 North Carnero, 1.6 mi | — | live, moderately dense |
+| T20 | 106 | 37.96952, -106.34387 | 10,354–10,581 | 56% | 1.0 mi (1.36 mi) | FR 680.2A North Carnero, 0.8 mi | — | live, moderately dense |
+| T21 | 105 | 37.95401, -106.74275 | 10,695–11,025 | 53% | 1.32 mi (1.81 mi) | FR 744 Middle Fork Saguache, 0.7 mi | — | live pocket inside dead timber |

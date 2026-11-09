@@ -1,0 +1,28 @@
+{
+"type": "FeatureCollection",
+"name": "springs",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.8600688, 38.3535003 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.8607244, 38.3527094 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.3980047, 37.8866232 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.8611343, 38.3501333 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.3823099, 37.878687 ] } },
+{ "type": "Feature", "properties": { "name": "East Parlin Spring", "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.7155898, 38.4286112 ] } },
+{ "type": "Feature", "properties": { "name": "Sage Hen Spring", "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.7410884, 38.4149354 ] } },
+{ "type": "Feature", "properties": { "name": "Valdez Spring", "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.7307792, 38.4286718 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.7424206, 38.4009307 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.7336727, 38.4128537 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.7327698, 38.4272878 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.6996963, 38.4365321 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.8901708, 38.3694266 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.8503941, 38.3532324 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.9058566, 38.2536619 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.890308, 38.3132346 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.9045323, 38.3252617 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.898659, 38.2215577 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -105.9248482, 38.1686618 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -105.9247023, 38.1685151 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.5840091, 38.1817634 ] } }
+]
+}

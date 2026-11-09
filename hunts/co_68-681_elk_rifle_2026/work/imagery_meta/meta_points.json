@@ -1,0 +1,242 @@
+{
+ "B1-01|esri": {
+  "source": "Vantor Vivid LG01 2025-07-03, 0.34 m",
+  "date": "2025-07-03",
+  "sheet": "points_esri_01.png"
+ },
+ "F1-01|esri": {
+  "source": "Vantor Vivid LG01 2025-07-03, 0.34 m",
+  "date": "2025-07-03",
+  "sheet": "points_esri_01.png"
+ },
+ "F1-02|esri": {
+  "source": "Vantor Vivid LG01 2025-07-03, 0.34 m",
+  "date": "2025-07-03",
+  "sheet": "points_esri_01.png"
+ },
+ "S1-01|esri": {
+  "source": "Vantor Vivid LG01 2025-07-03, 0.34 m",
+  "date": "2025-07-03",
+  "sheet": "points_esri_01.png"
+ },
+ "S1-02|esri": {
+  "source": "Vantor Vivid LG01 2025-07-03, 0.34 m",
+  "date": "2025-07-03",
+  "sheet": "points_esri_01.png"
+ },
+ "B2-01|esri": {
+  "source": "Vantor Vivid GE01 2023-11-08, 0.46 m",
+  "date": "2023-11-08",
+  "sheet": "points_esri_01.png"
+ },
+ "B2-02|esri": {
+  "source": "Vantor Vivid GE01 2023-11-08, 0.46 m",
+  "date": "2023-11-08",
+  "sheet": "points_esri_01.png"
+ },
+ "F2-01|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_01.png"
+ },
+ "F2-02|esri": {
+  "source": "Vantor Vivid WV03 2018-06-02, 0.31 m",
+  "date": "2018-06-02",
+  "sheet": "points_esri_01.png"
+ },
+ "G2-01|esri": {
+  "source": "Vantor Vivid WV02 2017-10-30, 0.5 m",
+  "date": "2017-10-30",
+  "sheet": "points_esri_02.png"
+ },
+ "S2-01|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_02.png"
+ },
+ "S2-02|esri": {
+  "source": "Vantor Vivid WV03 2021-11-14, 0.31 m",
+  "date": "2021-11-14",
+  "sheet": "points_esri_02.png"
+ },
+ "S2-03|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "points_esri_02.png"
+ },
+ "W2-01|esri": {
+  "source": "Vantor Vivid GE01 2023-11-08, 0.46 m",
+  "date": "2023-11-08",
+  "sheet": "points_esri_02.png"
+ },
+ "A3-01|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "points_esri_02.png"
+ },
+ "B3-01|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "points_esri_02.png"
+ },
+ "B3-02|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "points_esri_02.png"
+ },
+ "B3-03|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "points_esri_02.png"
+ },
+ "A4-01|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_03.png"
+ },
+ "A4-02|esri": {
+  "source": "Vantor Vivid WV03 2025-07-26, 0.31 m",
+  "date": "2025-07-26",
+  "sheet": "points_esri_03.png"
+ },
+ "A4-03|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_03.png"
+ },
+ "A4-04|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_03.png"
+ },
+ "B4-01|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_03.png"
+ },
+ "B4-02|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_03.png"
+ },
+ "F4-01|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_03.png"
+ },
+ "F4-02|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "points_esri_03.png"
+ },
+ "A5-01|esri": {
+  "source": "Vantor Vivid WV03 2025-05-11, 0.31 m",
+  "date": "2025-05-11",
+  "sheet": "points_esri_03.png"
+ },
+ "F5-01|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "points_esri_04.png"
+ },
+ "F5-02|esri": {
+  "source": "Vantor Vivid WV03 2025-05-11, 0.31 m",
+  "date": "2025-05-11",
+  "sheet": "points_esri_04.png"
+ },
+ "F5-03|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "points_esri_04.png"
+ },
+ "F5-04|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "points_esri_04.png"
+ },
+ "F5-05|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "points_esri_04.png"
+ },
+ "G5-01|esri": {
+  "source": "Vantor Vivid WV02 2019-06-29, 0.5 m",
+  "date": "2019-06-29",
+  "sheet": "points_esri_04.png"
+ },
+ "G5-02|esri": {
+  "source": "Vantor Vivid WV02 2019-06-29, 0.5 m",
+  "date": "2019-06-29",
+  "sheet": "points_esri_04.png"
+ },
+ "G5-03|esri": {
+  "source": "Vantor Vivid WV02 2019-06-29, 0.5 m",
+  "date": "2019-06-29",
+  "sheet": "points_esri_04.png"
+ },
+ "G5-04|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "points_esri_04.png"
+ },
+ "G5-05|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "points_esri_05.png"
+ },
+ "G5-06|esri": {
+  "source": "Vantor Vivid WV02 2019-06-29, 0.5 m",
+  "date": "2019-06-29",
+  "sheet": "points_esri_05.png"
+ },
+ "S5-01|esri": {
+  "source": "Vantor Vivid WV03 2025-05-11, 0.31 m",
+  "date": "2025-05-11",
+  "sheet": "points_esri_05.png"
+ },
+ "W5-01|esri": {
+  "source": "Vantor Vivid WV03 2025-05-11, 0.31 m",
+  "date": "2025-05-11",
+  "sheet": "points_esri_05.png"
+ },
+ "B1-01|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "points_naip-cir_01.png"
+ },
+ "B2-01|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "points_naip-cir_01.png"
+ },
+ "B2-02|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "points_naip-cir_01.png"
+ },
+ "B3-01|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "points_naip-cir_01.png"
+ },
+ "B3-02|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "points_naip-cir_01.png"
+ },
+ "B3-03|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "points_naip-cir_01.png"
+ },
+ "B4-01|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "points_naip-cir_01.png"
+ },
+ "B4-02|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "points_naip-cir_01.png"
+ }
+}

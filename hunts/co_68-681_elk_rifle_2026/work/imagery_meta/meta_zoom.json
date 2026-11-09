@@ -1,0 +1,212 @@
+{
+ "T01z|esri": {
+  "source": "Vantor Vivid WV03 2025-05-11, 0.31 m",
+  "date": "2025-05-11",
+  "sheet": "zoom_pair_01.png"
+ },
+ "T01z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_01.png"
+ },
+ "T02z|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "zoom_pair_01.png"
+ },
+ "T02z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_01.png"
+ },
+ "T03z|esri": {
+  "source": "Vantor Vivid WV03 2025-05-11, 0.31 m",
+  "date": "2025-05-11",
+  "sheet": "zoom_pair_02.png"
+ },
+ "T03z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_02.png"
+ },
+ "T04z|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "zoom_pair_02.png"
+ },
+ "T04z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_02.png"
+ },
+ "T05z|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "zoom_pair_03.png"
+ },
+ "T05z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_03.png"
+ },
+ "T06z|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "zoom_pair_03.png"
+ },
+ "T06z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_03.png"
+ },
+ "T07z|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "zoom_pair_04.png"
+ },
+ "T07z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "zoom_pair_04.png"
+ },
+ "T08z|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "zoom_pair_04.png"
+ },
+ "T08z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "zoom_pair_04.png"
+ },
+ "T09z|esri": {
+  "source": "Vantor Vivid GE01 2023-11-10, 0.46 m",
+  "date": "2023-11-10",
+  "sheet": "zoom_pair_05.png"
+ },
+ "T09z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-12, 0.6 m",
+  "date": "2019-09-12",
+  "sheet": "zoom_pair_05.png"
+ },
+ "T10z|esri": {
+  "source": "Vantor Vivid WV03 2025-04-09, 0.31 m",
+  "date": "2025-04-09",
+  "sheet": "zoom_pair_05.png"
+ },
+ "T10z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-12, 0.6 m",
+  "date": "2019-09-12",
+  "sheet": "zoom_pair_05.png"
+ },
+ "T11z|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "zoom_pair_06.png"
+ },
+ "T11z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "zoom_pair_06.png"
+ },
+ "T12z|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "zoom_pair_06.png"
+ },
+ "T12z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_06.png"
+ },
+ "T13z|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "zoom_pair_07.png"
+ },
+ "T13z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_07.png"
+ },
+ "T14z|esri": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "zoom_pair_07.png"
+ },
+ "T14z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_07.png"
+ },
+ "T15z|esri": {
+  "source": "Vantor Vivid GE01 2023-11-08, 0.46 m",
+  "date": "2023-11-08",
+  "sheet": "zoom_pair_08.png"
+ },
+ "T15z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "zoom_pair_08.png"
+ },
+ "T16z|esri": {
+  "source": "Vantor Vivid GE01 2023-11-08, 0.46 m",
+  "date": "2023-11-08",
+  "sheet": "zoom_pair_08.png"
+ },
+ "T16z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "zoom_pair_08.png"
+ },
+ "T17z|esri": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "zoom_pair_09.png"
+ },
+ "T17z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_09.png"
+ },
+ "T18z|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "zoom_pair_09.png"
+ },
+ "T18z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-22, 0.6 m",
+  "date": "2019-09-22",
+  "sheet": "zoom_pair_09.png"
+ },
+ "T19z|esri": {
+  "source": "Vantor Vivid WV02 2017-10-30, 0.5 m",
+  "date": "2017-10-30",
+  "sheet": "zoom_pair_10.png"
+ },
+ "T19z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "zoom_pair_10.png"
+ },
+ "T20z|esri": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "zoom_pair_10.png"
+ },
+ "T20z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-09, 0.6 m",
+  "date": "2019-09-09",
+  "sheet": "zoom_pair_10.png"
+ },
+ "T21z|esri": {
+  "source": "Vantor Vivid WV03 2025-04-09, 0.31 m",
+  "date": "2025-04-09",
+  "sheet": "zoom_pair_11.png"
+ },
+ "T21z|naip-cir": {
+  "source": "USDA NAIP color-infrared 2019-09-12, 0.6 m",
+  "date": "2019-09-12",
+  "sheet": "zoom_pair_11.png"
+ }
+}

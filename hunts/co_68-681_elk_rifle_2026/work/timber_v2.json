@@ -1,0 +1,874 @@
+{
+ "params": {
+  "data": "data",
+  "out": "/tmp/claude-0/-home-claude/8863888c-9ee5-5d3c-9eb5-d68797b01552/scratchpad/timber_v2.json",
+  "kml": "data/out/elkscout_unit68-681_timber_blocks.kml",
+  "dark_canopy": 45,
+  "min_road_mi": 0.5,
+  "min_acres": 100
+ },
+ "stats": {
+  "public_acres": 581387,
+  "timber_share_public": 0.503,
+  "dark_conifer_share_public": 0.101,
+  "aspen_share_public": 0.068,
+  "conifer_canopy_pct_quartiles": [
+   27,
+   37,
+   44
+  ]
+ },
+ "n_blocks": 21,
+ "blocks": [
+  {
+   "acres": 1386,
+   "lat": 38.30979,
+   "lon": -106.28168,
+   "elev_ft": [
+    9462,
+    10855
+   ],
+   "north_share": 0.34,
+   "mean_aspect_deg": 299,
+   "median_canopy": 51,
+   "road_mi_median": 1.6,
+   "road_mi_max": 2.42,
+   "hunt_areas": [
+    "Middle Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 3.72,
+   "id": 1
+  },
+  {
+   "acres": 1164,
+   "lat": 38.2945,
+   "lon": -106.47832,
+   "elev_ft": [
+    10208,
+    10981
+   ],
+   "north_share": 0.02,
+   "mean_aspect_deg": 183,
+   "median_canopy": 50,
+   "road_mi_median": 0.77,
+   "road_mi_max": 1.25,
+   "hunt_areas": [],
+   "nearest_feed": "F5-03 meadow 9327",
+   "nearest_feed_mi": 11.68,
+   "id": 2
+  },
+  {
+   "acres": 1142,
+   "lat": 38.33164,
+   "lon": -106.28635,
+   "elev_ft": [
+    9808,
+    10730
+   ],
+   "north_share": 0.02,
+   "mean_aspect_deg": 201,
+   "median_canopy": 51,
+   "road_mi_median": 0.84,
+   "road_mi_max": 1.61,
+   "hunt_areas": [
+    "Middle Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 5.26,
+   "id": 3
+  },
+  {
+   "acres": 816,
+   "lat": 38.29047,
+   "lon": -106.2683,
+   "elev_ft": [
+    9657,
+    10976
+   ],
+   "north_share": 0.56,
+   "mean_aspect_deg": 322,
+   "median_canopy": 51,
+   "road_mi_median": 1.46,
+   "road_mi_max": 2.07,
+   "hunt_areas": [
+    "Middle Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 1.97,
+   "id": 4
+  },
+  {
+   "acres": 799,
+   "lat": 38.29344,
+   "lon": -106.31827,
+   "elev_ft": [
+    9643,
+    10690
+   ],
+   "north_share": 0.21,
+   "mean_aspect_deg": 64,
+   "median_canopy": 51,
+   "road_mi_median": 0.96,
+   "road_mi_max": 1.47,
+   "hunt_areas": [
+    "Middle Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 3.94,
+   "id": 5
+  },
+  {
+   "acres": 607,
+   "lat": 38.30012,
+   "lon": -106.19882,
+   "elev_ft": [
+    10220,
+    11111
+   ],
+   "north_share": 0.17,
+   "mean_aspect_deg": 92,
+   "median_canopy": 51,
+   "road_mi_median": 0.77,
+   "road_mi_max": 1.13,
+   "hunt_areas": [
+    "Cottonwood Creek-Kerber Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 3.05,
+   "id": 6
+  },
+  {
+   "acres": 400,
+   "lat": 38.01942,
+   "lon": -106.30634,
+   "elev_ft": [
+    9995,
+    10692
+   ],
+   "north_share": 0.72,
+   "mean_aspect_deg": 335,
+   "median_canopy": 49,
+   "road_mi_median": 0.82,
+   "road_mi_max": 1.22,
+   "hunt_areas": [],
+   "nearest_feed": "F1-02 meadow 9468",
+   "nearest_feed_mi": 2.94,
+   "id": 7
+  },
+  {
+   "acres": 315,
+   "lat": 38.042,
+   "lon": -106.34246,
+   "elev_ft": [
+    9775,
+    10455
+   ],
+   "north_share": 0.88,
+   "mean_aspect_deg": 15,
+   "median_canopy": 49,
+   "road_mi_median": 0.69,
+   "road_mi_max": 1.09,
+   "hunt_areas": [
+    "North Fork Carnero Creek"
+   ],
+   "nearest_feed": "F1-02 meadow 9468",
+   "nearest_feed_mi": 3.49,
+   "id": 8
+  },
+  {
+   "acres": 239,
+   "lat": 38.0259,
+   "lon": -106.78034,
+   "elev_ft": [
+    10460,
+    11076
+   ],
+   "north_share": 0.76,
+   "mean_aspect_deg": 33,
+   "median_canopy": 48,
+   "road_mi_median": 0.67,
+   "road_mi_max": 1.14,
+   "hunt_areas": [],
+   "nearest_feed": "F4-02 meadow 9233",
+   "nearest_feed_mi": 10.7,
+   "id": 9
+  },
+  {
+   "acres": 205,
+   "lat": 37.90827,
+   "lon": -106.76419,
+   "elev_ft": [
+    11351,
+    11684
+   ],
+   "north_share": 0.78,
+   "mean_aspect_deg": 19,
+   "median_canopy": 48,
+   "road_mi_median": 3.01,
+   "road_mi_max": 3.36,
+   "hunt_areas": [],
+   "nearest_feed": "F4-02 meadow 9233",
+   "nearest_feed_mi": 14.82,
+   "id": 10
+  },
+  {
+   "acres": 203,
+   "lat": 38.21798,
+   "lon": -106.54205,
+   "elev_ft": [
+    10378,
+    10578
+   ],
+   "north_share": 0.06,
+   "mean_aspect_deg": 206,
+   "median_canopy": 52,
+   "road_mi_median": 0.63,
+   "road_mi_max": 0.86,
+   "hunt_areas": [],
+   "nearest_feed": "F4-01 meadow 9481",
+   "nearest_feed_mi": 8.51,
+   "id": 11
+  },
+  {
+   "acres": 199,
+   "lat": 38.32101,
+   "lon": -106.2944,
+   "elev_ft": [
+    9627,
+    10054
+   ],
+   "north_share": 0.5,
+   "mean_aspect_deg": 309,
+   "median_canopy": 52,
+   "road_mi_median": 1.31,
+   "road_mi_max": 1.68,
+   "hunt_areas": [
+    "Middle Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 5.26,
+   "id": 12
+  },
+  {
+   "acres": 173,
+   "lat": 38.3078,
+   "lon": -106.31544,
+   "elev_ft": [
+    9614,
+    10588
+   ],
+   "north_share": 0.0,
+   "mean_aspect_deg": 90,
+   "median_canopy": 51,
+   "road_mi_median": 0.7,
+   "road_mi_max": 1.09,
+   "hunt_areas": [
+    "Middle Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 5.29,
+   "id": 13
+  },
+  {
+   "acres": 169,
+   "lat": 38.28374,
+   "lon": -106.18792,
+   "elev_ft": [
+    9941,
+    10593
+   ],
+   "north_share": 0.72,
+   "mean_aspect_deg": 20,
+   "median_canopy": 53,
+   "road_mi_median": 0.64,
+   "road_mi_max": 0.92,
+   "hunt_areas": [
+    "Cottonwood Creek-Kerber Creek"
+   ],
+   "nearest_feed": "F5-04 meadow 9908",
+   "nearest_feed_mi": 3.24,
+   "id": 14
+  },
+  {
+   "acres": 146,
+   "lat": 37.95676,
+   "lon": -106.41723,
+   "elev_ft": [
+    9708,
+    10484
+   ],
+   "north_share": 0.75,
+   "mean_aspect_deg": 29,
+   "median_canopy": 48,
+   "road_mi_median": 0.68,
+   "road_mi_max": 1.05,
+   "hunt_areas": [
+    "North Fork Carnero Creek"
+   ],
+   "nearest_feed": "F2-02 meadow 9154",
+   "nearest_feed_mi": 5.74,
+   "id": 15
+  },
+  {
+   "acres": 141,
+   "lat": 37.94068,
+   "lon": -106.44986,
+   "elev_ft": [
+    9714,
+    10190
+   ],
+   "north_share": 0.28,
+   "mean_aspect_deg": 63,
+   "median_canopy": 48,
+   "road_mi_median": 0.68,
+   "road_mi_max": 0.88,
+   "hunt_areas": [
+    "North Fork Carnero Creek"
+   ],
+   "nearest_feed": "F2-02 meadow 9154",
+   "nearest_feed_mi": 7.89,
+   "id": 16
+  },
+  {
+   "acres": 137,
+   "lat": 38.30516,
+   "lon": -106.49037,
+   "elev_ft": [
+    11041,
+    11264
+   ],
+   "north_share": 0.25,
+   "mean_aspect_deg": 277,
+   "median_canopy": 49,
+   "road_mi_median": 0.71,
+   "road_mi_max": 0.97,
+   "hunt_areas": [],
+   "nearest_feed": "F5-03 meadow 9327",
+   "nearest_feed_mi": 13.35,
+   "id": 17
+  },
+  {
+   "acres": 131,
+   "lat": 38.27284,
+   "lon": -106.34636,
+   "elev_ft": [
+    10271,
+    10558
+   ],
+   "north_share": 0.01,
+   "mean_aspect_deg": 94,
+   "median_canopy": 49,
+   "road_mi_median": 0.74,
+   "road_mi_max": 1.0,
+   "hunt_areas": [
+    "Middle Creek"
+   ],
+   "nearest_feed": "F5-03 meadow 9327",
+   "nearest_feed_mi": 5.26,
+   "id": 18
+  },
+  {
+   "acres": 108,
+   "lat": 37.92777,
+   "lon": -106.35352,
+   "elev_ft": [
+    10027,
+    10354
+   ],
+   "north_share": 0.64,
+   "mean_aspect_deg": 331,
+   "median_canopy": 48,
+   "road_mi_median": 1.17,
+   "road_mi_max": 1.44,
+   "hunt_areas": [
+    "North Fork Carnero Creek"
+   ],
+   "nearest_feed": "F2-02 meadow 9154",
+   "nearest_feed_mi": 3.54,
+   "id": 19
+  },
+  {
+   "acres": 106,
+   "lat": 37.96952,
+   "lon": -106.34387,
+   "elev_ft": [
+    10354,
+    10581
+   ],
+   "north_share": 0.56,
+   "mean_aspect_deg": 329,
+   "median_canopy": 48,
+   "road_mi_median": 1.0,
+   "road_mi_max": 1.36,
+   "hunt_areas": [
+    "North Fork Carnero Creek"
+   ],
+   "nearest_feed": "F2-02 meadow 9154",
+   "nearest_feed_mi": 2.01,
+   "id": 20
+  },
+  {
+   "acres": 105,
+   "lat": 37.95401,
+   "lon": -106.74275,
+   "elev_ft": [
+    10695,
+    11025
+   ],
+   "north_share": 0.53,
+   "mean_aspect_deg": 327,
+   "median_canopy": 47,
+   "road_mi_median": 1.32,
+   "road_mi_max": 1.81,
+   "hunt_areas": [
+    "Luders Creek"
+   ],
+   "nearest_feed": "F4-02 meadow 9233",
+   "nearest_feed_mi": 12.13,
+   "id": 21
+  }
+ ],
+ "waypoints": [
+  {
+   "name": "B1-01 N-timber 9517",
+   "type": "BED",
+   "area": "Cold Spring-Saguache Creek",
+   "canopy": 45,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": true,
+   "nearest_block": 7,
+   "block_mi": 3.01
+  },
+  {
+   "name": "F1-01 meadow 9279",
+   "type": "FEED",
+   "area": "Cold Spring-Saguache Creek",
+   "canopy": 27,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 7.98
+  },
+  {
+   "name": "F1-02 meadow 9468",
+   "type": "FEED",
+   "area": "Cold Spring-Saguache Creek",
+   "canopy": 24,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 7,
+   "block_mi": 2.94
+  },
+  {
+   "name": "S1-01 saddle 9292",
+   "type": "SADDLE",
+   "area": "Cold Spring-Saguache Creek",
+   "canopy": 18,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 4,
+   "block_mi": 8.06
+  },
+  {
+   "name": "S1-02 saddle 9342",
+   "type": "SADDLE",
+   "area": "Cold Spring-Saguache Creek",
+   "canopy": 24,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 7,
+   "block_mi": 3.89
+  },
+  {
+   "name": "B2-01 N-timber 9745",
+   "type": "BED",
+   "area": "North Fork Carnero Creek",
+   "canopy": 47,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": true,
+   "nearest_block": 20,
+   "block_mi": 1.44
+  },
+  {
+   "name": "B2-02 N-bench 9867",
+   "type": "BED",
+   "area": "North Fork Carnero Creek",
+   "canopy": 51,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": true,
+   "nearest_block": 20,
+   "block_mi": 1.9
+  },
+  {
+   "name": "F2-01 meadow 8698",
+   "type": "FEED",
+   "area": "North Fork Carnero Creek",
+   "canopy": 35,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 8,
+   "block_mi": 3.97
+  },
+  {
+   "name": "F2-02 meadow 9154",
+   "type": "FEED",
+   "area": "North Fork Carnero Creek",
+   "canopy": 26,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 20,
+   "block_mi": 2.01
+  },
+  {
+   "name": "G2-01 glass 10369",
+   "type": "GLASS",
+   "area": "North Fork Carnero Creek",
+   "canopy": 34,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": false,
+   "nearest_block": 19,
+   "block_mi": 1.49
+  },
+  {
+   "name": "S2-01 saddle 8535",
+   "type": "SADDLE",
+   "area": "North Fork Carnero Creek",
+   "canopy": 21,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 20,
+   "block_mi": 4.76
+  },
+  {
+   "name": "S2-02 saddle 9597",
+   "type": "SADDLE",
+   "area": "North Fork Carnero Creek",
+   "canopy": 22,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 16,
+   "block_mi": 0.71
+  },
+  {
+   "name": "S2-03 saddle 9341",
+   "type": "SADDLE",
+   "area": "North Fork Carnero Creek",
+   "canopy": 25,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 7,
+   "block_mi": 2.87
+  },
+  {
+   "name": "W2-01 creek 9695",
+   "type": "WATER",
+   "area": "North Fork Carnero Creek",
+   "canopy": 43,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": false,
+   "nearest_block": 20,
+   "block_mi": 1.24
+  },
+  {
+   "name": "A3-01 TH 8892",
+   "type": "ACCESS",
+   "area": "Middle Creek",
+   "canopy": 25,
+   "landcover": "grass",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 5,
+   "block_mi": 0.51
+  },
+  {
+   "name": "B3-01 E-timber 9895",
+   "type": "BED",
+   "area": "Middle Creek",
+   "canopy": 37,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 5,
+   "block_mi": 0.93
+  },
+  {
+   "name": "B3-02 NE-timber 9389",
+   "type": "BED",
+   "area": "Middle Creek",
+   "canopy": 39,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 18,
+   "block_mi": 3.37
+  },
+  {
+   "name": "B3-03 NW-bench 9782",
+   "type": "BED",
+   "area": "Middle Creek",
+   "canopy": 52,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": true,
+   "nearest_block": 12,
+   "block_mi": 0.0
+  },
+  {
+   "name": "A4-01 TH 9303",
+   "type": "ACCESS",
+   "area": "Luders Creek",
+   "canopy": null,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 16,
+   "block_mi": 9.46
+  },
+  {
+   "name": "A4-02 TH 9016",
+   "type": "ACCESS",
+   "area": "Luders Creek",
+   "canopy": 11,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 11,
+   "block_mi": 5.58
+  },
+  {
+   "name": "A4-03 TH 9318",
+   "type": "ACCESS",
+   "area": "Luders Creek",
+   "canopy": null,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 9,
+   "block_mi": 8.06
+  },
+  {
+   "name": "A4-04 TH 9488",
+   "type": "ACCESS",
+   "area": "Luders Creek",
+   "canopy": null,
+   "landcover": "grass",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 9,
+   "block_mi": 4.57
+  },
+  {
+   "name": "B4-01 NE-timber 9569",
+   "type": "BED",
+   "area": "Luders Creek",
+   "canopy": 38,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 11,
+   "block_mi": 6.04
+  },
+  {
+   "name": "B4-02 NE-timber 9372",
+   "type": "BED",
+   "area": "Luders Creek",
+   "canopy": 37,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": false,
+   "nearest_block": 11,
+   "block_mi": 5.65
+  },
+  {
+   "name": "F4-01 meadow 9481",
+   "type": "FEED",
+   "area": "Luders Creek",
+   "canopy": 19,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 11,
+   "block_mi": 8.51
+  },
+  {
+   "name": "F4-02 meadow 9233",
+   "type": "FEED",
+   "area": "Luders Creek",
+   "canopy": 50,
+   "landcover": "woody wetland",
+   "timber": true,
+   "dark": false,
+   "nearest_block": 11,
+   "block_mi": 9.0
+  },
+  {
+   "name": "A5-01 TH 9337",
+   "type": "ACCESS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 43,
+   "landcover": "deciduous (aspen)",
+   "timber": true,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 6.84
+  },
+  {
+   "name": "F5-01 meadow 9548",
+   "type": "FEED",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 27,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 6.12
+  },
+  {
+   "name": "F5-02 meadow 9368",
+   "type": "FEED",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 25,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 9.71
+  },
+  {
+   "name": "F5-03 meadow 9327",
+   "type": "FEED",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 20,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 4,
+   "block_mi": 3.2
+  },
+  {
+   "name": "F5-04 meadow 9908",
+   "type": "FEED",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 41,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 4,
+   "block_mi": 1.97
+  },
+  {
+   "name": "F5-05 meadow 9437",
+   "type": "FEED",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 23,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 5.13
+  },
+  {
+   "name": "G5-01 glass 11974",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 17,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 4.54
+  },
+  {
+   "name": "G5-02 glass 12011",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 11,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 4.5
+  },
+  {
+   "name": "G5-03 glass 11763",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": null,
+   "landcover": "grass",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 5.07
+  },
+  {
+   "name": "G5-04 glass 12739",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": null,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 6,
+   "block_mi": 0.46
+  },
+  {
+   "name": "G5-05 glass 12059",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": null,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 6,
+   "block_mi": 0.51
+  },
+  {
+   "name": "G5-06 glass 12059",
+   "type": "GLASS",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": null,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 4.33
+  },
+  {
+   "name": "S5-01 saddle 9402",
+   "type": "SADDLE",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 27,
+   "landcover": "shrub",
+   "timber": false,
+   "dark": false,
+   "nearest_block": 14,
+   "block_mi": 7.56
+  },
+  {
+   "name": "W5-01 creek 9911",
+   "type": "WATER",
+   "area": "Cottonwood Creek-Kerber Creek",
+   "canopy": 46,
+   "landcover": "evergreen conifer",
+   "timber": true,
+   "dark": true,
+   "nearest_block": 4,
+   "block_mi": 2.0
+  }
+ ]
+}

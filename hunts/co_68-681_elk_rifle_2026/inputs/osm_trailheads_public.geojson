@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "osm_trailheads",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.284602104310835, 37.841007597126506 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.285462805571214, 37.840493462626853 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.284140270009487, 37.840948397936458 ] } },
+{ "type": "Feature", "properties": { "name": null, "highway": null, "ref": null }, "geometry": { "type": "Point", "coordinates": [ -106.285738158149982, 37.84329171877598 ] } }
+]
+}

@@ -1,0 +1,107 @@
+{
+ "T01": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "blocks_esri_01.png"
+ },
+ "T02": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "blocks_esri_01.png"
+ },
+ "T03": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "blocks_esri_01.png"
+ },
+ "T04": {
+  "source": "Vantor Vivid WV03 2025-05-11, 0.31 m",
+  "date": "2025-05-11",
+  "sheet": "blocks_esri_01.png"
+ },
+ "T05": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "blocks_esri_02.png"
+ },
+ "T06": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "blocks_esri_02.png"
+ },
+ "T07": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "blocks_esri_02.png"
+ },
+ "T08": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "blocks_esri_02.png"
+ },
+ "T09": {
+  "source": "Vantor Vivid GE01 2023-11-10, 0.46 m",
+  "date": "2023-11-10",
+  "sheet": "blocks_esri_03.png"
+ },
+ "T10": {
+  "source": "Vantor Vivid WV03 2025-04-09, 0.31 m",
+  "date": "2025-04-09",
+  "sheet": "blocks_esri_03.png"
+ },
+ "T11": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "blocks_esri_03.png"
+ },
+ "T12": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "blocks_esri_03.png"
+ },
+ "T13": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "blocks_esri_04.png"
+ },
+ "T14": {
+  "source": "Vantor Vivid GE01 2021-11-16, 0.46 m",
+  "date": "2021-11-16",
+  "sheet": "blocks_esri_04.png"
+ },
+ "T15": {
+  "source": "Vantor Vivid GE01 2023-11-08, 0.46 m",
+  "date": "2023-11-08",
+  "sheet": "blocks_esri_04.png"
+ },
+ "T16": {
+  "source": "Vantor Vivid GE01 2023-11-08, 0.46 m",
+  "date": "2023-11-08",
+  "sheet": "blocks_esri_04.png"
+ },
+ "T17": {
+  "source": "Vantor Vivid WV02 2023-11-10, 0.5 m",
+  "date": "2023-11-10",
+  "sheet": "blocks_esri_05.png"
+ },
+ "T18": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "blocks_esri_05.png"
+ },
+ "T19": {
+  "source": "Vantor Vivid WV02 2017-10-30, 0.5 m",
+  "date": "2017-10-30",
+  "sheet": "blocks_esri_05.png"
+ },
+ "T20": {
+  "source": "Vantor Vivid WV02 2018-11-09, 0.5 m",
+  "date": "2018-11-09",
+  "sheet": "blocks_esri_05.png"
+ },
+ "T21": {
+  "source": "Vantor Vivid WV03 2025-04-09, 0.31 m",
+  "date": "2025-04-09",
+  "sheet": "blocks_esri_06.png"
+ }
+}
