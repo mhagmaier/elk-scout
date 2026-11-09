@@ -59,8 +59,24 @@ class GridCfg(BaseModel):
 class SnowCfg(BaseModel):
     band_shift_ft: CurvePts
     station_bbox_pad_deg: float = 0.25
+    # How snow moves the elevation band:
+    #   snowline - estimate the snow line from the stations (lowest elevation
+    #              holding >= snowline_depth_in, confirmed by stations above
+    #              it) and pull the band's top down to it only when snow has
+    #              actually reached the elk band. Robust when the stations sit
+    #              far above the band (common in Colorado).
+    #   median   - the original rule: median depth -> band_shift_ft curve.
+    method: str = "snowline"
+    snowline_depth_in: float = 6.0
 
     _v = field_validator("band_shift_ft")(classmethod(lambda cls, v: v if _shift_ok(v) else v))
+
+    @field_validator("method")
+    @classmethod
+    def _method_ok(cls, v: str) -> str:
+        if v not in ("snowline", "median"):
+            raise ValueError(f"snow.method must be snowline|median, got {v!r}")
+        return v
 
 
 def _shift_ok(v: CurvePts) -> bool:
@@ -92,6 +108,9 @@ class BeddingFactor(BaseModel):
     curve_slope_pct: CurvePts
     bench_bonus: float = 0.25
     slope_position_min: float = 0.5
+    # Aspect preference once snow has reached the elk band (late-season
+    # thermal bedding on sunny faces). None = never switch.
+    snow_aspect_center_deg: float | None = None
 
     _v1 = field_validator("curve_canopy_pct")(classmethod(lambda cls, v: _curve_field(v)))
     _v2 = field_validator("curve_slope_pct")(classmethod(lambda cls, v: _curve_field(v)))
@@ -211,11 +230,86 @@ class OutputsCfg(BaseModel):
     desc_max_chars: int = 450
 
 
+class LandAccessCfg(BaseModel):
+    """Which surface-management agencies count as huntable public land.
+
+    Codes are BLM SMA ADMIN_AGENCY_CODE values (BLM, USFS, BOR, STATE, LG,
+    NPS, FWS, DOD, BIA, PVT, ...). State trust land is closed by default —
+    states where it's open (e.g. Idaho endowment land) opt in via the
+    registry. Polygons in the `public_access` drop-in (walk-in programs,
+    enrolled trust parcels) are always open.
+    """
+
+    open_agencies: list[str] = Field(default_factory=lambda: ["BLM", "USFS", "BOR"])
+    notes: str = ""
+
+    @field_validator("open_agencies")
+    @classmethod
+    def _upper(cls, v: list[str]) -> list[str]:
+        return [s.strip().upper() for s in v]
+
+
+# Hunter's vehicle -> (MVUM "allowed" field, MVUM "dates open" field).
+# Field names are matched case-insensitively against the MVUM layers.
+VEHICLE_FIELDS: dict[str, tuple[str, str]] = {
+    "passenger": ("passengervehicle", "passengervehicle_datesopen"),
+    "high_clearance": ("highclearancevehicle", "highclearancevehicle_datesopen"),
+    "ohv_gt50": ("other_ohv_gt50inches", "other_ohv_gt50_datesopen"),
+    "ohv_lt50": ("other_ohv_lt50inches", "other_ohv_lt50_datesopen"),
+    "atv": ("atv", "atv_datesopen"),
+    "motorcycle": ("motorcycle", "motorcycle_datesopen"),
+}
+
+
+class AccessCfg(BaseModel):
+    vehicle: str = "high_clearance"  # what the hunter drives to the jump-off
+    max_unit_dist_mi: float = 1.0  # access points may sit this far outside the unit
+
+    @field_validator("vehicle")
+    @classmethod
+    def _vehicle_ok(cls, v: str) -> str:
+        if v not in VEHICLE_FIELDS:
+            raise ValueError(f"access.vehicle must be one of {sorted(VEHICLE_FIELDS)}, got {v!r}")
+        return v
+
+
+class TimberCfg(BaseModel):
+    """Security timber: big blocks of dark conifer far from motorized routes."""
+
+    # Canopy % that counts as "dark". None = auto: the local conifer 75th
+    # percentile, floored at min_dark_canopy_pct (NLCD canopy reads low in
+    # dry Rockies conifer, so a fixed 60% finds nothing in Colorado).
+    dark_canopy_pct: float | None = None
+    min_dark_canopy_pct: float = 35.0
+    min_road_mi: float = 0.5
+    min_acres: float = 100.0
+    bed_bonus: float = 0.15  # BED score multiplier bonus inside a block
+    rank_weight: float = 0.3  # hunt-area ranking weight on nearby timber acres
+    rank_radius_mi: float = 3.0
+
+
+class ImageryCfg(BaseModel):
+    """Sentinel-2 near-live imagery: current snow cover + timber mortality."""
+
+    enabled: bool = True
+    recent_days: int = 21  # look-back window for the current-conditions composite
+    max_cloud_pct: float = 40.0
+    leafon_months: list[int] = Field(default_factory=lambda: [7, 8, 9])
+    baseline_years_back: int = 4  # compare latest summer vs this many years earlier
+    dead_dndvi: float = -0.15  # greenness loss that flags dead/disturbed timber
+    max_scenes: int = 6
+
+
 class Config(BaseModel):
     profile: str
     unit: str
     hunt_window: HuntWindow
+    state: str | None = None  # registry code, e.g. "ID", "CO"
     boundary: BoundarySource | None = None  # None -> built-in IDFG default
+    land_access: LandAccessCfg = LandAccessCfg()
+    access: AccessCfg = AccessCfg()
+    timber: TimberCfg = TimberCfg()
+    imagery: ImageryCfg = ImageryCfg()
     grid: GridCfg = GridCfg()
     snow: SnowCfg
     factors: FactorsCfg

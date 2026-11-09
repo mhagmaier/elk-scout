@@ -68,7 +68,14 @@ def _factor_scores(ws: Workspace, cfg: Config) -> tuple[dict[str, np.ndarray], d
     f_security = apply_curve(fx["dist_motorized_m"] / 1000.0, cfg.factors.security.curve_dist_motorized_km)
 
     b = cfg.factors.bedding
-    aspect_sub = aspect_score(terrain["aspect_deg"], b.aspect_center_deg, b.aspect_exponent)
+    aspect_center = b.aspect_center_deg
+    if b.snow_aspect_center_deg is not None:
+        if snow.get("snow_in_band"):
+            aspect_center = b.snow_aspect_center_deg
+            log.info("scoring: snow has reached the elk band -> bedding aspect %.0f deg (sunny slopes)", aspect_center)
+        else:
+            log.info("scoring: snow not in the elk band -> bedding stays on %.0f deg (dark timber)", aspect_center)
+    aspect_sub = aspect_score(terrain["aspect_deg"], aspect_center, b.aspect_exponent)
     aspect_sub = np.where(np.isnan(aspect_sub), 0.5, aspect_sub)  # flat/no-data -> neutral
     canopy_sub = np.nan_to_num(apply_curve(canopy, b.curve_canopy_pct), nan=0.0)
     slope_sub = np.nan_to_num(apply_curve(terrain["slope_pct"], b.curve_slope_pct), nan=0.0)

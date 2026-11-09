@@ -151,3 +151,22 @@ def test_snow_shifts_elevation_band(scored_ws):
     curve12 = shift_curve_x(CFG.factors.elevation.curve_elevation_ft, -900)
     assert float(apply_curve(np.array([5100.0]), curve12)[0]) == pytest.approx(1.0)
     assert float(apply_curve(np.array([5100.0]), CFG.factors.elevation.curve_elevation_ft)[0]) < 0.5
+
+
+def test_late_season_bedding_switch_is_snow_gated(scored_ws):
+    """South-slope thermal bedding applies only once snow reaches the elk band."""
+    ws, _ = scored_ws
+    cfg = CFG.model_copy(deep=True)
+    cfg.factors.bedding.snow_aspect_center_deg = 180.0  # synthetic terrain faces NNE (22 deg)
+
+    def run(in_band: bool):
+        ws.snow_json.write_text(json.dumps({
+            "stations": [], "median_snwd_in": 0.0, "band_shift_ft": 0.0,
+            "snow_in_band": in_band, "as_of": "2026-11-10", "no_data": False,
+        }))
+        run_scoring(ws, cfg)
+        return load_scores(ws)[0]["f_bedding"][5, 5]
+
+    no_snow = run(False)
+    snowed = run(True)
+    assert no_snow > snowed  # NNE dark-timber beds win until snow arrives

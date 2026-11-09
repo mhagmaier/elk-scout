@@ -41,6 +41,13 @@ def test_golden_identity_reproduces_unit33(tmp_path):
     ref.pop("profile")
     assert gen.pop("boundary") is not None  # injected Idaho block
     ref.pop("boundary")
+    # Registry-injected state context (unit33 predates it and uses defaults).
+    assert gen.pop("state") == "ID"
+    ref.pop("state")
+    assert "STATE" in gen.pop("land_access")["open_agencies"]  # Idaho endowment land open
+    ref.pop("land_access")
+    assert gen.pop("access")["vehicle"] == "high_clearance"
+    ref.pop("access")
     assert gen["unit"] == ref["unit"] == "33"
     assert gen.pop("hunt_window") == ref.pop("hunt_window")  # same dates chosen
     assert gen == ref
@@ -171,3 +178,42 @@ def test_adjustments_matrix_schema():
         check_cell(cell, list(templates.values()))
     for cell in adjustments["weapons"].values():
         check_cell(cell, list(templates.values()))
+
+
+CO_ARGS = [
+    "--species", "elk", "--weapon", "rifle", "--style", "day", "--vehicle", "ohv_gt50",
+    "--state", "CO", "--unit", "681", "--start", "2026-11-18", "--end", "2026-11-22",
+]
+
+
+def test_colorado_calibration_and_land_rules(tmp_path):
+    """The lessons from the GMU 68/681 run are now automatic for Colorado."""
+    out = _gen(tmp_path, *CO_ARGS)
+    cfg = load_config(out)
+    assert cfg.profile == "elk-late-rifle-day"
+    assert cfg.state == "CO"
+    assert cfg.access.vehicle == "ohv_gt50"
+    # State trust land closed unless enrolled (enrolled parcels come from the overlay).
+    assert "STATE" not in cfg.land_access.open_agencies
+    assert "BLM" in cfg.land_access.open_agencies
+    # Elevation curve raised +3,000 ft from the Idaho template's late band.
+    xs = [x for x, _ in cfg.factors.elevation.curve_elevation_ft]
+    plateau = [x for x, y in cfg.factors.elevation.curve_elevation_ft if y == 1.0]
+    assert min(plateau) == 5800 + 3000 and max(plateau) == 7400 + 3000
+    assert xs == sorted(xs)
+    # Late-season south bedding is snow-gated, not unconditional.
+    assert cfg.factors.bedding.aspect_center_deg == 22
+    assert cfg.factors.bedding.snow_aspect_center_deg == 180
+    summary = out.with_suffix(".summary.md").read_text()
+    assert "state calibration (CO)" in summary and "+3000 ft" in summary
+
+
+def test_unknown_state_with_manual_boundary_gets_safe_defaults(tmp_path):
+    out = _gen(
+        tmp_path, "--species", "elk", "--weapon", "rifle", "--style", "backpack",
+        "--state", "MT", "--unit", "270", "--start", "2026-10-25", "--end", "2026-10-30", "--no-boundary",
+    )
+    cfg = load_config(out)
+    assert cfg.boundary is None
+    assert cfg.land_access.open_agencies == ["BLM", "USFS", "BOR"]
+    assert "no registry entry" in out.with_suffix(".summary.md").read_text()

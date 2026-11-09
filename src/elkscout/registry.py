@@ -14,7 +14,7 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, field_validator
 
-from .config import BoundarySource
+from .config import BoundarySource, LandAccessCfg
 
 DEFAULT_PATH = Path(__file__).resolve().parents[2] / "configs" / "states.yaml"
 
@@ -37,6 +37,13 @@ class StateEntry(BaseModel):
     agency: str
     unit_system: str = ""
     boundary: BoundarySource
+    # Which surface-management agencies are huntable public land in this state.
+    land_access: LandAccessCfg = LandAccessCfg()
+    # Shift applied to every species template's elevation curve. Templates are
+    # calibrated on central Idaho (44-45 N); southern Rockies units sit
+    # thousands of feet higher. Record where the number came from.
+    elevation_offset_ft: float = 0.0
+    elevation_offset_source: str = ""
     provenance: Provenance = Provenance()
 
 

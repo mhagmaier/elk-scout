@@ -24,6 +24,13 @@ states:
       unit_field: null              # discovered at runtime
       unit_field_hints: ["NAME", "UNIT", "GMU"]
       unit_value_format: "{unit}"
+    land_access:
+      open_agencies: [BLM, USFS, BOR, STATE]
+      notes: >-
+        Idaho endowment (state) land is generally open to public hunting
+        unless posted; verify parcel status with the Idaho Department of Lands.
+    elevation_offset_ft: 0
+    elevation_offset_source: "Templates are calibrated on Idaho unit 33."
     provenance:
       verified: "2026-08-28"
       status: verified
@@ -43,6 +50,18 @@ states:
       unit_field: "GMUID"           # integer field; the quoted-string where clause still matches
       unit_field_hints: ["GMUID", "GMU"]
       unit_value_format: "{unit}"
+    land_access:
+      open_agencies: [BLM, USFS, BOR]
+      notes: >-
+        Colorado State Trust Land is CLOSED to hunting unless enrolled in CPW's
+        Public Access Program; enrolled parcels go in
+        data/manual/public_access.geojson (each has its own rules - e.g. Burro
+        Springs bans OHV game retrieval). Local-government land is closed.
+    elevation_offset_ft: 3000
+    elevation_offset_source: >-
+      GMU 68/681 run, Nov 2026: hunter-approved +3,000 ft so the Idaho template's
+      October optimum (5,800-7,400 ft late-season) lands on goHUNT's 9,000-11,000 ft
+      range for unit 681. An informed estimate, not a CPW figure.
     provenance:
       verified: "2026-11-08"
       status: verified

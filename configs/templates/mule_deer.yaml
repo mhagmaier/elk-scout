@@ -46,6 +46,7 @@ factors:
     curve_slope_pct: [[5, 0.2], [25, 1.0], [60, 1.0], [80, 0.3], [100, 0.0]]
     bench_bonus: 0.2
     slope_position_min: 0.55    # upper-slope, escape-terrain bedder
+    snow_aspect_center_deg: null  # set by late-season phases; used only once snow reaches the band
 
   feed:
     weight: 0.18

@@ -43,15 +43,17 @@ phases:
     late:
       window: { start: "11-08", end: "12-31" }
       notes: >-
-        Post-rut/migration: snow pushes elk onto lower south-facing feed; bulls
-        are recovering and feed-driven; water is snow; glassing winter-range
-        edges beats still-hunting dark timber.
+        Post-rut/migration: once snow arrives it pushes elk onto lower
+        south-facing feed and sunny-slope beds; bulls are recovering and
+        feed-driven; water is snow. Until snow actually reaches the elk band
+        (patchy, high snow), pressured late bulls stay bedded in north-facing
+        dark timber - the south-slope switch is snow-gated at scoring time.
       weights: { feed: 1.4, water: 0.5, elevation: 1.15 }
       curves:
         elevation.curve_elevation_ft: [[4200, 0.0], [5000, 0.6], [5800, 1.0], [7400, 1.0], [8800, 0.0]]
         bedding.curve_canopy_pct: [[20, 0.0], [40, 1.0], [70, 1.0], [100, 0.8]]
       set:
-        factors.bedding.aspect_center_deg: 180   # thermal bedding on south faces
+        factors.bedding.snow_aspect_center_deg: 180   # south-face thermal bedding, ONLY once snow reaches the elk band
         snow.band_shift_ft: [[0, 0], [6, -800], [12, -1800], [24, -3000]]
       counts: { GLASS: 1.5, FEED: 1.25, WATER: 0.4 }
 

@@ -99,6 +99,30 @@ class Workspace:
         return self.work / "ownership.geojson"
 
     @property
+    def public_access_geojson(self) -> Path:  # always-open overlays (walk-in, enrolled trust land)
+        return self.work / "public_access.geojson"
+
+    @property
+    def access_points_geojson(self) -> Path:  # legal road ends for the hunter's vehicle
+        return self.work / "access_points.geojson"
+
+    @property
+    def timber_blocks_geojson(self) -> Path:  # security timber polygons + stats
+        return self.work / "timber_blocks.geojson"
+
+    @property
+    def timber_json(self) -> Path:  # timber summary stats
+        return self.work / "timber.json"
+
+    @property
+    def sentinel_tif(self) -> Path:  # on-grid: snow_now, ndvi_now, dndvi
+        return self.work / "sentinel.tif"
+
+    @property
+    def sentinel_json(self) -> Path:  # scene ids, dates, observed snow line
+        return self.work / "sentinel.json"
+
+    @property
     def burns_geojson(self) -> Path:  # MTBS perimeters w/ "year" + "fire_name"
         return self.work / "burns.geojson"
 
@@ -148,6 +172,17 @@ class Workspace:
     def kml(self, unit: str) -> Path:
         return self.out / f"elkscout_unit{unit}.kml"
 
+    def timber_kml(self, unit: str) -> Path:
+        return self.out / f"elkscout_unit{unit}_timber_blocks.kml"
+
+    @property
+    def imagery_dir(self) -> Path:  # photo chips + sheets for the eyeball check
+        return self.out / "imagery"
+
+    @property
+    def imagery_review_json(self) -> Path:  # verdicts written after looking at the sheets
+        return self.work / "imagery_review.json"
+
     @property
     def map_html(self) -> Path:
         return self.out / "map.html"
@@ -180,6 +215,7 @@ _MANUAL_FILES: dict[str, str] = {
     "water_bodies": "water_bodies.geojson",
     "huc12": "huc12.geojson",
     "ownership": "ownership.geojson",
+    "public_access": "public_access.geojson",
     "burns": "burns.geojson",
     "landcover": "landcover.tif",
     "canopy": "canopy.tif",

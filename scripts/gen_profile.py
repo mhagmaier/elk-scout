@@ -26,12 +26,12 @@ import yaml
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
-from elkscout.config import FACTOR_NAMES, Config  # noqa: E402
+from elkscout.config import FACTOR_NAMES, VEHICLE_FIELDS, Config  # noqa: E402
 from elkscout.registry import load_states  # noqa: E402
 
 TEMPLATES = {"elk": "elk.yaml", "mule_deer": "mule_deer.yaml"}
 IDENTITY_PHASE = {"elk": "general", "mule_deer": "transition"}
-ELEV_CLAMP_FT = (3000.0, 11500.0)
+ELEV_CLAMP_FT = (2000.0, 13500.0)  # sanity band, wide enough for Colorado
 
 
 def _md(s: str) -> tuple[int, int]:
@@ -103,12 +103,19 @@ def finalize(doc: dict, applied: list[str]) -> None:
         raise ValueError("factor weights sum to zero after adjustments")
     for f in FACTOR_NAMES:
         doc["factors"][f]["weight"] = round(doc["factors"][f]["weight"] / total, 4)
-    # Elevation-curve sanity clamp.
+    # Elevation-curve sanity clamp; points that collapse onto the same x are dropped.
     curve = doc["factors"]["elevation"]["curve_elevation_ft"]
     lo, hi = ELEV_CLAMP_FT
-    doc["factors"]["elevation"]["curve_elevation_ft"] = [
-        [min(max(float(x), lo), hi), float(y)] for x, y in curve
-    ]
+    clamped: list[list[float]] = []
+    for x, y in curve:
+        cx = min(max(float(x), lo), hi)
+        if clamped and cx <= clamped[-1][0]:
+            applied.append(f"elevation breakpoint {x:.0f} ft clamped away (sanity band {lo:.0f}-{hi:.0f} ft)")
+            continue
+        clamped.append([cx, float(y)])
+    if len(clamped) < 2:
+        raise ValueError("elevation curve collapsed after clamping; check the state's elevation_offset_ft")
+    doc["factors"]["elevation"]["curve_elevation_ft"] = clamped
     # Clamp total waypoint count to the GPX limit (defense in depth; writer re-checks).
     counts = doc["waypoints"]["counts"]
     limit = doc["outputs"]["gpx_max_waypoints"]
@@ -149,6 +156,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--species", required=True, choices=sorted(TEMPLATES))
     ap.add_argument("--weapon", required=True, choices=["archery", "muzzleloader", "rifle"])
     ap.add_argument("--style", required=True, choices=["day", "backpack", "horseback"])
+    ap.add_argument("--vehicle", default="high_clearance", choices=sorted(VEHICLE_FIELDS),
+                    help="what you drive to the jump-off; decides which MVUM roads count as legal access "
+                         "(ohv_gt50 = side-by-side over 50 in, e.g. a 64-in RZR)")
     ap.add_argument("--state", default=None, help="registry state code (e.g. ID); see configs/states.yaml")
     ap.add_argument("--unit", required=True)
     ap.add_argument("--start", required=True, type=dt.date.fromisoformat)
@@ -181,22 +191,44 @@ def main(argv: list[str] | None = None) -> int:
     doc["unit"] = str(args.unit)
     doc["hunt_window"] = {"start": args.start, "end": args.end}
 
+    doc["access"] = {"vehicle": args.vehicle}
+    applied.append(f"access: legal roads judged for vehicle class '{args.vehicle}'")
+
+    states = load_states()
+    code = args.state.upper() if args.state else None
+    entry = states.get(code) if code else None
     if not args.no_boundary:
-        if not args.state:
+        if not code:
             ap.error("--state is required unless --no-boundary is given")
-        states = load_states()
-        code = args.state.upper()
-        if code not in states:
+        if entry is None:
             ap.error(
                 f"state {code!r} is not in configs/states.yaml (have: {', '.join(sorted(states))}). "
                 "Discover + register its boundary service "
                 "(.claude/skills/onx-scout/references/state-discovery.md) or export the unit "
                 "polygon to data/manual/boundary.geojson and re-run with --no-boundary."
             )
-        entry = states[code]
         doc["boundary"] = entry.boundary.model_dump(mode="json")
         if entry.provenance.status != "verified":
             applied.append(f"NOTE: {code} boundary service is PROVISIONAL — verify before trusting")
+    if code:
+        doc["state"] = code
+    if entry is not None:
+        doc["land_access"] = entry.land_access.model_dump(mode="json")
+        applied.append(f"land access ({code}): open agencies {', '.join(entry.land_access.open_agencies)}")
+        if entry.elevation_offset_ft:
+            curve = doc["factors"]["elevation"]["curve_elevation_ft"]
+            doc["factors"]["elevation"]["curve_elevation_ft"] = [
+                [float(x) + entry.elevation_offset_ft, float(y)] for x, y in curve
+            ]
+            applied.append(
+                f"state calibration ({code}): elevation curve {entry.elevation_offset_ft:+.0f} ft"
+                + (f" — {entry.elevation_offset_source.strip()}" if entry.elevation_offset_source else "")
+            )
+    elif code:
+        applied.append(
+            f"NOTE: {code} has no registry entry — default land rules (BLM/USFS/BOR open, state trust "
+            "closed) and NO elevation calibration; check the elevation band against the unit"
+        )
 
     for item in args.adjust:
         if "=" not in item:

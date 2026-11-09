@@ -65,10 +65,14 @@ BURN_AGE_RANGE = (2, 20)
 NODATA_U8 = 255
 
 
+_OPTIONAL_ARTIFACTS = {"public_access.geojson", "access_points.geojson", "timber_blocks.geojson"}
+
+
 def _read_vec(path: Path) -> gpd.GeoDataFrame:
     """Vector artifact -> GeoDataFrame in EPSG:4326; missing/empty file -> empty frame."""
     if not path.exists():
-        log.warning("factors: %s missing; treating as empty", path.name)
+        if path.name not in _OPTIONAL_ARTIFACTS:
+            log.warning("factors: %s missing; treating as empty", path.name)
         return gpd.GeoDataFrame(geometry=gpd.GeoSeries([], dtype="geometry"), crs="EPSG:4326")
     gdf = gpd.read_file(path)
     if len(gdf) and gdf.crs is None:
@@ -168,6 +172,10 @@ def run_factors(ws: Workspace, cfg: Config) -> None:
             public = np.clip(public, 0.0, 1.0)
     elif len(ownership):
         log.warning("factors: ownership has no `public` column; treating all cells as public")
+    # Walk-in / enrolled-trust overlays reopen ground the agency layer closed.
+    overlay = _read_vec(ws.public_access_geojson)
+    if len(overlay):
+        public = np.maximum(public, grid.rasterize_gdf(overlay, dtype="float32"))
 
     open_water = _isin(landcover, NLCD_OPEN_WATER) | waterbody_mask
     unit = grid.rasterize_gdf(boundary, dtype="float32")

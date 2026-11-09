@@ -91,7 +91,7 @@ def stage_fetch(ws: Workspace, cfg: Config, net: Net, only: list[str] | None, ao
     if "water" in steps:
         water.fetch_water(net, ws, bbox)
     if "ownership" in steps:
-        ownership.fetch_ownership(net, ws, bbox)
+        ownership.fetch_ownership(net, ws, bbox, cfg.land_access)
     if "burns" in steps:
         burns.fetch_burns(net, ws, bbox, cfg.hunt_window.start.year)
     if "landcover" in steps:
