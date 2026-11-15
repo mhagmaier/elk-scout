@@ -8,8 +8,8 @@ filled in with their generated profile path, and stop.
 ## Local-run commands (paste, with the real profile path)
 
 ```bash
-git clone https://github.com/mhagmaier/LMU_Capstone
-cd LMU_Capstone
+git clone https://github.com/mhagmaier/elk-scout
+cd elk-scout
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,xlsx,imagery]"
 
